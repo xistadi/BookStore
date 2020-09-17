@@ -36,9 +36,19 @@ while True:
 	elif function == "3": #изменение параметров
 		tempusername = input("Имя пользователя которого меняем: ")
 		if tempusername in d:
-			tempvalue = input("Введите 'Рост' 'Вес' 'Возраст' 'Пол': ")
-			tempvalue2 = input("Введите новое значение: ")
-			d[tempusername][tempvalue] = tempvalue2
+			while True:
+				tempvalue = input("Введите 'Рост' 'Вес' 'Возраст' 'Пол': ")
+				if tempvalue not in d[tempusername]: print("Попробуйте еще раз")
+				else: break 
+			while True:
+				tempvalue2 = input("Введите новое значение: ")
+				d[tempusername][tempvalue] = tempvalue2
+				try:
+					float(d[tempusername]["Рост"])
+					int(d[tempusername]["Вес"])
+					int(d[tempusername]["Возраст"])
+				except ValueError: print("Неверный тип данных! Попробуйте еще раз!")
+				else: break
 			if tempvalue == "Рост" or tempvalue == "Вес": 
 				bmi = int(d[tempusername]["Вес"]) / (float(d[tempusername]["Рост"]) ** 2) #лучше использовать функцию для bmi
 				temp = round(((bmi - 20) / 30) * 10)
