@@ -38,8 +38,8 @@ while True:
 		if tempusername in d:
 			while True:
 				tempvalue = input("Введите 'Рост' 'Вес' 'Возраст' 'Пол': ")
-				if tempvalue not in d[tempusername]: print("Попробуйте еще раз")
-				else: break 
+				if tempvalue == "Рост" or tempvalue == "Вес" or tempvalue == "Возраст" or tempvalue == "Пол":  break 
+				else: print("Попробуйте еще раз")
 			while True:
 				tempvalue2 = input("Введите новое значение: ")
 				d[tempusername][tempvalue] = tempvalue2
@@ -50,7 +50,7 @@ while True:
 				except ValueError: print("Неверный тип данных! Попробуйте еще раз!")
 				else: break
 			if tempvalue == "Рост" or tempvalue == "Вес": 
-				bmi = int(d[tempusername]["Вес"]) / (float(d[tempusername]["Рост"]) ** 2) #лучше использовать функцию для bmi
+				bmi = int(d[tempusername]["Вес"]) / (float(d[tempusername]["Рост"]) ** 2) #def bmi
 				temp = round(((bmi - 20) / 30) * 10)
 				if bmi > 50: 
 					d[tempusername]["BMI"] = "20" + "="* 10 + "|50"
