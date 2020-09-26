@@ -1,14 +1,12 @@
-#построчный парсер работает только по срезам из строк
-
+#построчный парсер работает по срезам из строк
+import re #регулярные выражения - https://habr.com/ru/post/349860/
+reg = r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}" #шаблон для поиска ip
 browsers = {"Chrome": 0, "Safari": 0, "Firefox": 0, "Edge": 0, "Opera": 0}
 with open("log.txt", "r") as inf:
-	for line in inf: print("Всего запросов: " + str(len(inf.readlines())))
-	inf.seek(0) 
-	d = []
-	for line in inf:
-		if line[:15] not in d: #срез первых 15-ти символов с ip 
-			d.append(line[:15])
-	print("Уникальных IP адресов: " + str(len(d)))
+	log = inf.read()
+	ip_list = re.findall(reg, log) #все ip
+	print("Всего запросов: " + str(len(ip_list)))
+	print("Уникальных IP адресов: " + str(len(set(ip_list))))
 	inf.seek(0)
 	for line in inf:
 		for key in browsers:
