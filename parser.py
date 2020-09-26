@@ -1,26 +1,18 @@
-with open('log.txt', 'r') as inf:
+#построчный парсер работает только по срезам из строк
+
+browsers = {"Chrome": 0, "Safari": 0, "Firefox": 0, "Edge": 0, "Opera": 0}
+with open("log.txt", "r") as inf:
+	for line in inf: print("Всего запросов: " + str(len(inf.readlines())))
+	inf.seek(0) 
+	d = []
 	for line in inf:
-		print("Всего запросов: " + str(len(inf.readlines())))
-	inf.seek(0)		
-	d = []; ipcount = 0
-	for line in inf:
-		if line[:15] not in d:
+		if line[:15] not in d: #срез первых 15-ти символов с ip 
 			d.append(line[:15])
-			ipcount += 1
-	print("Уникальных IP адресов: " + str(ipcount))
+	print("Уникальных IP адресов: " + str(len(d)))
 	inf.seek(0)
-	a = []; countfirefox = 0; countsafari = 0; countedge = 0; countchrome = 0; countopera = 0
 	for line in inf:
-		if line[-25:] not in a:
-			a.append(line[-25:])
-	for i in a:
-		if i.count("Firefox"): countfirefox += 1
-		elif i.count("Safari"): countsafari += 1
-		elif i.count("Edge"): countedge += 1
-		elif i.count("Chrome"): countchrome += 1
-		elif i.count("Opera"): countopera += 1
-	print("Firefox: " + str(countfirefox))
-	print("Safari: " + str(countsafari))
-	print("Edge: " + str(countedge))
-	print("Chrome: " + str(countchrome))
-	print("Opera: " + str(countopera))
+		for key in browsers:
+			if line[-35:-6].find(key) > 0: #если в срезанной строке есть браузер "key"
+				browsers[key] += 1 #добавляем в счетчик по ключу 
+	for key in browsers:
+		print(key + ": " + str(browsers[key]))
