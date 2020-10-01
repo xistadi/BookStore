@@ -8,7 +8,7 @@ def get_current_time():
     ctime = datetime.now()
     return ctime
 
-def print_digits(ctime):
+def print_digits(color, position):
     #print digital clock
     print(f"\033[{color}m" "\u25A0" * 62)
     print()
@@ -22,11 +22,11 @@ def print_digits(ctime):
         minute = f"0{minute}"
     if(len(second) < 2):
         second = f"0{second}"
-    print(f"    {r1[hour[0]]} {r1[hour[1]]}{r1[':']} {r1[minute[0]]} {r1[minute[1]]} {r1[':']} {r1[second[0]]} {r1[second[1]]}")
-    print(f"    {r2[hour[0]]} {r2[hour[1]]}{r2[':']} {r2[minute[0]]} {r2[minute[1]]} {r2[':']} {r2[second[0]]} {r2[second[1]]}")
-    print(f"    {r3[hour[0]]} {r3[hour[1]]}{r3[':']} {r3[minute[0]]} {r3[minute[1]]} {r3[':']} {r3[second[0]]} {r3[second[1]]}")
-    print(f"    {r4[hour[0]]} {r4[hour[1]]}{r4[':']} {r4[minute[0]]} {r4[minute[1]]} {r4[':']} {r4[second[0]]} {r4[second[1]]}")
-    print(f"    {r5[hour[0]]} {r5[hour[1]]}{r5[':']} {r5[minute[0]]} {r5[minute[1]]} {r5[':']} {r5[second[0]]} {r5[second[1]]}\n")
+    print(f"    {l1[hour[0]]} {l1[hour[1]]}{l1[f':{position}']} {l1[minute[0]]} {l1[minute[1]]} {l1[f':{position}']} {l1[second[0]]} {l1[second[1]]}")
+    print(f"    {l2[hour[0]]} {l2[hour[1]]}{l2[f':{position}']} {l2[minute[0]]} {l2[minute[1]]} {l2[f':{position}']} {l2[second[0]]} {l2[second[1]]}")
+    print(f"    {l3[hour[0]]} {l3[hour[1]]}{l3[f':{position}']} {l3[minute[0]]} {l3[minute[1]]} {l3[f':{position}']} {l3[second[0]]} {l3[second[1]]}")
+    print(f"    {l4[hour[0]]} {l4[hour[1]]}{l4[f':{position}']} {l4[minute[0]]} {l4[minute[1]]} {l4[f':{position}']} {l4[second[0]]} {l4[second[1]]}")
+    print(f"    {l5[hour[0]]} {l5[hour[1]]}{l5[f':{position}']} {l5[minute[0]]} {l5[minute[1]]} {l5[f':{position}']} {l5[second[0]]} {l5[second[1]]}\n")
     print(f"                        {ctime.day} / {ctime.month} / {ctime.year}")
     print(f"\u25A0" * 62)
 
@@ -40,7 +40,7 @@ def clear_screen():
     #clear screen terminal using "cls"
     system("cls")
 
-r1 = {
+l1 = {
     "1":
     "\u25A0\u25A0\u25A0\u25A0  ",
     "2":
@@ -61,10 +61,14 @@ r1 = {
     "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
     "0":
     "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
-    ":":
+    ":1":
+    "  \u25A0\u25A0  ",
+    ":2":
+    "      ",
+    ":3":
     "      "
 }
-r2 = {
+l2 = {
     "1":
     "  \u25A0\u25A0  ",
     "2":
@@ -85,36 +89,44 @@ r2 = {
     "\u25A0\u25A0  \u25A0\u25A0",
     "0":
     "\u25A0\u25A0  \u25A0\u25A0",
-    ":":
-    "  \u25A0\u25A0  "
-}
-
-r3 = {
-    "1":
+    ":1":
+    "      ",
+    ":2":
     "  \u25A0\u25A0  ",
-    "2":
-    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
-    "3":
-    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
-    "4":
-    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
-    "5":
-    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
-    "6":
-    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
-    "7":
-    "    \u25A0\u25A0",
-    "8":
-    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
-    "9":
-    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
-    "0":
-    "\u25A0\u25A0  \u25A0\u25A0",
-    ":":
+    ":3":
     "      "
 }
 
-r4 = {
+l3 = {
+    "1":
+    "  \u25A0\u25A0  ",
+    "2":
+    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
+    "3":
+    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
+    "4":
+    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
+    "5":
+    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
+    "6":
+    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
+    "7":
+    "    \u25A0\u25A0",
+    "8":
+    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
+    "9":
+    "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
+    "0":
+    "\u25A0\u25A0  \u25A0\u25A0",
+    ":1":
+    "      ",
+    ":2":
+    "      ",
+    ":3":
+    "      "
+}
+
+l4 = {
     "1":
     "  \u25A0\u25A0  ",
     "2":
@@ -135,11 +147,15 @@ r4 = {
     "    \u25A0\u25A0",
     "0":
     "\u25A0\u25A0  \u25A0\u25A0",
-    ":":
-    "  \u25A0\u25A0  "
+    ":1":
+    "      ",
+    ":2":
+    "  \u25A0\u25A0  ",
+    ":3":
+    "      "
 }
 
-r5 = {
+l5 = {
     "1":
     "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
     "2":
@@ -160,7 +176,11 @@ r5 = {
     "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
     "0":
     "\u25A0\u25A0\u25A0\u25A0\u25A0\u25A0",
-    ":":
+    ":1":
+    "  \u25A0\u25A0  ",
+    ":2":
+    "      ",
+    ":3":
     "      "
 }
 
@@ -169,13 +189,28 @@ if __name__ == "__main__":
     while True:
         try: #every 3 second change random color 
             clear_screen()
+            print_digits(color, 1)
+            sleep(.3)
+            clear_screen()
+            print_digits(color, 2)
+            sleep(.3)
+            clear_screen()
+            print_digits(color, 3)
+            sleep(.3)
+            clear_screen()
             color = get_color(color)
-            print_digits(color)
-            sleep(1)
+            print_digits(color, 2)
+            sleep(.3)
             clear_screen()
-            print_digits(color)
-            sleep(1)
+            print_digits(color, 1)
+            sleep(.3)
             clear_screen()
-            print_digits(color)
-            sleep(1)
+            print_digits(color, 2)
+            sleep(.3)
+            clear_screen()
+            print_digits(color, 3)
+            sleep(.3)
+            clear_screen()
+            print_digits(color, 2)
+            sleep(.3)
         except KeyboardInterrupt: break
