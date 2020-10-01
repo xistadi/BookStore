@@ -2,6 +2,25 @@ from os import system
 from datetime import datetime
 from time import sleep
 import random
+from pyowm import OWM
+from pyowm.utils.config import get_default_config
+
+def get_weather():
+	config_dict = get_default_config()
+	config_dict['language'] = 'ru'  # your language here
+	API = ('6d00d1d4e704068d70191bad2673e0cc')
+	owm = OWM(API, config_dict)
+	mgr = owm.weather_manager()
+
+	place = input("Введите Ваш город: ")
+	observation = mgr.weather_at_place('place')
+	w = observation.weather
+	status = w.detailed_status 
+
+	temp = w.temperature('celsius') ['temp']  # {'temp_max': 10.5, 'temp': 9.7, 'temp_min': 9.0}
+	return place, temp, status
+
+
 
 def get_current_time():
     # get and return current time
@@ -11,6 +30,7 @@ def get_current_time():
 def print_digits(color, position):
     #print digital clock
     print(f"\033[{color}m" "\u25A0" * 62)
+    print(f"    Температура в городе {place} сейчас: {temp} °C, {status}.\U0001F326")
     print()
     ctime = get_current_time()
     hour = str(ctime.hour)
@@ -186,6 +206,7 @@ l5 = {
 
 if __name__ == "__main__":
     color = get_color()
+    place, temp, status = get_weather()
     while True:
         try: #every 3 second change random color 
             clear_screen()
