@@ -1,20 +1,15 @@
 from time import sleep
 from Packages.print_digits import *
 from Packages.clear_screen import *
-
+from Packages.get_color import *
+from Packages.get_position import *
 
 if __name__ == "__main__":
-    tempvalue = 0
-    color = get_color()
+    color = get_color() #generator get_color random color from 32 to 38
+    position = get_position() #generator get_position for dots range from 1 to 4
     while True:
         try: 
-            for i in range(1,5):
-                clear_screen()
-                print_digits(color, i)
-                sleep(.3)
-                tempvalue += 1
-                if tempvalue == 8:
-                    tempvalue = 0
-                    color = get_color(color)
-
+            clear_screen()
+            print_digits(next(color), next(position)) #output
+            sleep(.3)
         except KeyboardInterrupt: break

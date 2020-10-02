@@ -1,6 +1,5 @@
 from Packages.get_weather import *
 from Packages.get_current_time import *
-import random
 
 place, temp, status = get_weather()
 def print_digits(color, position):
@@ -15,12 +14,6 @@ def print_digits(color, position):
     print(f"    {l5[hour[0]]} {l5[hour[1]]}{l5[f':{position}']} {l5[minute[0]]} {l5[minute[1]]} {l5[f':{position}']} {l5[second[0]]} {l5[second[1]]}\n")
     print(f"                        {ctime.day} / {ctime.month} / {ctime.year}")
     print(f"\u25A0" * 62)
-
-def get_color(color = 32):
-    #return random color from 32 to 38
-    while True:
-        b = random.randrange(32, 38, 1)
-        if b != color: return b
 
 
 #numbers and dots
