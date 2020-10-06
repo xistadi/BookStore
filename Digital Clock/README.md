@@ -1,3 +1,15 @@
 # Digital Clock
+![clock](https://github.com/xistadi/homework/blob/master/Digital%20Clock/screenshots/digitalclock.gif)
+Обычные часы в терминале. Показывают текущее время.
+## Update
+Добавлена погода по Городу. Использовано  - [модуль pyown](https://github.com/csparpa/pyowm).
 
-Добавлена погода по Городу. Использовано  - [Модуль pyown](https://github.com/csparpa/pyowm), [Видео](https://www.youtube.com/watch?v=53GBGBcMS6I)
+## How to run
+Установить модули виртуального окружения:
+```
+pip install -r requirements.txt
+```
+Запустить часы
+```
+python clock.py
+```
