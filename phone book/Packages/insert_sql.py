@@ -2,8 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
  
 from sql_cr import Users, Phone_numbers, Base
- 
-engine = create_engine('sqlite:///sqlalchemy_phone_book.db')
+
+
+engine = create_engine('sqlite:///../db/sqlalchemy_phone_book.db')
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance
 Base.metadata.bind = engine
@@ -28,3 +29,5 @@ session.commit()
 username_phone_number = Phone_numbers(phone_number=c, user=username)
 session.add(username_phone_number)
 session.commit()
+
+print(f"Добавлен пользователь {username.name}!")
