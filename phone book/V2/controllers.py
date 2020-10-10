@@ -55,13 +55,17 @@ def update_user_controller(user, cls=True):
     username = input()
     render_template(context={}, template="update_user.jinja2", cls=cls)
     newusername = input()
-    user = User.update(username, newusername)
+    try:
+        user = User.update(username, newusername)
+    except: input("Такого пользователя нету!\nПродолжить?")
     return 'main', None
 
 def delete_user_controller(user, cls=True):
     render_template(context={}, template="delete_user.jinja2", cls=cls)
     username = input()
-    user = User.dell(username)
+    try:
+        user = User.dell(username)
+    except: input("Такого пользователя нету!\nПродолжить?")
     return 'main', None
 
 def one_user_controller(user, cls=True):
