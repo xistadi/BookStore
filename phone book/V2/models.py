@@ -27,7 +27,25 @@ class User(Base):
         session.add(user)
         session.commit()
         return user
+
+    @classmethod
+    def dell(cls, name):
+        user = cls(name=name)
+        user = session.query(User).filter_by(name=name).first()
+        session.delete(user)
+        session.commit()
+
+    @classmethod
+    def update(cls, name, newname):
+        user = cls(name=name)
+        user = session.query(User).filter_by(name=name).first()
+        user.name = newname
+        session.commit()
     
+    @classmethod
+    def one_user(cls, name):
+        return session.query(User).filter_by(name=name).first()
+
     @classmethod
     def all(cls): 
         return session.query(cls).all()

@@ -1,0 +1,5 @@
+ФИО  - {{ user.name }}:
+
+Телефоны:
+{% for number in user.phones %}    {{number}}
+{% endfor %}

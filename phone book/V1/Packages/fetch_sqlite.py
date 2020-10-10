@@ -15,7 +15,7 @@ def fetch_sqlite():
 
     print(f"{line}\nID\tФИО\t\t\tАдрес\t\t\tНомер")
     query = session.query(Users, Phone_numbers)
-    query = query.join(Users, Users.id == Phone_numbers.user_id)
+    query = query.join(Users, Users.id == Phone_numbers.user_id).order_by(Users.name)
     records = query.all()
     for user, phone in records:
         print(f"{user.id}\t{user.name}\t\t{user.address}\t\t{phone.phone_number}")
