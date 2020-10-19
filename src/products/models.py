@@ -44,7 +44,7 @@ class Book(models.Model):
     )
     book_format = models.CharField(
         'Формат книги',
-        max_length=30
+        max_length=50
     )
     isbn = models.CharField(
         'ISBN',
