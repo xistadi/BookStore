@@ -4,7 +4,7 @@ from references.models import Author, Series, Genre, Publisher
 class Book(models.Model):
     name = models.CharField(
         'Название книги',
-        max_length=30
+        max_length=50
     )
     photo = models.ImageField(
     verbose_name='Фото обложки'
@@ -40,15 +40,15 @@ class Book(models.Model):
     )
     binding = models.CharField(
         'Переплет книги',
-        max_length=20
+        max_length=30
     )
     book_format = models.CharField(
         'Формат книги',
-        max_length=10
+        max_length=30
     )
     isbn = models.CharField(
         'ISBN',
-        max_length=10
+        max_length=30
     )
     weight = models.IntegerField(
         'Вес книги(гр)',
