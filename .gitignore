@@ -62,6 +62,9 @@ db.sqlite3
 db.sqlite3-journal
 #SECRET_KEY
 secrets.py
+#my_local_setting
+my_local_setting.py
+media/
 
 # Flask stuff:
 instance/
