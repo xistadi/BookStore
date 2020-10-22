@@ -16,18 +16,21 @@ class Book(models.Model):
     )
     author = models.ManyToManyField(
         Author,
-        verbose_name='Авторы книги'
+        verbose_name='Авторы книги',
+        related_name='books'
     )
 
     series = models.ForeignKey(
         Series,
         on_delete=models.PROTECT,
-        verbose_name='Серия'
+        verbose_name='Серия',
+        related_name='books'
     )
 
     genre = models.ManyToManyField(
         Genre,
-        verbose_name='Жанры'
+        verbose_name='Жанры',
+        related_name='books'
     )
 
     year = models.IntegerField(
@@ -61,7 +64,8 @@ class Book(models.Model):
     publisher = models.ForeignKey(
         Publisher,
         on_delete=models.PROTECT,
-        verbose_name='Издательство'
+        verbose_name='Издательство',
+        related_name='books'
     )
 
     number_of_books = models.IntegerField(
@@ -87,4 +91,5 @@ class Book(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return f'Книга №{self.pk}, имя: {self.name}, цена: {self.price}, год: {self.year}, ' \
+               f'наличие: {self.number_of_books}, рейтинг: {self.rating}, доступен для заказа: {self.active}.'
