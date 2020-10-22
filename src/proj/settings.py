@@ -31,6 +31,16 @@ ALLOWED_HOSTS = ['xistadi.pythonanywhere.com', '127.0.0.1']
 
 # Application definition
 
+MY_APPS = [
+    'hello_world',
+    'references',
+    'products',
+]
+
+THIRD_PARTY_APPS = [
+
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,10 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hello_world',
-    'references',
-    'products',
-]
+] + MY_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
