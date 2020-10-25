@@ -1,14 +1,13 @@
 from django.db import models
 from references.models import Author, Series, Genre, Publisher
 
+
 class Book(models.Model):
     name = models.CharField(
         'Название книги',
         max_length=50
     )
-    photo = models.ImageField(
-    verbose_name='Фото обложки'
-    )
+    photo = models.ImageField(verbose_name='Фото обложки')
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -33,11 +32,11 @@ class Book(models.Model):
         related_name='books'
     )
 
-    year = models.IntegerField(
+    year = models.PositiveIntegerField(
         default=0,
         verbose_name='Год издания'
     )
-    page = models.IntegerField(
+    page = models.PositiveIntegerField(
         verbose_name="Страницы",
         default=0,
     )
@@ -53,7 +52,7 @@ class Book(models.Model):
         'ISBN',
         max_length=30
     )
-    weight = models.IntegerField(
+    weight = models.PositiveIntegerField(
         'Вес книги(гр)',
         default=0,
     )
@@ -68,14 +67,14 @@ class Book(models.Model):
         related_name='books'
     )
 
-    number_of_books = models.IntegerField(
+    number_of_books = models.PositiveIntegerField(
         default=1,
         verbose_name='Количество книг в наличии'
     )
     active = models.BooleanField(
         verbose_name='Активный (доступен для заказа, Да/Нет)'
     )
-    rating = models.IntegerField(
+    rating = models.PositiveIntegerField(
         default=0,
         verbose_name='Рейтинг (0 - 10)'
     )
@@ -93,3 +92,7 @@ class Book(models.Model):
     def __str__(self):
         return f'Книга №{self.pk}, имя: {self.name}, цена: {self.price}, год: {self.year}, ' \
                f'наличие: {self.number_of_books}, рейтинг: {self.rating}, доступен для заказа: {self.active}.'
+
+    class Meta:
+        verbose_name = 'Книга'
+        verbose_name_plural = 'Книги'

@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Genre(models.Model):
     name = models.CharField(
         'Название жанра',
@@ -13,6 +14,11 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Жанр книги'
+        verbose_name_plural = 'Жанры книги'
+
 
 class Author(models.Model):
     name = models.CharField(
@@ -28,6 +34,11 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Автор книги'
+        verbose_name_plural = 'Авторы книги'
+
+
 class Series(models.Model):
     name = models.CharField(
         'Название серии книг',
@@ -42,6 +53,11 @@ class Series(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Серия книги'
+        verbose_name_plural = 'Серии книги'
+
+
 class Publisher(models.Model):
     name = models.CharField(
         'Название издательства',
@@ -55,3 +71,7 @@ class Publisher(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Издательсво книги'
+        verbose_name_plural = 'Издательства книги'
