@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+	<title>References</title>
+</head>
+<body>
+    <h1>{{ name }}</h1>
+    <ul>
+        {% for author in author.all %}
+        <li>Автор: {{ author }}</li>
+        {% endfor %}
+        <li>Цена: {{ price }}BYN</li>
+        <li>Серия: {{ series }}</li>
+        {% for genre in genre.all %}
+        <li>Жанр: {{ genre }}</li>
+        {% endfor %}
+        <li>Год: {{ year }}</li>
+    </ul>
+    <a href="/references">Вернуться к словарям</a>
+</body>
+</html>
