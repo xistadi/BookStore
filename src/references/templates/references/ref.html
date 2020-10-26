@@ -7,12 +7,10 @@
 <body>
     <h1>{{ type.name }}</h1>
     {{ type.description }}
-    <h3>Книги(5 штук):</h3>
+    <h3>Книги:</h3>
     <ul>
         {% for book in type.books.all %}
-            {% if book.pk <= 5 %}
             <li>{{ book.name }}</li>
-            {% endif %}
         {% endfor %}
     </ul>
     <a href="/references">Вернуться к словарям</a>
