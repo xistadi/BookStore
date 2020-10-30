@@ -49,9 +49,3 @@ class UpdatePublisherForm(forms.ModelForm):
     class Meta:
         model = models.Publisher
         fields = ('__all__')
-
-
-class DeleteGenreForm(forms.ModelForm):
-    class Meta:
-        model = models.Genre
-        fields = ('__all__')

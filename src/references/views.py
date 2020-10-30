@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .models import Genre, Author, Series, Publisher
-from . import form as formimport
+from . import forms as formimport
 
 
 def show_references_view(request):
@@ -146,9 +146,8 @@ def delete_genre_view(request, pk):
         obj.delete()
         return HttpResponseRedirect('/references')
     else:
-        ref = Genre.objects.get(pk=pk)
-        form = formimport.DeleteGenreForm(data={'name': ref.name, 'description': ref.description})
-    return render(request, template_name='references/delete_reference.html', context={'form': form, 'header': 'genre'})
+        context = {'header': 'genre'}
+    return render(request, template_name='references/delete_reference.html', context=context)
 
 
 def delete_author_view(request, pk):
@@ -157,9 +156,8 @@ def delete_author_view(request, pk):
         obj.delete()
         return HttpResponseRedirect('/references')
     else:
-        ref = Author.objects.get(pk=pk)
-        form = formimport.DeleteGenreForm(data={'name': ref.name, 'description': ref.description})
-    return render(request, template_name='references/delete_reference.html', context={'form': form, 'header': 'author'})
+        context = {'header': 'author'}
+    return render(request, template_name='references/delete_reference.html', context=context)
 
 
 def delete_series_view(request, pk):
@@ -168,9 +166,8 @@ def delete_series_view(request, pk):
         obj.delete()
         return HttpResponseRedirect('/references')
     else:
-        ref = Series.objects.get(pk=pk)
-        form = formimport.DeleteGenreForm(data={'name': ref.name, 'description': ref.description})
-    return render(request, template_name='references/delete_reference.html', context={'form': form, 'header': 'series'})
+        context = {'header': 'series'}
+    return render(request, template_name='references/delete_reference.html', context=context)
 
 
 def delete_publisher_view(request, pk):
@@ -179,6 +176,5 @@ def delete_publisher_view(request, pk):
         obj.delete()
         return HttpResponseRedirect('/references')
     else:
-        ref = Publisher.objects.get(pk=pk)
-        form = formimport.DeleteGenreForm(data={'name': ref.name, 'description': ref.description})
-    return render(request, template_name='references/delete_reference.html', context={'form': form, 'header': 'publisher'})
+        context = {'header': 'publisher'}
+    return render(request, template_name='references/delete_reference.html', context=context)

@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+from django.http import HttpResponseRedirect
+from . import forms as formimport
 from .models import Book
 
 
@@ -12,3 +13,14 @@ def show_book_by_pk_view(request, book_pk):
     year = Book.objects.get(pk=book_pk).year
     context = {'name': name, 'price': price, 'author': author, 'series': series, 'genre': genre, 'year': year}
     return render(request, template_name='products/book.html', context=context)
+
+
+def create_book_view(request):
+    if request.method == 'POST':
+        form = formimport.CreateBookForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/references')
+    else:
+        form = formimport.CreateBookForm()
+    return render(request, template_name='products/create_book.html', context={'form': form, 'header': 'book'})
