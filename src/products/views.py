@@ -26,7 +26,7 @@ def show_book_by_pk_view(request, book_pk):
 def create_book_view(request):
     """Create new Book obj"""
     if request.method == 'POST':
-        form = formimport.CreateBookForm(data=request.POST)
+        form = formimport.CreateBookForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/books')
@@ -38,18 +38,27 @@ def create_book_view(request):
 def update_book_view(request, pk):
     """Update Book obj by pk"""
     if request.method == 'POST':
-        form = formimport.UpdateBookForm(data=request.POST)
+        form = formimport.UpdateBookForm(request.POST, request.FILES)
         if form.is_valid():
             ref_name = form.cleaned_data.get('name')
             ref_author = form.cleaned_data.get('author')
+            ref_photo = request.FILES['photo']
             obj = Book.objects.get(pk=pk)
             obj.name = ref_name
             obj.description = ref_author
+            obj.photo = ref_photo
             obj.save()
             return HttpResponseRedirect('/books')
     else:
         ref = Book.objects.get(pk=pk)
-        form = formimport.UpdateBookForm(data={'name': ref.name, 'author': ref.author})
+        form = formimport.UpdateBookForm(data={'name': ref.name, 'author': ref.author, 'photo': ref.photo,
+                                               'price': ref.price, 'series': ref.series, 'genre': ref.genre,
+                                               'year': ref.year, 'page': ref.page, 'binding': ref.binding,
+                                               'book_format': ref.book_format, 'isbn': ref.isbn,
+                                               'weight': ref.weight, 'age_limit': ref.age_limit,
+                                               'publisher': ref.publisher, 'number_of_books': ref.number_of_books,
+                                               'active': ref.active, 'rating': ref.rating, 'date_add': ref.date_add,
+                                               'date_last_change': ref.date_last_change})
     return render(request, template_name='products/update_book.html', context={'form': form, 'header': 'book'})
 
 
