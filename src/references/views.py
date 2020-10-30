@@ -29,6 +29,7 @@ def show_reference_by_pk_view(request, title, ref_pk):
 
 
 def create_genre_view(request):
+    """Create new Genre obj"""
     if request.method == 'POST':
         form = formimport.CreateGenreForm(data=request.POST)
         if form.is_valid():
@@ -40,6 +41,7 @@ def create_genre_view(request):
 
 
 def create_author_view(request):
+    """Create new Author obj"""
     if request.method == 'POST':
         form = formimport.CreateAuthorForm(data=request.POST)
         if form.is_valid():
@@ -51,6 +53,7 @@ def create_author_view(request):
 
 
 def create_series_view(request):
+    """Create new Series obj"""
     if request.method == 'POST':
         form = formimport.CreateSeriesForm(data=request.POST)
         if form.is_valid():
@@ -62,6 +65,7 @@ def create_series_view(request):
 
 
 def create_publisher_view(request):
+    """Create new Publisher obj"""
     if request.method == 'POST':
         form = formimport.CreatePublisherForm(data=request.POST)
         if form.is_valid():
@@ -73,6 +77,7 @@ def create_publisher_view(request):
 
 
 def update_genre_view(request, pk):
+    """Update Genre obj by pk"""
     if request.method == 'POST':
         form = formimport.UpdateGenreForm(data=request.POST)
         if form.is_valid():
@@ -90,6 +95,7 @@ def update_genre_view(request, pk):
 
 
 def update_author_view(request, pk):
+    """Update Author obj by pk"""
     if request.method == 'POST':
         form = formimport.UpdateAuthorForm(data=request.POST)
         if form.is_valid():
@@ -107,6 +113,7 @@ def update_author_view(request, pk):
 
 
 def update_series_view(request, pk):
+    """Update Series obj by pk"""
     if request.method == 'POST':
         form = formimport.UpdateSeriesForm(data=request.POST)
         if form.is_valid():
@@ -124,6 +131,7 @@ def update_series_view(request, pk):
 
 
 def update_publisher_view(request, pk):
+    """Update Publisher obj by pk"""
     if request.method == 'POST':
         form = formimport.UpdatePublisherForm(data=request.POST)
         if form.is_valid():
@@ -141,6 +149,7 @@ def update_publisher_view(request, pk):
 
 
 def delete_genre_view(request, pk):
+    """Delete Genre obj by pk"""
     if request.method == 'POST':
         obj = Genre.objects.get(pk=pk)
         obj.delete()
@@ -151,6 +160,7 @@ def delete_genre_view(request, pk):
 
 
 def delete_author_view(request, pk):
+    """Delete Author obj by pk"""
     if request.method == 'POST':
         obj = Author.objects.get(pk=pk)
         obj.delete()
@@ -161,6 +171,7 @@ def delete_author_view(request, pk):
 
 
 def delete_series_view(request, pk):
+    """Delete Series obj by pk"""
     if request.method == 'POST':
         obj = Series.objects.get(pk=pk)
         obj.delete()
@@ -171,6 +182,7 @@ def delete_series_view(request, pk):
 
 
 def delete_publisher_view(request, pk):
+    """Delete Publisher obj by pk"""
     if request.method == 'POST':
         obj = Publisher.objects.get(pk=pk)
         obj.delete()
