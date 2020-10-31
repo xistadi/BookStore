@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .models import Genre, Author, Series, Publisher
-from . import forms as formimport
+from . import forms
 
 
 def show_references_view(request):
@@ -31,55 +31,55 @@ def show_reference_by_pk_view(request, title, ref_pk):
 def create_genre_view(request):
     """Create new Genre obj"""
     if request.method == 'POST':
-        form = formimport.CreateGenreForm(data=request.POST)
+        form = forms.CreateGenreForm(data=request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/references')
     else:
-        form = formimport.CreateGenreForm()
+        form = forms.CreateGenreForm()
     return render(request, template_name='references/create_reference.html', context={'form': form, 'header': 'genre'})
 
 
 def create_author_view(request):
     """Create new Author obj"""
     if request.method == 'POST':
-        form = formimport.CreateAuthorForm(data=request.POST)
+        form = forms.CreateAuthorForm(data=request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/references')
     else:
-        form = formimport.CreateAuthorForm()
+        form = forms.CreateAuthorForm()
     return render(request, template_name='references/create_reference.html', context={'form': form, 'header': 'author'})
 
 
 def create_series_view(request):
     """Create new Series obj"""
     if request.method == 'POST':
-        form = formimport.CreateSeriesForm(data=request.POST)
+        form = forms.CreateSeriesForm(data=request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/references')
     else:
-        form = formimport.CreateSeriesForm()
+        form = forms.CreateSeriesForm()
     return render(request, template_name='references/create_reference.html', context={'form': form, 'header': 'series'})
 
 
 def create_publisher_view(request):
     """Create new Publisher obj"""
     if request.method == 'POST':
-        form = formimport.CreatePublisherForm(data=request.POST)
+        form = forms.CreatePublisherForm(data=request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/references')
     else:
-        form = formimport.CreatePublisherForm()
+        form = forms.CreatePublisherForm()
     return render(request, template_name='references/create_reference.html', context={'form': form, 'header': 'publisher'})
 
 
 def update_genre_view(request, pk):
     """Update Genre obj by pk"""
     if request.method == 'POST':
-        form = formimport.UpdateGenreForm(data=request.POST)
+        form = forms.UpdateGenreForm(data=request.POST)
         if form.is_valid():
             ref_name = form.cleaned_data.get('name')
             ref_description = form.cleaned_data.get('description')
@@ -90,14 +90,14 @@ def update_genre_view(request, pk):
             return HttpResponseRedirect('/references')
     else:
         ref = Genre.objects.get(pk=pk)
-        form = formimport.UpdateGenreForm(instance=ref)
+        form = forms.UpdateGenreForm(instance=ref)
     return render(request, template_name='references/update_reference.html', context={'form': form, 'header': 'genre'})
 
 
 def update_author_view(request, pk):
     """Update Author obj by pk"""
     if request.method == 'POST':
-        form = formimport.UpdateAuthorForm(data=request.POST)
+        form = forms.UpdateAuthorForm(data=request.POST)
         if form.is_valid():
             ref_name = form.cleaned_data.get('name')
             ref_description = form.cleaned_data.get('description')
@@ -108,14 +108,14 @@ def update_author_view(request, pk):
             return HttpResponseRedirect('/references')
     else:
         ref = Author.objects.get(pk=pk)
-        form = formimport.UpdateAuthorForm(instance=ref)
+        form = forms.UpdateAuthorForm(instance=ref)
     return render(request, template_name='references/update_reference.html', context={'form': form, 'header': 'author'})
 
 
 def update_series_view(request, pk):
     """Update Series obj by pk"""
     if request.method == 'POST':
-        form = formimport.UpdateSeriesForm(data=request.POST)
+        form = forms.UpdateSeriesForm(data=request.POST)
         if form.is_valid():
             ref_name = form.cleaned_data.get('name')
             ref_description = form.cleaned_data.get('description')
@@ -126,14 +126,14 @@ def update_series_view(request, pk):
             return HttpResponseRedirect('/references')
     else:
         ref = Series.objects.get(pk=pk)
-        form = formimport.UpdateSeriesForm(instance=ref)
+        form = forms.UpdateSeriesForm(instance=ref)
     return render(request, template_name='references/update_reference.html', context={'form': form, 'header': 'series'})
 
 
 def update_publisher_view(request, pk):
     """Update Publisher obj by pk"""
     if request.method == 'POST':
-        form = formimport.UpdatePublisherForm(data=request.POST)
+        form = forms.UpdatePublisherForm(data=request.POST)
         if form.is_valid():
             ref_name = form.cleaned_data.get('name')
             ref_description = form.cleaned_data.get('description')
@@ -144,7 +144,7 @@ def update_publisher_view(request, pk):
             return HttpResponseRedirect('/references')
     else:
         ref = Publisher.objects.get(pk=pk)
-        form = formimport.UpdatePublisherForm(instance=ref)
+        form = forms.UpdatePublisherForm(instance=ref)
     return render(request, template_name='references/update_reference.html', context={'form': form, 'header': 'publisher'})
 
 
