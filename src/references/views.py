@@ -90,7 +90,7 @@ def update_genre_view(request, pk):
             return HttpResponseRedirect('/references')
     else:
         ref = Genre.objects.get(pk=pk)
-        form = formimport.UpdateGenreForm(data={'name': ref.name, 'description': ref.description})
+        form = formimport.UpdateGenreForm(instance=ref)
     return render(request, template_name='references/update_reference.html', context={'form': form, 'header': 'genre'})
 
 
@@ -108,7 +108,7 @@ def update_author_view(request, pk):
             return HttpResponseRedirect('/references')
     else:
         ref = Author.objects.get(pk=pk)
-        form = formimport.UpdateAuthorForm(data={'name': ref.name, 'description': ref.description})
+        form = formimport.UpdateAuthorForm(instance=ref)
     return render(request, template_name='references/update_reference.html', context={'form': form, 'header': 'author'})
 
 
@@ -126,7 +126,7 @@ def update_series_view(request, pk):
             return HttpResponseRedirect('/references')
     else:
         ref = Series.objects.get(pk=pk)
-        form = formimport.UpdateSeriesForm(data={'name': ref.name, 'description': ref.description})
+        form = formimport.UpdateSeriesForm(instance=ref)
     return render(request, template_name='references/update_reference.html', context={'form': form, 'header': 'series'})
 
 
@@ -144,7 +144,7 @@ def update_publisher_view(request, pk):
             return HttpResponseRedirect('/references')
     else:
         ref = Publisher.objects.get(pk=pk)
-        form = formimport.UpdatePublisherForm(data={'name': ref.name, 'description': ref.description})
+        form = formimport.UpdatePublisherForm(instance=ref)
     return render(request, template_name='references/update_reference.html', context={'form': form, 'header': 'publisher'})
 
 

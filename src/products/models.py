@@ -90,8 +90,7 @@ class Book(models.Model):
     )
 
     def __str__(self):
-        return f'Книга №{self.pk}, имя: {self.name}, цена: {self.price}, год: {self.year}, ' \
-               f'наличие: {self.number_of_books}, рейтинг: {self.rating}, доступен для заказа: {self.active}.'
+        return f'Книга №{self.pk}, имя: {self.name}.'
 
     class Meta:
         verbose_name = 'Книга'

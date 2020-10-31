@@ -40,25 +40,47 @@ def update_book_view(request, pk):
     if request.method == 'POST':
         form = formimport.UpdateBookForm(request.POST, request.FILES)
         if form.is_valid():
-            ref_name = form.cleaned_data.get('name')
-            ref_author = form.cleaned_data.get('author')
-            ref_photo = request.FILES['photo']
+            get_name = form.cleaned_data.get('name')
+            get_price = form.cleaned_data.get('price')
+            get_author = form.cleaned_data.get('author')
+            get_series = form.cleaned_data.get('series')
+            get_genre = form.cleaned_data.get('genre')
+            get_year = form.cleaned_data.get('year')
+            get_page = form.cleaned_data.get('page')
+            get_binding = form.cleaned_data.get('binding')
+            get_book_format = form.cleaned_data.get('book_format')
+            get_isbn = form.cleaned_data.get('isbn')
+            get_weight = form.cleaned_data.get('weight')
+            get_age_limit = form.cleaned_data.get('age_limit')
+            get_publisher = form.cleaned_data.get('publisher')
+            get_number_of_books = form.cleaned_data.get('number_of_books')
+            get_active = form.cleaned_data.get('active')
+            get_rating = form.cleaned_data.get('rating')
             obj = Book.objects.get(pk=pk)
-            obj.name = ref_name
-            obj.description = ref_author
-            obj.photo = ref_photo
+            obj.name = get_name
+            obj.price = get_price
+            obj.author.set(get_author)
+            obj.series = get_series
+            obj.genre.set(get_genre)
+            obj.year = get_year
+            obj.page = get_page
+            obj.binding = get_binding
+            obj.book_format = get_book_format
+            obj.isbn = get_isbn
+            obj.weight = get_weight
+            obj.age_limit = get_age_limit
+            obj.publisher = get_publisher
+            obj.number_of_books = get_number_of_books
+            obj.active = get_active
+            obj.rating = get_rating
+            if 'photo' in request.FILES:
+                get_photo = request.FILES['photo']
+                obj.photo = get_photo
             obj.save()
             return HttpResponseRedirect('/books')
     else:
-        ref = Book.objects.get(pk=pk)
-        form = formimport.UpdateBookForm(data={'name': ref.name, 'author': ref.author, 'photo': ref.photo,
-                                               'price': ref.price, 'series': ref.series, 'genre': ref.genre,
-                                               'year': ref.year, 'page': ref.page, 'binding': ref.binding,
-                                               'book_format': ref.book_format, 'isbn': ref.isbn,
-                                               'weight': ref.weight, 'age_limit': ref.age_limit,
-                                               'publisher': ref.publisher, 'number_of_books': ref.number_of_books,
-                                               'active': ref.active, 'rating': ref.rating, 'date_add': ref.date_add,
-                                               'date_last_change': ref.date_last_change})
+        book = Book.objects.get(pk=pk)
+        form = formimport.UpdateBookForm(instance=book)
     return render(request, template_name='products/update_book.html', context={'form': form, 'header': 'book'})
 
 
