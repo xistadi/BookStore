@@ -81,12 +81,9 @@ def update_genre_view(request, pk):
     if request.method == 'POST':
         form = forms.UpdateGenreForm(data=request.POST)
         if form.is_valid():
-            ref_name = form.cleaned_data.get('name')
-            ref_description = form.cleaned_data.get('description')
-            obj = Genre.objects.get(pk=pk)
-            obj.name = ref_name
-            obj.description = ref_description
-            obj.save()
+            old_ref = Genre.objects.get(pk=pk)
+            new_ref = forms.UpdateGenreForm(request.POST, instance=old_ref)
+            new_ref.save()
             return HttpResponseRedirect('/references')
     else:
         ref = Genre.objects.get(pk=pk)
@@ -99,12 +96,9 @@ def update_author_view(request, pk):
     if request.method == 'POST':
         form = forms.UpdateAuthorForm(data=request.POST)
         if form.is_valid():
-            ref_name = form.cleaned_data.get('name')
-            ref_description = form.cleaned_data.get('description')
-            obj = Author.objects.get(pk=pk)
-            obj.name = ref_name
-            obj.description = ref_description
-            obj.save()
+            old_ref = Author.objects.get(pk=pk)
+            new_ref = forms.UpdateAuthorForm(request.POST, instance=old_ref)
+            new_ref.save()
             return HttpResponseRedirect('/references')
     else:
         ref = Author.objects.get(pk=pk)
@@ -117,12 +111,9 @@ def update_series_view(request, pk):
     if request.method == 'POST':
         form = forms.UpdateSeriesForm(data=request.POST)
         if form.is_valid():
-            ref_name = form.cleaned_data.get('name')
-            ref_description = form.cleaned_data.get('description')
-            obj = Series.objects.get(pk=pk)
-            obj.name = ref_name
-            obj.description = ref_description
-            obj.save()
+            old_ref = Series.objects.get(pk=pk)
+            new_ref = forms.UpdateSeriesForm(request.POST, instance=old_ref)
+            new_ref.save()
             return HttpResponseRedirect('/references')
     else:
         ref = Series.objects.get(pk=pk)
@@ -135,12 +126,9 @@ def update_publisher_view(request, pk):
     if request.method == 'POST':
         form = forms.UpdatePublisherForm(data=request.POST)
         if form.is_valid():
-            ref_name = form.cleaned_data.get('name')
-            ref_description = form.cleaned_data.get('description')
-            obj = Publisher.objects.get(pk=pk)
-            obj.name = ref_name
-            obj.description = ref_description
-            obj.save()
+            old_ref = Publisher.objects.get(pk=pk)
+            new_ref = forms.UpdatePublisherForm(request.POST, instance=old_ref)
+            new_ref.save()
             return HttpResponseRedirect('/references')
     else:
         ref = Publisher.objects.get(pk=pk)
