@@ -19,7 +19,8 @@ def show_book_by_pk_view(request, book_pk):
     series = Book.objects.get(pk=book_pk).series
     genre = Book.objects.get(pk=book_pk).genre
     year = Book.objects.get(pk=book_pk).year
-    context = {'name': name, 'price': price, 'author': author, 'series': series, 'genre': genre, 'year': year}
+    context = {'name': name, 'price': price, 'author': author, 'series': series, 'genre': genre, 'year': year,
+               'book_pk': book_pk}
     return render(request, template_name='products/book.html', context=context)
 
 

@@ -24,7 +24,7 @@ def show_reference_by_pk_view(request, title, ref_pk):
         type = Series.objects.get(pk=ref_pk)
     elif title == 'publisher':
         type = Publisher.objects.get(pk=ref_pk)
-    context = {'type': type}
+    context = {'type': type, 'ref_pk': ref_pk}
     return render(request, template_name='references/ref.html', context=context)
 
 

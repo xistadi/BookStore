@@ -6,7 +6,9 @@
 </head>
 <body>
     <h1>{{ type.name }}</h1>
-    {{ type.description }}
+    {{ type.description }}<br>
+    <a href="update/">Обновить</a><br>
+    <a href="delete/">Удалить</a>
     <h3>Книги:</h3>
     <ul>
         {% for book in type.books.all %}

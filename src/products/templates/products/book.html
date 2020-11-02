@@ -17,6 +17,8 @@
         {% endfor %}
         <li>Год: {{ year }}</li>
     </ul>
-    <a href="/books">Вернуться к книгам</a>
+    <a href="/books">Вернуться к книгам</a><br>
+    <a href="/books/update/{{ book_pk }}">Обновить книгу</a><br>
+    <a href="/books/delete/{{ book_pk }}">Удалить книгу</a>
 </body>
 </html>
