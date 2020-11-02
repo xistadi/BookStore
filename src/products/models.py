@@ -7,7 +7,11 @@ class Book(models.Model):
         'Название книги',
         max_length=50
     )
-    photo = models.ImageField(verbose_name='Фото обложки')
+    photo = models.ImageField(
+        verbose_name='Фото обложки',
+        blank=True,
+        null=True
+    )
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
