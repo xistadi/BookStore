@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-	<title>Create book</title>
-</head>
-<body>
-    <h1>Create book</h1>
-    <form action="" method="post" enctype="multipart/form-data">
+{% extends 'hello_world/base.html' %}
+{% block title %} Создать книгу {% endblock %}
+{% block content %}
+    {% load crispy_forms_tags %}
+    <h1>Создать книгу</h1>
+    <form action="" method="post" enctype="multipart/form-data" class="uniForm">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form | crispy }}
         <button type="submit">Отправить</button>
     </form>
-</body>
-</html>
+{% endblock %}

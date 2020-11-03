@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-	<title>Delete book</title>
-</head>
-<body>
-    <h1>Delete book {{ object.name }}?</h1>
+{% extends 'hello_world/base.html' %}
+{% block title %} Удалить книгу {% endblock %}
+{% block content %}
+    {% load crispy_forms_tags %}
+    <h1>Удалить книгу {{ object.name }}?</h1>
     <form action="" method="post">
         {% csrf_token %}
         <button type="submit">Удалить</button>
     </form>
-</body>
-</html>
+{% endblock %}

@@ -1,18 +1,28 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-	<title>References</title>
-</head>
-<body>
+{% extends 'hello_world/base.html' %}
+{% block title %} {{ object.name }} {% endblock %}
+{% block content %}
     <h1>{{ object.name }}</h1>
-    {{ object.description }}<br>
+    {% if object.description %}
+    <h4>Описание: {{ object.description }}</h4>
+    {% endif %}
+    <a href="/references/{{ type }}/update/{{ object.pk }}" class="btn btn-warning">Обновить</a> <a href="/references/{{ type }}/delete/{{ object.pk }}" class="btn btn-danger">Удалить</a><br><br><br><br>
     <h3>Книги:</h3>
-    <ul>
-        {% for book in object.books.all %}
-            <li><a href="/books/{{ book.pk }}">{{ book.name }}</a></li>
-        {% endfor %}
-    </ul>
-    <a href="/references">Вернуться к словарям</a>
-</body>
-</html>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Название книги</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for book in object.books.all %}
+    <tr>
+      <th scope="row">{{ book.pk }}</th>
+      <td>{{ book.name }} </td>
+      <td><a href="/books/{{ book.pk }}" class="btn btn-info"><i class="far fa-eye"></i></a> <a href="/books/update/{{ book.pk }}" class="btn btn-warning"><i class="far fa-edit"></i></a> <a href="/books/delete/{{ book.pk }}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

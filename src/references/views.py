@@ -63,27 +63,47 @@ class ShowGenreByPkView(DetailView):
     model = Genre
     template_name = 'references/ref_by_pk.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['type'] = 'genre'
+        return context
+
 
 class ShowAuthorByPkView(DetailView):
     model = Author
     template_name = 'references/ref_by_pk.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['type'] = 'author'
+        return context
 
 
 class ShowSeriesByPkView(DetailView):
     model = Series
     template_name = 'references/ref_by_pk.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['type'] = 'series'
+        return context
+
 
 class ShowPublisherByPkView(DetailView):
     model = Publisher
     template_name = 'references/ref_by_pk.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['type'] = 'publisher'
+        return context
 
 
 class CreateGenreView(CreateView):
     model = Genre
     form_class = forms.CreateGenreForm
     template_name = 'references/create_reference.html'
-    success_url = '/references'
+    success_url = '/references/genre'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -95,7 +115,7 @@ class CreateAuthorView(CreateView):
     model = Author
     form_class = forms.CreateAuthorForm
     template_name = 'references/create_reference.html'
-    success_url = '/references'
+    success_url = '/references/author'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -107,7 +127,7 @@ class CreateSeriesView(CreateView):
     model = Series
     form_class = forms.CreateSeriesForm
     template_name = 'references/create_reference.html'
-    success_url = '/references'
+    success_url = '/references/series'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -119,7 +139,7 @@ class CreatePublisherView(CreateView):
     model = Publisher
     form_class = forms.CreatePublisherForm
     template_name = 'references/create_reference.html'
-    success_url = '/references'
+    success_url = '/references/publisher'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -130,90 +150,90 @@ class CreatePublisherView(CreateView):
 class UpdateGenreView(UpdateView):
     model = Genre
     form_class = forms.UpdateGenreForm
-    success_url = '/references'
+    success_url = '/references/genre'
     template_name = 'references/update_reference.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'genre'
+        context['header'] = 'жанр'
         return context
 
 
 class UpdateAuthorView(UpdateView):
     model = Author
     form_class = forms.UpdateAuthorForm
-    success_url = '/references'
+    success_url = '/references/author'
     template_name = 'references/update_reference.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'author'
+        context['header'] = 'автора'
         return context
 
 
 class UpdateSeriesView(UpdateView):
     model = Series
     form_class = forms.UpdateSeriesForm
-    success_url = '/references'
+    success_url = '/references/series'
     template_name = 'references/update_reference.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'series'
+        context['header'] = 'серию'
         return context
 
 
 class UpdatePublisherView(UpdateView):
     model = Publisher
     form_class = forms.UpdatePublisherForm
-    success_url = '/references'
+    success_url = '/references/publisher'
     template_name = 'references/update_reference.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'publisher'
+        context['header'] = 'издательство'
         return context
 
 
 class DeleteGenreView(DeleteView):
     model = Genre
-    success_url = '/references'
+    success_url = '/references/genre'
     template_name = 'references/delete_reference.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'genre'
+        context['header'] = 'жанр'
         return context
 
 
 class DeleteAuthorView(DeleteView):
     model = Author
-    success_url = '/references'
+    success_url = '/references/author'
     template_name = 'references/delete_reference.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'author'
+        context['header'] = 'автора'
         return context
 
 
 class DeleteSeriesView(DeleteView):
     model = Series
-    success_url = '/references'
+    success_url = '/references/series'
     template_name = 'references/delete_reference.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'series'
+        context['header'] = 'серию'
         return context
 
 
 class DeletePublisherView(DeleteView):
     model = Publisher
-    success_url = '/references'
+    success_url = '/references/publisher'
     template_name = 'references/delete_reference.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['header'] = 'publisher'
+        context['header'] = 'издательство'
         return context

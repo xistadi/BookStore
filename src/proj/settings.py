@@ -38,7 +38,7 @@ MY_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-
+    'crispy_forms',
 ]
 
 INSTALLED_APPS = [
@@ -130,3 +130,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
+
+STATICFILES_DIRS = (
+    BASE_DIR / "static",
+)
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

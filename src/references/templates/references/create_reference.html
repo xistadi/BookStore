@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-	<title>Создать {{ header }}</title>
-</head>
-<body>
+{% extends 'hello_world/base.html' %}
+{% block title %} Создать {{ header }} {% endblock %}
+{% block content %}
+    {% load crispy_forms_tags %}
     <h1>Создать {{ header }}</h1>
     <form action="" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Отправить</button>
+        {{ form | crispy }}
+        <button type="submit" class="btn btn-success">Создать</button>
     </form>
-</body>
-</html>
+{% endblock %}

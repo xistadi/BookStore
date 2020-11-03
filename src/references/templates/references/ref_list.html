@@ -1,15 +1,23 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-	<title>{{ header }}</title>
-</head>
-<body>
+{% extends 'hello_world/base.html' %}
+{% block title %} {{ header }} {% endblock %}
+{% block content %}
     <h1>{{ header }}</h1>
-    <ul>
-    {% for book in object_list %}
-    <li><a href="{{ book.pk }}/">{{ book.name }}</a></li>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Имя</th>
+      <th scope="col"><a href="create/" class="btn btn-success"><i class="far fa-plus-square"></i></a></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for obj in object_list %}
+    <tr>
+      <th scope="row">{{ obj.pk }}</th>
+      <td>{{ obj.name }} </td>
+      <td><a href="{{ obj.pk }}" class="btn btn-info"><i class="far fa-eye"></i></a> <a href="update/{{ obj.pk }}" class="btn btn-warning"><i class="far fa-edit"></i></a> <a href="delete/{{ obj.pk }}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
+    </tr>
     {% endfor %}
-    </ul>
-</body>
-</html>
+  </tbody>
+</table>
+{% endblock %}

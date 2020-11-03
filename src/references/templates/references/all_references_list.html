@@ -1,34 +1,55 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-	<title>References</title>
-</head>
-<body>
-    <h1>Словари</h1>
-    <h3><a href="genre">Жанры книг</a></h3>
-    <ul>
-    {% for genre in genres %}
-    <li><a href="genre/{{ genre.pk }}">{{ genre.name }}</a></li>
-    {% endfor %}
-    </ul>
-    <h3><a href="author">Авторы книг</a></h3>
-    <ul>
-    {% for author in authors %}
-    <li><a href="author/{{ author.pk }}">{{ author.name }}</a></li>
-    {% endfor %}
-    </ul>
-    <h3><a href="series">Серии книг</a></h3>
-    <ul>
-    {% for series in seriess %}
-    <li><a href="series/{{ series.pk }}">{{ series.name }}</a></li>
-    {% endfor %}
-    </ul>
-    <h3><a href="publisher">Издательства книг</a></h3>
-    <ul>
-    {% for publisher in publishers %}
-    <li><a href="publisher/{{ publisher.pk }}">{{ publisher.name }}</a></li>
-    {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'hello_world/base.html' %}
+{% block title %} Словари {% endblock %}
+{% block content %}
+<h1 class="text-center">Словари</h1>
+<div class="row">
+<div class="col-lg-3 col-md-6 mb-6">
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    <a href="genre">Жанры книг</a>
+  </div>
+      <ul class="list-group list-group-flush">
+        {% for genre in genres %}
+        <li class="list-group-item"><a href="genre/{{ genre.pk }}">{{ genre.name }}</li>
+        {% endfor %}
+  </ul>
+</div>
+</div>
+<div class="col-lg-3 col-md-6 mb-6">
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    <a href="author">Авторы книг</a>
+  </div>
+      <ul class="list-group list-group-flush">
+        {% for author in authors %}
+        <li class="list-group-item"><a href="author/{{ author.pk }}">{{ author.name }}</li>
+        {% endfor %}
+  </ul>
+</div>
+</div>
+<div class="col-lg-3 col-md-6 mb-6">
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    <a href="series">Серии книг</a>
+  </div>
+      <ul class="list-group list-group-flush">
+        {% for series in seriess %}
+        <li class="list-group-item"><a href="series/{{ series.pk }}">{{ series.name }}</li>
+        {% endfor %}
+  </ul>
+</div>
+</div>
+<div class="col-lg-3 col-md-6 mb-6">
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    <a href="publisher">Издательства книг</a>
+  </div>
+      <ul class="list-group list-group-flush">
+        {% for publisher in publishers %}
+        <li class="list-group-item"><a href="publisher/{{ publisher.pk }}">{{ publisher.name }}</li>
+        {% endfor %}
+  </ul>
+</div>
+</div>
+</div>
+{% endblock %}

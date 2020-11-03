@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-	<title>References</title>
-</head>
-<body>
+{% extends 'hello_world/base.html' %}
+{% block title %}Книга: {{ object.name }}{% endblock %}
+
+{% block content %}
     <h1>{{ object.name }}</h1>
     <ul>
         {% for author in author.all %}
@@ -20,5 +17,4 @@
     <a href="/books">Вернуться к книгам</a><br>
     <a href="/books/update/{{ object.pk }}">Обновить книгу</a><br>
     <a href="/books/delete/{{ object.pk }}">Удалить книгу</a>
-</body>
-</html>
+{% endblock %}

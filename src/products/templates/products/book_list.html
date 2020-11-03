@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-	<title>Книги</title>
-</head>
-<body>
-    <h1>Книги</h1>
+{% extends 'hello_world/base.html' %}
+{% block title %} Список книг {% endblock %}
+{% block content %}
+    <h1>Список книг: </h1>
     <ul>
     {% for book in object_list %}
     <li><a href="{{ book.pk }}/">{{ book.name }}</a></li>
     {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}
