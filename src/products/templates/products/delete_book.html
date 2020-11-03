@@ -2,10 +2,10 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-	<title>Delete {{ header }}</title>
+	<title>Delete book</title>
 </head>
 <body>
-    <h1>Delete {{ header }}?</h1>
+    <h1>Delete book {{ object.name }}?</h1>
     <form action="" method="post">
         {% csrf_token %}
         <button type="submit">Удалить</button>

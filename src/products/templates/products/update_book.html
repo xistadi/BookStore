@@ -2,10 +2,10 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-	<title>Update {{ header }}</title>
+	<title>Update book</title>
 </head>
 <body>
-    <h1>Update {{ header }}</h1>
+    <h1>Update book</h1>
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

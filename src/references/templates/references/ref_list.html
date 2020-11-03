@@ -2,32 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-	<title>References</title>
+	<title>{{ header }}</title>
 </head>
 <body>
-    <h1>Словари</h1>
-    <h3>Жанры книги</h3>
+    <h1>{{ header }}</h1>
     <ul>
-    {% for genre in genres %}
-    <li><a href="genre/{{ genre.pk }}">{{ genre.name }}</a></li>
-    {% endfor %}
-    </ul>
-    <h3>Авторы книги</h3>
-    <ul>
-    {% for author in authors %}
-    <li><a href="author/{{ author.pk }}">{{ author.name }}</a></li>
-    {% endfor %}
-    </ul>
-    <h3>Серии книги</h3>
-    <ul>
-    {% for series in seriess %}
-    <li><a href="series/{{ series.pk }}">{{ series.name }}</a></li>
-    {% endfor %}
-    </ul>
-    <h3>Издательства книги</h3>
-    <ul>
-    {% for publisher in publishers %}
-    <li><a href="publisher/{{ publisher.pk }}">{{ publisher.name }}</a></li>
+    {% for book in object_list %}
+    <li><a href="{{ book.pk }}/">{{ book.name }}</a></li>
     {% endfor %}
     </ul>
 </body>

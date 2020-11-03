@@ -5,13 +5,11 @@
 	<title>References</title>
 </head>
 <body>
-    <h1>{{ type.name }}</h1>
-    {{ type.description }}<br>
-    <a href="update/">Обновить</a><br>
-    <a href="delete/">Удалить</a>
+    <h1>{{ object.name }}</h1>
+    {{ object.description }}<br>
     <h3>Книги:</h3>
     <ul>
-        {% for book in type.books.all %}
+        {% for book in object.books.all %}
             <li><a href="/books/{{ book.pk }}">{{ book.name }}</a></li>
         {% endfor %}
     </ul>
