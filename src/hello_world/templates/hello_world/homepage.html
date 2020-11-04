@@ -113,27 +113,35 @@
 
         </div>
         <!-- /.row -->
-    {% if is_paginated %}
-  <ul class="pagination justify-content-center">
-    {% if page_obj.has_previous %}
-      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
-    {% endif %}
-    {% for i in paginator.page_range %}
-      {% if page_obj.number == i %}
-        <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
-      {% else %}
-        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    {% if page_obj.has_next %}
-      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
-    {% endif %}
-  </ul>
-{% endif %}
+        <div class="text-center">
+            {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">«</a>
+            {% if page_obj.number > 3 %}
+              <a class="btn btn-outline-info mb-4" href="?page=1">1</a>
+            {% if page_obj.number > 4 %}
+            <button class="btn btn-outline-info mb-4" disabled="">...</button>
+            {% endif %}
+            {% endif %}
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
+            <button class="btn btn-outline-info mb-4" disabled="">...</button>
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+            {% elif page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+            {% endif %}
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">»</a>
+            {% endif %}
+          </div>
       </div>
       <!-- /.col-lg-9 -->
 
