@@ -7,6 +7,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Имя</th>
+      <th scope="col">Описание</th>
       <th scope="col"><a href="create/" class="btn btn-success"><i class="far fa-plus-square"></i></a></th>
     </tr>
   </thead>
@@ -15,6 +16,7 @@
     <tr>
       <th scope="row">{{ obj.pk }}</th>
       <td>{{ obj.name }} </td>
+      <td>{% if obj.description %} <i class="fas fa-check"></i> {% else %}<i class="fas fa-times">{% endif %}</td>
       <td><a href="{{ obj.pk }}" class="btn btn-info"><i class="far fa-eye"></i></a> <a href="update/{{ obj.pk }}" class="btn btn-warning"><i class="far fa-edit"></i></a> <a href="delete/{{ obj.pk }}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
     </tr>
     {% endfor %}

@@ -2,19 +2,47 @@
 {% block title %}Книга: {{ object.name }}{% endblock %}
 
 {% block content %}
-    <h1>{{ object.name }}</h1>
-    <ul>
-        {% for author in author.all %}
-        <li>Автор: {{ object.author }}</li>
-        {% endfor %}
-        <li>Цена: {{ object.price }}BYN</li>
-        <li>Серия: {{ object.series }}</li>
-        {% for genre in genre.all %}
-        <li>Жанр: {{ object.genre }}</li>
-        {% endfor %}
-        <li>Год: {{ object.year }}</li>
-    </ul>
-    <a href="/books">Вернуться к книгам</a><br>
-    <a href="/books/update/{{ object.pk }}">Обновить книгу</a><br>
-    <a href="/books/delete/{{ object.pk }}">Удалить книгу</a>
+    <h1>{{ object.name }}</h1><br>
+<div class="row">
+    <div class="col-8">
+        <dl class="row">
+                <dt class="col-6">Цена</dt>
+                <dd class="col-6">{{ object.price }}</dd>
+                <dt class="col-6">Автор(ы)</dt>
+                <dd class="col-6">{% for author in object.author.all %}{{ author }} {% endfor %}</dd>
+                <dt class="col-6">Серия</dt>
+                <dd class="col-6">{{ object.series }}</dd>
+                <dt class="col-6">Жанр(ы)</dt>
+                <dd class="col-6">{% for genre in object.genre.all %}{{ genre }} {% endfor %}</dd>
+                <dt class="col-6">Год</dt>
+                <dd class="col-6">{{ object.year }}</dd>
+                <dt class="col-6">Страниц</dt>
+                <dd class="col-6">{{ object.page }}</dd>
+                <dt class="col-6">Переплет</dt>
+                <dd class="col-6">{{ object.binding }}</dd>
+                <dt class="col-6">Формат</dt>
+                <dd class="col-6">{{ object.book_format }}</dd>
+                <dt class="col-6">ISBN</dt>
+                <dd class="col-6">{{ object.isbn }}</dd>
+                <dt class="col-6">Вес</dt>
+                <dd class="col-6">{{ object.weight }}</dd>
+                <dt class="col-6">Возрастное ограничение</dt>
+                <dd class="col-6">{{ object.age_limit }}</dd>
+                <dt class="col-6">Издательство</dt>
+                <dd class="col-6">{{ object.publisher }}</dd>
+                <dt class="col-6">Количество книг в наличии</dt>
+                <dd class="col-6">{{ object.number_of_books }}</dd>
+                <dt class="col-6">Доступен для заказа</dt>
+                <dd class="col-6">{% if book.active == True %} <i class="fas fa-check"></i> {% else %} <i class="fas fa-times"></i> {% endif %}</dd>
+                <dt class="col-6">Рейтинг</dt>
+                <dd class="col-6">{{ object.rating }}</dd>
+        </dl>
+    </div>
+    <div class="col-4 text-center"><img src="{{ MEDIA_URL }}{{ object.photo.url }}" width="300" alt="Изображение"></div>
+</div>
+
+
+
+    <a href="/books/update/{{ object.pk }}" class="btn btn-warning">Обновить</a>
+    <a href="/books/delete/{{ object.pk }}" class="btn btn-danger">Удалить</a>
 {% endblock %}
