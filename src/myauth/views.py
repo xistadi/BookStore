@@ -1,6 +1,7 @@
 from django.contrib.auth import views
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import SignUpForm
 
@@ -46,3 +47,7 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+
+class MyAccountView(LoginRequiredMixin, views.TemplateView):
+    template_name = 'my_account.html'
