@@ -1,37 +1,40 @@
 {% extends 'auth_base.html' %}
 {% block title %}Login{{ object.name }}{% endblock %}
+{% load static %}
+{% block css %}<link rel="stylesheet" href="{% static 'singin.css' %}">{% endblock %}
 {% block content %}
-
-<!--{% if form.errors %}-->
-<!--<p>Your username and password didn't match. Please try again.</p>-->
-<!--{% endif %}-->
-
-<!--{% if next %}-->
-<!--    {% if user.is_authenticated %}-->
-<!--    <p>Your account doesn't have access to this page. To proceed,-->
-<!--    please login with an account that has access.</p>-->
-<!--    {% else %}-->
-<!--    <p>Please login to see this page.</p>-->
-<!--    {% endif %}-->
-<!--{% endif %}-->
-
-<form class="form-signin text-center" method="post" action="{% url 'login' %}">
-{% csrf_token %}
-      <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      <label for="id_username" class="sr-only">Username</label>
-      <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username" class="form-control" placeholder="Username">
-      <label for="id_password" class="sr-only">Password</label>
-      <input type="password" id="id_password" class="form-control" placeholder="Password" required name="password" autocomplete="current-password">
-      <a class="" href="{% url 'password_reset' %}">Lost password?</a>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit" value="login">Sign in</button>
-      <input type="hidden" name="next" value="{{ next }}">
-      <p class="mt-5 mb-3 text-muted">Copyright &copy; Your Website 2020</p>
+<div class="card">
+<article class="card-body">
+<a href="" class="float-right btn btn-outline-primary">Sign up</a>
+<h4 class="card-title mb-4 mt-1">Sign in</h4>
+          {% if form.errors %}
+      <div class="alert alert-warning" role="alert">Your username and password didn't match. Please try again.</div>
+      {% endif %}
+      {% if next %}
+    <div class="alert alert-warning" role="alert">{% if user.is_authenticated %}Your account doesn't have access to this page. To proceed, please login with an account that has access. {% else %} Please login to see this page.{% endif %}</div>
+      {% endif %}
+	 <form method="post" action="{% url 'login' %}">
+         {% csrf_token %}
+    <div class="form-group">
+    	<label>Username</label>
+        <input name="username" class="form-control" placeholder="Username" type="text" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required>
+    </div> <!-- form-group// -->
+    <div class="form-group">
+    	<a class="float-right" href="{% url 'password_reset' %}">Forgot?</a>
+    	<label>Your password</label>
+        <input class="form-control" placeholder="******" type="password" required name="password" autocomplete="current-password">
+    </div> <!-- form-group// -->
+    <div class="form-group">
+    <div class="checkbox">
+      <label> <input type="checkbox"> Save password </label>
+    </div> <!-- checkbox .// -->
+    </div> <!-- form-group// -->
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" value="login"> Login  </button>
+        <input type="hidden" name="next" value="{{ next }}">
+    </div> <!-- form-group// -->
 </form>
+</article>
+</div> <!-- card.// -->
 
 {% endblock %}
