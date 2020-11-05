@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 
 
 class MyLoginView(views.LoginView):
-    success_url = '/'
+    pass
 
 
 class MyLogoutView(views.LogoutView):
