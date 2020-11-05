@@ -5,7 +5,7 @@
 {% block content %}
 <div class="card">
 <article class="card-body">
-<a href="" class="float-right btn btn-outline-primary">Sign up</a>
+<a href="/accounts/signup/" class="float-right btn btn-outline-primary">Sign up</a>
 <h4 class="card-title mb-4 mt-1">Sign in</h4>
           {% if form.errors %}
       <div class="alert alert-warning" role="alert">Your username and password didn't match. Please try again.</div>
@@ -16,12 +16,12 @@
 	 <form method="post" action="{% url 'login' %}">
          {% csrf_token %}
     <div class="form-group">
-    	<label>Username</label>
+    	<label>Username*</label>
         <input name="username" class="form-control" placeholder="Username" type="text" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required>
     </div> <!-- form-group// -->
     <div class="form-group">
     	<a class="float-right" href="{% url 'password_reset' %}">Forgot?</a>
-    	<label>Your password</label>
+    	<label>Your password*</label>
         <input class="form-control" placeholder="******" type="password" required name="password" autocomplete="current-password">
     </div> <!-- form-group// -->
     <div class="form-group">
