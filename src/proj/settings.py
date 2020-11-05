@@ -35,6 +35,7 @@ MY_APPS = [
     'hello_world',
     'references',
     'products',
+    'myauth',
 ]
 
 THIRD_PARTY_APPS = [
@@ -65,7 +66,7 @@ ROOT_URLCONF = 'proj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

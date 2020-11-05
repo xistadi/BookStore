@@ -1,11 +1,11 @@
-{% extends 'hello_world/homepage.html' %}
+{% extends 'customer_base.html' %}
 {% block title %} Обновить книгу {% endblock %}
 {% block content %}
     {% load crispy_forms_tags %}
     <h1>Обновить книгу</h1>
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form | crispy}}
+        {{ form | crispy }}
         <button type="submit" class="btn btn-success">Обновить</button>
     </form>
 {% endblock %}

@@ -1,5 +1,6 @@
 from .models import Genre, Author, Series, Publisher
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
 
 
@@ -99,7 +100,7 @@ class ShowPublisherByPkView(DetailView):
         return context
 
 
-class CreateGenreView(CreateView):
+class CreateGenreView(LoginRequiredMixin, CreateView):
     model = Genre
     form_class = forms.CreateGenreForm
     template_name = 'references/create_reference.html'
@@ -111,7 +112,7 @@ class CreateGenreView(CreateView):
         return context
 
 
-class CreateAuthorView(CreateView):
+class CreateAuthorView(LoginRequiredMixin, CreateView):
     model = Author
     form_class = forms.CreateAuthorForm
     template_name = 'references/create_reference.html'
@@ -123,7 +124,7 @@ class CreateAuthorView(CreateView):
         return context
 
 
-class CreateSeriesView(CreateView):
+class CreateSeriesView(LoginRequiredMixin, CreateView):
     model = Series
     form_class = forms.CreateSeriesForm
     template_name = 'references/create_reference.html'
@@ -135,7 +136,7 @@ class CreateSeriesView(CreateView):
         return context
 
 
-class CreatePublisherView(CreateView):
+class CreatePublisherView(LoginRequiredMixin, CreateView):
     model = Publisher
     form_class = forms.CreatePublisherForm
     template_name = 'references/create_reference.html'
@@ -147,7 +148,7 @@ class CreatePublisherView(CreateView):
         return context
 
 
-class UpdateGenreView(UpdateView):
+class UpdateGenreView(LoginRequiredMixin, UpdateView):
     model = Genre
     form_class = forms.UpdateGenreForm
     success_url = '/references/genre'
@@ -159,7 +160,7 @@ class UpdateGenreView(UpdateView):
         return context
 
 
-class UpdateAuthorView(UpdateView):
+class UpdateAuthorView(LoginRequiredMixin, UpdateView):
     model = Author
     form_class = forms.UpdateAuthorForm
     success_url = '/references/author'
@@ -171,7 +172,7 @@ class UpdateAuthorView(UpdateView):
         return context
 
 
-class UpdateSeriesView(UpdateView):
+class UpdateSeriesView(LoginRequiredMixin, UpdateView):
     model = Series
     form_class = forms.UpdateSeriesForm
     success_url = '/references/series'
@@ -183,7 +184,7 @@ class UpdateSeriesView(UpdateView):
         return context
 
 
-class UpdatePublisherView(UpdateView):
+class UpdatePublisherView(LoginRequiredMixin, UpdateView):
     model = Publisher
     form_class = forms.UpdatePublisherForm
     success_url = '/references/publisher'
@@ -195,7 +196,7 @@ class UpdatePublisherView(UpdateView):
         return context
 
 
-class DeleteGenreView(DeleteView):
+class DeleteGenreView(LoginRequiredMixin, DeleteView):
     model = Genre
     success_url = '/references/genre'
     template_name = 'references/delete_reference.html'
@@ -206,7 +207,7 @@ class DeleteGenreView(DeleteView):
         return context
 
 
-class DeleteAuthorView(DeleteView):
+class DeleteAuthorView(LoginRequiredMixin, DeleteView):
     model = Author
     success_url = '/references/author'
     template_name = 'references/delete_reference.html'
@@ -217,7 +218,7 @@ class DeleteAuthorView(DeleteView):
         return context
 
 
-class DeleteSeriesView(DeleteView):
+class DeleteSeriesView(LoginRequiredMixin, DeleteView):
     model = Series
     success_url = '/references/series'
     template_name = 'references/delete_reference.html'
@@ -228,7 +229,7 @@ class DeleteSeriesView(DeleteView):
         return context
 
 
-class DeletePublisherView(DeleteView):
+class DeletePublisherView(LoginRequiredMixin, DeleteView):
     model = Publisher
     success_url = '/references/publisher'
     template_name = 'references/delete_reference.html'

@@ -1,4 +1,4 @@
-{% extends 'hello_world/homepage.html' %}
+{% extends 'customer_base.html' %}
 {% block title %} Список книг {% endblock %}
 {% block content %}
     <h1>Список книг: </h1>
@@ -12,7 +12,7 @@
       <th scope="col">В наличии</th>
       <th scope="col">Рейтинг</th>
       <th scope="col">Доступен для продажи</th>
-      <th scope="col"><a href="create/" class="btn btn-success"><i class="far fa-plus-square"></i></a></th>
+      <th {% if user.is_authenticated %} scope="col"><a href="create/" class="btn btn-success"><i class="far fa-plus-square"></i></a>{% else %}-</th>{% endif %}
     </tr>
   </thead>
   <tbody>
@@ -25,7 +25,7 @@
       <td>{{ obj.number_of_books }} </td>
       <td>{{ obj.rating }} </td>
       <td>{% if obj.active == True %} <i class="fas fa-check"></i> {% else %} <i class="fas fa-times"></i> {% endif %} </td>
-      <td><a href="{{ obj.pk }}" class="btn btn-info"><i class="far fa-eye"></i></a> <a href="update/{{ obj.pk }}" class="btn btn-warning"><i class="far fa-edit"></i></a> <a href="delete/{{ obj.pk }}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a></td>
+      <td><a href="{{ obj.pk }}" class="btn btn-info"><i class="far fa-eye"></i></a> {% if user.is_authenticated %}<a href="update/{{ obj.pk }}" class="btn btn-warning"><i class="far fa-edit"></i></a> <a href="delete/{{ obj.pk }}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>{% endif %}</td>
     </tr>
     {% endfor %}
   </tbody>

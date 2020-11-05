@@ -1,4 +1,4 @@
-{% extends 'hello_world/homepage.html' %}
+{% extends 'customer_base.html' %}
 {% block title %}Книга: {{ object.name }}{% endblock %}
 
 {% block content %}
@@ -42,7 +42,8 @@
 </div>
 
 
-
+    {% if user.is_authenticated %}
     <a href="/books/update/{{ object.pk }}" class="btn btn-warning">Обновить</a>
     <a href="/books/delete/{{ object.pk }}" class="btn btn-danger">Удалить</a>
+    {% endif %}
 {% endblock %}
