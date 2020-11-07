@@ -13,19 +13,19 @@
                 <div class="carousel-item active">
                     <a href="books/"><img src="https://i.imgur.com/ODkT0L6.png" class="d-block w-100" alt="..."></a>
                   <div class="carousel-caption d-none d-md-block">
-                      <p>Перейти к списку книг</p>
+                      <p><a href="books/" class="text-white">Перейти к списку книг</a></p>
                   </div>
                 </div>
                 <div class="carousel-item">
                     <a href="references/"><img src="https://i.imgur.com/WwXM13Z.png" class="d-block w-100" alt="..."></a>
                   <div class="carousel-caption d-none d-md-block">
-                      <p>Перейти к списку словарей</p>
+                      <p><a href="references/" class="text-white">Перейти к списку словарей</a></p>
                   </div>
                 </div>
                 <div class="carousel-item">
                     <a href="books/{{ object_list.first.pk }}"><img src="https://i.imgur.com/k9q82qq.png" class="d-block w-100" alt="..."></a>
                   <div class="carousel-caption d-none d-md-block">
-                      <p>Последняя добавленная книга</p>
+                      <p><a href="books/{{ object_list.first.pk }}" class="text-white">Последняя добавленная книга</a></p>
                   </div>
                 </div>
               </div>
@@ -43,8 +43,8 @@
 
         <h1 class="my-4 font-weight-normal"></h1><br>
         <div class="list-group">
-          <a href="/books" class="list-group-item">Книги</a>
-          <a href="/references" class="list-group-item">Словари</a>
+          <a href="/books" class="list-group-item text-secondary">Книги</a>
+          <a href="/references" class="list-group-item text-secondary">Словари</a>
         </div>
 
       </div>
@@ -60,7 +60,7 @@
               <a href="/books/{{ obj.pk }}"><img class="card-img-top" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/700x400" {% endif %} alt="Обложка фото"></a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="/books/{{ obj.pk }}">{{ obj.name }}</a>
+                  <a href="/books/{{ obj.pk }}" class="text-dark">{{ obj.name }}</a>
                 </h4>
                 <h5>{{ obj.price }} BYN</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>

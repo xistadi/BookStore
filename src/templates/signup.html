@@ -5,7 +5,7 @@
 {% block content %}
 <div class="card">
 <article class="card-body">
-<a href="/accounts/login/" class="float-right btn btn-outline-primary">Sign in</a>
+<a href="/accounts/login/" class="float-right btn btn-outline-dark">Sign in</a>
 <h4 class="card-title mb-4 mt-1">Sign up</h4>
           {% for error in form.errors %}
       <div class="alert alert-warning" role="alert">{{ error }}</div>
@@ -37,7 +37,7 @@
         <input class="form-control" placeholder="******" type="password" required name="password2" autocomplete="new-password">
     </div> <!-- form-group// -->
     <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block" value="signup"> Sign up  </button>
+        <button type="submit" class="btn btn-dark btn-block" value="signup"> Sign up  </button>
         <input type="hidden" name="next" value="{{ next }}">
     </div> <!-- form-group// -->
 </form>
