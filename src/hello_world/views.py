@@ -6,7 +6,7 @@ from django.shortcuts import render
 class ShowBookListView(ListView):
     queryset = Book.objects.order_by('-pk')
     template_name = 'hello_world/homepage.html'
-    paginate_by = 9
+    paginate_by = 12
 
 
 def index(request):

@@ -15,6 +15,7 @@
   <!-- Custom styles for this template -->
   {% load static %}
   <link rel="stylesheet" href="{% static 'starter_template.css' %}">
+  <link rel="stylesheet" href="{% static 'nprogress.css' %}">
   {% block css %}{% endblock %}
 </head>
   <!--Navigation-->
@@ -24,8 +25,8 @@
   <nav class="my-2 my-md-0 mr-md-3">
     <a class="p-2 text-dark" href="#">Features</a>
     <a class="p-2 text-dark" href="#">Enterprise</a>
-    <a class="p-2 text-dark" href="#">Support</a>
-    <a class="p-2 text-dark" href="#">Pricing</a>
+    <a class="p-2 text-dark" href="/books/">Books</a>
+    <a class="p-2 text-dark" href="/references/">References</a>
     {% if user.is_authenticated %}
     <a class="p-2 text-dark" href="/accounts/">MyAccount</a>
     {% endif %}
@@ -109,7 +110,8 @@
 
 		});
 	</script>
-
+<script src="{% static 'nprogress.js' %}"></script>
+<script src="{% static 'myjs.js' %}"></script>
 </body>
 
 </html>
