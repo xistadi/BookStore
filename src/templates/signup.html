@@ -10,7 +10,7 @@
           {% for error in form.errors %}
       <div class="alert alert-warning" role="alert">{{ error }}</div>
       {% endfor %}
-	 <form method="post" action="{% url 'signup' %}">
+	 <form method="post" action='./?next={{ redirect_to }}'>
          {% csrf_token %}
     <div class="form-group">
     	<label>Username*</label>

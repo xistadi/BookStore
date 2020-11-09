@@ -33,7 +33,7 @@
    {% if user.is_authenticated %}
   <a class="btn btn-outline-dark" href="/accounts/logout">Logout</a>
    {% else %}
-  <a class="btn btn-outline-dark" href="/accounts/login">Sign in</a>
+  <a class="btn btn-outline-dark" href="/accounts/login/?next={{ request.path }}">Sign in</a>
    {% endif %}
 </div>
 
