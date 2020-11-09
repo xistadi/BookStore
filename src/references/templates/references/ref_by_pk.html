@@ -21,7 +21,7 @@
     </tr>
   </thead>
   <tbody>
-      {% for book in object.books.all %}
+      {% for book in object_list %}
     <tr>
       <th scope="row">{{ book.pk }}</th>
       <td>{{ book.name }} </td>
@@ -35,4 +35,5 @@
     {% endfor %}
   </tbody>
 </table>
+{% include 'paginator.html' %}
 {% endblock %}

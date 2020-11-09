@@ -1,5 +1,7 @@
 from .models import Genre, Author, Series, Publisher
+from products.models import Book
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic.list import MultipleObjectMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
 
@@ -64,42 +66,50 @@ class ShowPublisherListView(ListView):
         return context
 
 
-class ShowGenreByPkView(DetailView):
+class ShowGenreByPkView(DetailView, MultipleObjectMixin):
     model = Genre
+    paginate_by = 5
     template_name = 'references/ref_by_pk.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        object_list = Book.objects.filter(genre=self.get_object())
+        context = super(ShowGenreByPkView, self).get_context_data(object_list=object_list, **kwargs)
         context['type'] = 'genre'
         return context
 
 
-class ShowAuthorByPkView(DetailView):
+class ShowAuthorByPkView(DetailView, MultipleObjectMixin):
     model = Author
+    paginate_by = 5
     template_name = 'references/ref_by_pk.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        object_list = Book.objects.filter(author=self.get_object())
+        context = super(ShowAuthorByPkView, self).get_context_data(object_list=object_list, **kwargs)
         context['type'] = 'author'
         return context
 
 
-class ShowSeriesByPkView(DetailView):
+class ShowSeriesByPkView(DetailView, MultipleObjectMixin):
     model = Series
+    paginate_by = 5
     template_name = 'references/ref_by_pk.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        object_list = Book.objects.filter(series=self.get_object())
+        context = super(ShowSeriesByPkView, self).get_context_data(object_list=object_list, **kwargs)
         context['type'] = 'series'
         return context
 
 
-class ShowPublisherByPkView(DetailView):
+class ShowPublisherByPkView(DetailView, MultipleObjectMixin):
     model = Publisher
+    paginate_by = 5
     template_name = 'references/ref_by_pk.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        object_list = Book.objects.filter(publisher=self.get_object())
+        context = super(ShowPublisherByPkView, self).get_context_data(object_list=object_list, **kwargs)
         context['type'] = 'publisher'
         return context
 
