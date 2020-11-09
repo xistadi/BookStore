@@ -6,6 +6,7 @@ from .models import Book
 
 class ShowBookListView(ListView):
     model = Book
+    paginate_by = 10
 
 
 class ShowBookByPkView(DetailView):

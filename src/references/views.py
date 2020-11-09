@@ -23,6 +23,7 @@ class ShowReferencesView(TemplateView):
 class ShowGenreListView(ListView):
     model = Genre
     template_name = 'references/ref_list.html'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -33,6 +34,7 @@ class ShowGenreListView(ListView):
 class ShowAuthorListView(ListView):
     model = Author
     template_name = 'references/ref_list.html'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -43,6 +45,7 @@ class ShowAuthorListView(ListView):
 class ShowSeriesListView(ListView):
     model = Series
     template_name = 'references/ref_list.html'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,6 +56,7 @@ class ShowSeriesListView(ListView):
 class ShowPublisherListView(ListView):
     model = Publisher
     template_name = 'references/ref_list.html'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
