@@ -2,7 +2,7 @@
 {% block title %}BookShop{% endblock %}
     {% block content %}
     <div class="row">
-        <div class="col-lg-12 my-4">
+        <div class="col-lg-12 my-4 ">
             <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-ride="carousel">
               <ol class="carousel-indicators">
                 <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -42,25 +42,21 @@
 
       <div class="col-lg-12">
 
-        <h3>Новинки</h3>
-        <div class="row">
+        <h3>Последние добавленные книги: </h3>
+        <div class="row new-content">
           {% for obj in object_list %}
-          <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="/books/{{ obj.pk }}"><img class="card-img-top" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/700x400" {% endif %} alt="Обложка фото"></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="/books/{{ obj.pk }}" class="text-dark">{{ obj.name }}</a>
-                </h4>
-                <h5>{{ obj.price }} BYN</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
+         <div class="col-3">
+             <div class="content"> <a href="/books/{{ obj.pk }}">
+                     <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
+                     <div class="content-details fadeIn-bottom">
+                         <h3 class="content-title">{{ obj.name }}</h3>
+                         <p class="content-text">Рейтинг: {{ obj.rating }} <br>
+                         Цена: {{ obj.price }} BYN</p>
+                         <a href="#" class="btn btn-outline-light">Buy now</a>
+                     </div>
+                 </a> </div>
+         </div>
+        {% endfor %}
 
         </div>
         <!-- /.row -->
