@@ -50,9 +50,11 @@
                      <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
                      <div class="content-details fadeIn-bottom">
                          <h3 class="content-title">{{ obj.name }}</h3>
-                         <p class="content-text">Рейтинг: {{ obj.rating }} <br>
+                         <p class="content-text">
+                         Автор: {{ obj.author.all.first }} <br>
+                         Рейтинг: {{ obj.rating }} <br>
                          Цена: {{ obj.price }} BYN</p>
-                         <a href="#" class="btn btn-outline-light">Buy now</a>
+                         <a href="#" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
                      </div>
                  </a> </div>
          </div>

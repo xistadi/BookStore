@@ -50,7 +50,7 @@ html {
 }
 
 
-
+/*Эта тема для карт homepage*/
 .title {
     color: #1a1a1a;
     text-align: center;
@@ -113,7 +113,7 @@ img {
 }
 
 .content:hover .content-details {
-    top: 60%;
+    top: 55%;
     left: 50%;
     opacity: 1
 }

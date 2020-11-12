@@ -36,6 +36,7 @@ MY_APPS = [
     'references',
     'products',
     'myauth',
+    'cart',
 ]
 
 THIRD_PARTY_APPS = [
