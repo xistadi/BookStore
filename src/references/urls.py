@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+app_name = 'references'
+
 urlpatterns = [
     path('', views.ShowReferencesView.as_view(), name='reference_view'),
     path('genre/', views.ShowGenreListView.as_view()),

@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [
+app_name = 'cart'
 
+urlpatterns = [
+    path('', views.CartView.as_view(), name='cart_index'),
 ]

@@ -54,7 +54,7 @@
                          Автор: {{ obj.author.all.first }} <br>
                          Рейтинг: {{ obj.rating }} <br>
                          Цена: {{ obj.price }} BYN</p>
-                         <a href="#" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
+                         <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
                      </div>
                  </a> </div>
          </div>

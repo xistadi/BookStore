@@ -20,11 +20,11 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('hello_world.urls')),
-    path('references/', include('references.urls')),
-    path('books/', include('products.urls')),
-    path('accounts/', include('myauth.urls')),
-    path('cart/', include('cart.urls')),
+    path('', include('hello_world.urls', namespace='index')),
+    path('references/', include('references.urls', namespace='references')),
+    path('books/', include('products.urls', namespace='products')),
+    path('accounts/', include('myauth.urls', namespace='myauth')),
+    path('cart/', include('cart.urls', namespace='cart')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
