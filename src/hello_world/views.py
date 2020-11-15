@@ -2,7 +2,7 @@ from django.views.generic import ListView
 from products.models import Book
 import requests
 import itertools
-from django.shortcuts import render
+
 
 
 class ShowBookListView(ListView):

@@ -1,21 +1,21 @@
 {% extends 'customer_base.html' %}
-{% block title %}MyAccount{% endblock %}
+{% block title %} MyAccount {% endblock %}
 {% block content %}
-<h1>Hello, {{ user.username|default:'Guest' }}</h1><br>
-<div class="row">
+  <h1>Hello, {{ user.username|default:'Guest' }}</h1><br>
+  <div class="row">
     <div class="col-8">
-        <dl class="row">
-            <dt class="col-6">Имя</dt>
-            <dd class="col-6">{{ user.first_name }}</dd>
-            <dt class="col-6">Фамилия</dt>
-            <dd class="col-6">{{ user.last_name }}</dd>
-            <dt class="col-6">Пароль</dt>
-            <dd class="col-6">*******</dd>
-            <dt class="col-6">Email</dt>
-            <dd class="col-6">{{ user.email }}</dd>
-        </dl>
+      <dl class="row">
+        <dt class="col-6">Имя</dt>
+        <dd class="col-6">{{ user.first_name }}</dd>
+        <dt class="col-6">Фамилия</dt>
+        <dd class="col-6">{{ user.last_name }}</dd>
+        <dt class="col-6">Пароль</dt>
+        <dd class="col-6">*******</dd>
+        <dt class="col-6">Email</dt>
+        <dd class="col-6">{{ user.email }}</dd>
+      </dl>
     </div>
-    <div class="col-4 text-center"><img src="https://via.placeholder.com/300x300" width="150" alt="Изображение"></div>
-</div>
-<a href="password_change/" class="btn btn-outline-dark">Change my password</a>
+  <div class="col-4 text-center"><img src="https://via.placeholder.com/300x300" width="150" alt="Изображение"></div>
+  </div>
+  <a href="password_change/" class="btn btn-outline-dark">Change my password</a>
 {% endblock %}

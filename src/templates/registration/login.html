@@ -3,35 +3,34 @@
 {% load static %}
 {% block css %}<link rel="stylesheet" href="{% static 'singin.css' %}">{% endblock %}
 {% block content %}
-<div class="card">
-<article class="card-body">
-<a href="/accounts/signup/?next={{ next }}" class="float-right btn btn-outline-dark">Sign up</a>
-<h4 class="card-title mb-4 mt-1">Sign in</h4>
-          {% if form.errors %}
-      <div class="alert alert-warning" role="alert">Your username and password didn't match. Please try again.</div>
+  <div class="card">
+    <article class="card-body">
+      <a href="/accounts/signup/?next={{ next }}" class="float-right btn btn-outline-dark">Sign up</a>
+      <h4 class="card-title mb-4 mt-1">Sign in</h4>
+      {% if form.errors %}
+        <div class="alert alert-warning" role="alert">Your username and password didn't match. Please try again.</div>
       {% endif %}
-	 <form method="post" action="./?next={{ redirect_to }}">
-         {% csrf_token %}
-    <div class="form-group">
-    	<label>Username*</label>
-        <input name="username" class="form-control" placeholder="Username" type="text" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required>
-    </div> <!-- form-group// -->
-    <div class="form-group">
-    	<a class="float-right text-dark" href="/accounts/password_reset/">Forgot?</a>
-    	<label>Your password*</label>
-        <input class="form-control" placeholder="******" type="password" required name="password" autocomplete="current-password">
-    </div> <!-- form-group// -->
-    <div class="form-group">
-    <div class="checkbox">
-      <label> <input type="checkbox"> Save password </label>
-    </div> <!-- checkbox .// -->
-    </div> <!-- form-group// -->
-    <div class="form-group">
-        <button type="submit" class="btn btn-dark btn-block" value="login"> Login  </button>
-        <input type="hidden" name="next" value="{{ next }}">
-    </div> <!-- form-group// -->
-</form>
-</article>
-</div> <!-- card.// -->
-
+      <form method="post" action="./?next={{ redirect_to }}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label>Username*</label>
+          <input name="username" class="form-control" placeholder="Username" type="text" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required>
+        </div> <!-- form-group// -->
+        <div class="form-group">
+          <a class="float-right text-dark" href="/accounts/password_reset/">Forgot?</a>
+          <label>Your password*</label>
+          <input class="form-control" placeholder="******" type="password" required name="password" autocomplete="current-password">
+        </div> <!-- form-group// -->
+        <div class="form-group">
+          <div class="checkbox">
+            <label> <input type="checkbox"> Save password </label>
+          </div> <!-- checkbox .// -->
+        </div> <!-- form-group// -->
+        <div class="form-group">
+          <button type="submit" class="btn btn-dark btn-block" value="login"> Login  </button>
+          <input type="hidden" name="next" value="{{ next }}">
+        </div> <!-- form-group// -->
+      </form>
+    </article>
+  </div> <!-- card.// -->
 {% endblock %}
