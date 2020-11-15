@@ -41,15 +41,71 @@
                   </div>
                 </div>
               </div>
-              <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+              <a class="carousel-control-prev first-type" href="#carouselExampleCaptions" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
               </a>
-              <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+              <a class="carousel-control-next first-type" href="#carouselExampleCaptions" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
               </a>
             </div>
+        </div>
+
+
+        <div class="col-lg-12">
+            <div class="row">
+            <div class="col-md-9">
+                <h3>Самые популярные книги</h3>
+            </div>
+            <div class="col-md-3">
+                <!-- Controls -->
+                <div class="controls pull-right hidden-xs">
+                    <a class="left fa fa-chevron-left btn btn" href="#carouselExampleIndicators"
+                        data-slide="prev"></a><a class="right fa fa-chevron-right btn" href="#carouselExampleIndicators"
+                            data-slide="next"></a>
+                </div>
+            </div>
+            </div>
+
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        {% for obj in last_some_books_first %}
+                             <div class="col-2">
+                                 <div class="content"> <a href="/books/{{ obj.pk }}">
+                                         <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
+                                         <div class="content-details fadeIn-bottom">
+                                             <p><span class="font-weight-bold">{{ obj.name }}</span><br>
+                                             Рейтинг: {{ obj.rating }}</p>
+                                             <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
+                                         </div>
+                                     </a> </div>
+                             </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                <div class="carousel-item">
+                  <div class="row">
+                        {% for obj in last_some_books_second %}
+                             <div class="col-2">
+                                 <div class="content"> <a href="/books/{{ obj.pk }}">
+                                         <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
+                                         <div class="content-details fadeIn-bottom">
+                                             <p><span class="font-weight-bold">{{ obj.name }}</span><br>
+                                             Рейтинг: {{ obj.rating }}</p>
+                                             <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
+                                         </div>
+                                     </a> </div>
+                             </div>
+                            {% endfor %}
+                        </div>
+                </div>
+              </div>
+            </div>
+
+
         </div>
 
       <div class="col-lg-12">

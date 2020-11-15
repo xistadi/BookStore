@@ -141,3 +141,10 @@ img {
 .new-content{
     margin-bottom: 50px;
 }
+
+
+.carousel-control-prev.first-type, .carousel-control-next.first-type {
+    opacity: 0;
+    filter:alpha(opacity=0);
+}
+
