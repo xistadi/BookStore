@@ -5,11 +5,23 @@
 <link rel="stylesheet" href="{% static 'homepage.css' %}">
 {% endblock %}
 {% block exchanges %}
-  <marquee behavior="scroll" direction="left" class="mt-1">Курс {% for key, value in all_rate.items %} {{ key }} - {{ value }} {% endfor %}</marquee>
+  <marquee behavior="scroll" direction="left" class="mt-1">|
+    {% for rate in all_rate %}
+      {% for kek, kek2 in rate.items %}
+        {% if kek == 'Cur_Name' %}
+        {{ kek2 }} -
+        {% endif %}
+        {% if kek == 'Cur_OfficialRate' %}
+        {{ kek2 }} BLR |
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </marquee>
+<!--{{ all_rate }}-->
 {% endblock %}
 
 {% block content %}
-  <div class="row">
+  <div class="row" style="margin-top: -20px">
     <div class="col-lg-12 my-4 ">
       <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-ride="carousel">
         <ol class="carousel-indicators">

@@ -21,13 +21,17 @@
 </head>
   <!--Navigation-->
 <body>
-  <div class="container mb-1">
-    <div class="d-flex flex-column flex-md-row align-items-center p-4 bg-white">
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 bg-white">
       <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/" class="navbar-brand text-secondary">BOOKSTORE</a></h5>
       <nav class="navbar-brand">
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-dark my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        <form class="input-group md-form form-sm form-2 pl-0" action="/books/search" method="get">
+          {% csrf_token %}
+          <input class="form-control my-0 py-1 red-border" type="search" name="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button type="submit" class="input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search text-grey"
+            aria-hidden="true"></i></button>
+          </div>
         </form>
       </nav>
       <p class="text-right text-uppercase ml-2"><a class="text-dark" href="/cart/">CART</a> | <a class="text-dark" href="/accounts/">MyAccount</a> <br>

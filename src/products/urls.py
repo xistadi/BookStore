@@ -9,4 +9,5 @@ urlpatterns = [
     path('create/', views.CreateBookView.as_view()),
     path('update/<int:pk>/', views.UpdateBookView.as_view()),
     path('delete/<int:pk>/', views.DeleteBookView.as_view()),
+    path('search/', views.SearchBookView.as_view(), name='search_results'),
 ]
