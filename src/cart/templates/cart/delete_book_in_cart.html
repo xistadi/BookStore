@@ -1,0 +1,9 @@
+{% extends 'customer_base.html' %}
+{% block title %} Удалить книгу в корзине {% endblock %}
+{% block content %}
+  <h1>Удалить книгу в корзине: {{ object.book.name }}?</h1><br>
+  <form action="" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-danger">Удалить</button>
+  </form>
+{% endblock %}

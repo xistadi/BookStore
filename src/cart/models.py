@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from products import models as products_models
 
 User = get_user_model()
 
@@ -24,6 +25,12 @@ class Cart(models.Model):
         verbose_name='Дата последнего изменения корзины'
     )
 
+    def total_price(self):
+        price = 0
+        for book_in_cart in self.books.all():
+            price += book_in_cart.price
+        return price
+
     def __str__(self):
         return f'Корзина №{self.pk}, пользователь: {self.customer}.'
 
@@ -38,6 +45,11 @@ class BookInCart(models.Model):
         on_delete=models.CASCADE,
         related_name='books'
     )
+    book = models.ForeignKey(
+        products_models.Book,
+        on_delete=models.PROTECT,
+        related_name='books_in_carts'
+    )
     quantity = models.PositiveIntegerField(
         default=1,
         verbose_name='Количество'
@@ -48,6 +60,10 @@ class BookInCart(models.Model):
         max_digits=10,
         verbose_name='Цена',
     )
+
+    def construct_price(self):
+        # some logic on sale and smthng
+        return self.quantity * self.book.price
 
     def __str__(self):
         return f'Книги в корзине №{self.pk}, количество: {self.quantity}, цена: {self.price}.'
