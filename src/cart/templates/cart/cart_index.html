@@ -35,9 +35,9 @@
               </div>
               <div class="col-4 col-sm-4 col-md-4">
                 <div class="quantity">
-                    <input type="button" value="+" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="plus">
+                    <input type="button" value="+" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">
                     <input type="number" step="1" max="99" min="1" value="{{ book_in_cart.quantity }}" title="Qty" class="qty" size="4" name="{{ book_in_cart.pk }}">
-                    <input type="button" value="-" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="minus">
+                    <input type="button" value="-" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus">
                 </div>
               </div>
               <div class="col-2 col-sm-2 col-md-2 text-right pt-1">

@@ -1,9 +1,10 @@
 from django.contrib.auth import views
-from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
+from django.views import generic
+from django.contrib.auth.models import User
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import SignUpForm
+from . import forms
 
 
 class MyLoginView(views.LoginView):
@@ -34,20 +35,20 @@ class MyPasswordChangeDoneView(views.PasswordChangeDoneView):
     template_name = 'password_change_done.html'
 
 
-def signup(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('myaccount')
-    else:
-        form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+class SignUpView(generic.CreateView):
+    form_class = forms.SignUpForm
+    success_url = reverse_lazy('login')
+    template_name = 'signup.html'
 
 
 class MyAccountView(LoginRequiredMixin, views.TemplateView):
     template_name = 'my_account.html'
+
+
+class ProfileUpdateView(generic.edit.UpdateView):
+    form_class = forms.ProfileUpdateForm
+    template_name = 'profile_update.html'
+    success_url = reverse_lazy('myaccount')
+
+    def get_object(self):
+        return self.request.user

@@ -1,11 +1,13 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 User = get_user_model()
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         User,
         on_delete=models.PROTECT,
         related_name='profile'
@@ -13,7 +15,6 @@ class Profile(models.Model):
     phone_number = models.CharField(
         'Номер телефона',
         max_length=20,
-        default=None
     )
     group = models.CharField(
         'Группа',
@@ -38,35 +39,30 @@ class ProfileAddress(models.Model):
     country = models.CharField(
         'Страна',
         max_length=20,
-        default=None,
         blank=True,
         null=True
     )
     city = models.CharField(
         'Город',
         max_length=20,
-        default=None,
         blank=True,
         null=True
     )
     index = models.CharField(
         'Индекс',
         max_length=15,
-        default=None,
         blank=True,
         null=True
     )
     address1 = models.CharField(
         'Адрес1',
         max_length=50,
-        default=None,
         blank=True,
         null=True
     )
     address2 = models.CharField(
         'Адрес2',
         max_length=50,
-        default=None,
         blank=True,
         null=True
     )
@@ -77,3 +73,14 @@ class ProfileAddress(models.Model):
     class Meta:
         verbose_name = 'Профиль адрес'
         verbose_name_plural = 'Профиль адреса'
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
