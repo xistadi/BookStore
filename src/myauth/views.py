@@ -71,23 +71,18 @@ class ProfileUpdateView(generic.edit.UpdateView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.form_class(request.POST, instance=self.object)
-        form2 = self.second_form_class(request.POST, instance=self.request.user.profile)
-        form3 = self.second_form_class(request.POST, instance=self.request.user.profile.profile_address.all().first())
+        form2 = self.second_form_class(request.POST, request.FILES, instance=self.request.user.profile)
+        form3 = self.third_form_class(request.POST, instance=self.request.user.profile.profile_address.all().first())
 
         if form.is_valid() and form2.is_valid() and form3.is_valid():
             userdata = form.save(commit=False)
             # used to set the password, but no longer necesarry
             userdata.save()
-            print(userdata)
             employeedata = form2.save(commit=False)
-            print(employeedata)
             employeedata.user = userdata
-            print(employeedata.user)
             employeedata.save()
             employeedata2 = form3.save(commit=False)
-            print(employeedata2)
             employeedata2.profile = employeedata
-            print(employeedata2.profile)
             employeedata2.save()
             return HttpResponseRedirect(self.get_success_url())
         else:

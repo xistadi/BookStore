@@ -12,6 +12,11 @@ class Profile(models.Model):
         on_delete=models.PROTECT,
         related_name='profile'
     )
+    image = models.ImageField(
+        verbose_name='Фотография профиля',
+        blank=True,
+        null=True
+    )
     phone_number = models.CharField(
         'Номер телефона',
         max_length=20,

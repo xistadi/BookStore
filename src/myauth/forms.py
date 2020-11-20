@@ -32,6 +32,7 @@ class ProfileUpdateForm(forms.ModelForm):
         model = models.Profile
         fields = [
             'phone_number',
+            'image'
             ]
 
 
