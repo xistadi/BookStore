@@ -1,9 +1,10 @@
 from django.contrib.auth import views
 from django.views import generic
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 
 from . import forms, models
 
@@ -104,6 +105,50 @@ class CreateProfileAddress(generic.CreateView):
 
 
 class DeleteProfileAddress(generic.DeleteView):
-    model = models.ProfileAddress
     template_name = 'address_delete.html'
     success_url = reverse_lazy('myaccount')
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(models.ProfileAddress, pk=self.request.POST.get('pk'))
+
+
+class UpdateProfileAddress(generic.UpdateView):
+    form_class = forms.ProfileAddressUpdateForm
+    template_name = 'address_update.html'
+    success_url = reverse_lazy('myaccount')
+
+    def get_context_data(self, **kwargs):
+        context = super(UpdateProfileAddress, self).get_context_data(**kwargs)
+        pk_from_url = self.kwargs.get('number') - 1
+        try:
+            self.request.user.profile.profile_address.all()[pk_from_url]
+        except:
+            raise Http404("Umg puk-puk")
+        context['form'] = self.form_class(instance=self.request.user.profile.profile_address.all()[pk_from_url])
+        return context
+
+    def get(self, request, *args, **kwargs):
+        super(UpdateProfileAddress, self).get(request, *args, **kwargs)
+        form = self.form_class
+        return self.render_to_response(self.get_context_data(
+            object=self.object, form=form))
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.form_class(request.POST, instance=self.object)
+        if form.is_valid():
+            userdata = form.save(commit=False)
+            userdata.profile = self.request.user.profile
+            userdata.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response(
+                self.get_context_data(form=form))
+
+    def get_object(self):
+        pk_from_url = self.kwargs.get('number') - 1
+        try:
+            self.request.user.profile.profile_address.all()[pk_from_url]
+        except:
+            raise Http404("Umg puk-puk")
+        return self.request.user.profile.profile_address.all()[pk_from_url]

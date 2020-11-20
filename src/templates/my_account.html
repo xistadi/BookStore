@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content %}
   <div class="emp-profile">
-    <form method="post">
+
       <div class="row">
         <div class="col-md-4">
           <div class="profile-img">
@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="col-md-2">
-          <a href="{% url 'update_profile' %}" class="profile-edit-btn text-light text-decoration-none">Edit my profile</a>
+          <a href="{% url 'update_profile' %}" class="profile-edit-btn  text-decoration-none">Edit my profile</a>
         </div>
       </div>
       <div class="row">
@@ -112,19 +112,22 @@
                   <div class="col-6" id="accordion">
                     <div class="card border-dark mb-3" style="max-width: 18rem;">
                       <div class="card-header">
-                        <a class="card-link text-dark" data-toggle="collapse" href="#collapse{{ forloop.counter }}">
-                          <div class="row">
-                            <div class="col-7 mt-2">
+                        <div class="row">
+                          <div class="col-7 mt-2">
+                            <a class="card-link text-dark" data-toggle="collapse" href="#collapse{{ forloop.counter }}">
                               Address {{ forloop.counter }}
-                            </div>
-                            <div class="col-5">
-                              <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-outline-dark"><i class="far fa-edit"></i></button>
-                                <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt"></i></button>
-                              </div>
-                            </div>
+                            </a>
                           </div>
-                        </a>
+                          <div class="col-5">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a href="{% url 'update_address' forloop.counter %}" class="btn btn-outline-dark"><i class="far fa-edit"></i></a>
+                              <form action="{% url 'delete_address' %}" method="post">
+                                {% csrf_token %}
+                              <button type="submit" name="pk" value="{{ address.pk }}" class="btn btn-outline-dark"><i class="far fa-trash-alt"></i></button>
+                              </form>
+                              </div>
+                          </div>
+                        </div>
                       </div>
                       <div id="collapse{{ forloop.counter }}" class="collapse" data-parent="#accordion">
                       <div class="card-body text-dark">
@@ -193,6 +196,5 @@
           </div>
         </div>
       </div>
-    </form>
   </div>
 {% endblock %}

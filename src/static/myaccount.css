@@ -35,15 +35,29 @@
     color: #495057;
 }
 .profile-edit-btn{
-    border: none;
+    transition: 0.3s;
+    border: 1px solid #343a40;
     border-radius: 1.5rem;
     width: 70%;
-    padding: 2%;
+    padding: 4%;
+    font-weight: 600;
+    color: #343a40;
+    cursor: pointer;
+    background: white;
+}
+
+.profile-edit-btn:hover{
+    transition: 0.3s;
+    border: 1px solid black;
+    border-radius: 1.5rem;
+    width: 70%;
+    padding: 4%;
     font-weight: 600;
     color: white;
     cursor: pointer;
-    background: #6c757d;
+    background: #343a40;
 }
+
 .proile-rating{
     font-size: 12px;
     color: #818182;
