@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from . import forms
+from . import forms, models
 
 
 class MyLoginView(views.LoginView):
@@ -91,3 +91,19 @@ class ProfileUpdateView(generic.edit.UpdateView):
 
     def get_object(self):
         return self.request.user
+
+
+class CreateProfileAddress(generic.CreateView):
+    form_class = forms.ProfileAddressUpdateForm
+    template_name = 'address_create.html'
+    success_url = reverse_lazy('myaccount')
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        return super(CreateProfileAddress, self).form_valid(form)
+
+
+class DeleteProfileAddress(generic.DeleteView):
+    model = models.ProfileAddress
+    template_name = 'address_delete.html'
+    success_url = reverse_lazy('myaccount')

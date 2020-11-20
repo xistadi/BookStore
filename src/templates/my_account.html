@@ -31,6 +31,9 @@
                 <a class="nav-link active text-dark" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Информация</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link text-dark" id="adresses-tab" data-toggle="tab" href="#addresses" role="tab" aria-controls="adresses" aria-selected="false">Адресы</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link text-dark" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Заказы</a>
               </li>
             </ul>
@@ -98,19 +101,45 @@
                   <p>******* <a href="password_change/" class="text-dark text-decoration-none">change it</a></p>
                 </div>
               </div>
+            </div>
+            <div class="tab-pane fade" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+              <div class="row border-bottom mb-2">
+                  <div class="col-6"><h3>Addresses</h3></div>
+                  <div class="col-6 text-right"><a class="btn btn-outline-success" href="{% url 'create_address' %}"><i class="far fa-plus-square"></i></a></div>
+              </div>
               <div class="row">
-                <div class="col-md-6">
-                    <label>Address</label>
-                </div>
-                <div class="col-md-6">
-                  <p>{% for address in user.profile.profile_address.all %}
-                  {{ address.country }}
-                  {{ address.city }}
-                  {{ address.index }}
-                  {{ address.address1 }}
-                  {{ address.address2 }}
-                  {% endfor %}</p>
-                </div>
+                {% for address in user.profile.profile_address.all %}
+                  <div class="col-6" id="accordion">
+                    <div class="card border-dark mb-3" style="max-width: 18rem;">
+                      <div class="card-header">
+                        <a class="card-link text-dark" data-toggle="collapse" href="#collapse{{ forloop.counter }}">
+                          <div class="row">
+                            <div class="col-7 mt-2">
+                              Address {{ forloop.counter }}
+                            </div>
+                            <div class="col-5">
+                              <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-outline-dark"><i class="far fa-edit"></i></button>
+                                <button type="button" class="btn btn-outline-dark"><i class="far fa-trash-alt"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                      <div id="collapse{{ forloop.counter }}" class="collapse" data-parent="#accordion">
+                      <div class="card-body text-dark">
+                        <p class="card-text">
+                          Страна: {{ address.country }}<br>
+                          Город: {{ address.city }}<br>
+                          Индекс: {{ address.index }}<br>
+                          Адрес1: {{ address.address1 }}<br>
+                          Адрес2: {{ address.address2 }}<br>
+                        </p>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
               </div>
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
