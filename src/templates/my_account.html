@@ -6,195 +6,194 @@
 {% endblock %}
 {% block content %}
   <div class="emp-profile">
-
-      <div class="row">
-        <div class="col-md-4">
-          <div class="profile-img">
-            <img {% if user.profile.image %} src="{{ user.profile.image.url }}" {% else %} src="https://via.placeholder.com/300x300" {% endif %} alt=""/>
-            <div class="file btn btn-lg btn-primary">
-              Change Photo
-              <input type="file" name="file"/>
-            </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="profile-img">
+          <img {% if user.profile.image %} src="{{ user.profile.image.url }}" {% else %} src="https://via.placeholder.com/300x300" {% endif %} alt=""/>
+          <div class="file btn btn-lg btn-primary">
+            Change Photo
+            <input type="file" name="file"/>
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="profile-head">
-            <h5>
-              {{ user.first_name }} {{ user.last_name }}
-            </h5>
-            <h6>
-              {{ user.profile.group }}
-            </h6>
-            <!--<p class="proile-rating">RANKINGS : <span>8/10</span></p>-->
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active text-dark" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Информация</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-dark" id="adresses-tab" data-toggle="tab" href="#addresses" role="tab" aria-controls="adresses" aria-selected="false">Адресы</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-dark" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Заказы</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <a href="{% url 'update_profile' %}" class="profile-edit-btn  text-decoration-none">Edit my profile</a>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="profile-work">
-            <p>WORK LINK</p>
-            <a href="">Website Link</a><br/>
-            <a href="">Bootsnipp Profile</a><br/>
-            <a href="">Bootply Profile</a>
-            <p>SKILLS</p>
-            <a href="">Web Designer</a><br/>
-            <a href="">Web Developer</a><br/>
-            <a href="">WordPress</a><br/>
-            <a href="">WooCommerce</a><br/>
-            <a href="">PHP, .Net</a><br/>
-          </div>
+      <div class="col-md-6">
+        <div class="profile-head">
+          <h5>
+            {{ user.first_name }} {{ user.last_name }}
+          </h5>
+          <h6>
+            {{ user.profile.group }}
+          </h6>
+          <!--<p class="proile-rating">RANKINGS : <span>8/10</span></p>-->
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active text-dark" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Информация</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" id="adresses-tab" data-toggle="tab" href="#addresses" role="tab" aria-controls="adresses" aria-selected="false">Адресы</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Заказы</a>
+            </li>
+          </ul>
         </div>
-        <div class="col-md-8">
-          <div class="tab-content profile-tab" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Username</label>
-                </div>
-                <div class="col-md-6">
-                  <p>{{ user.username|default:'Guest' }}</p>
-                </div>
+      </div>
+      <div class="col-md-2">
+        <a href="{% url 'update_profile' %}" class="profile-edit-btn  text-decoration-none">Edit my profile</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="profile-work">
+          <p>WORK LINK</p>
+          <a href="">Website Link</a><br/>
+          <a href="">Bootsnipp Profile</a><br/>
+          <a href="">Bootply Profile</a>
+          <p>SKILLS</p>
+          <a href="">Web Designer</a><br/>
+          <a href="">Web Developer</a><br/>
+          <a href="">WordPress</a><br/>
+          <a href="">WooCommerce</a><br/>
+          <a href="">PHP, .Net</a><br/>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="tab-content profile-tab" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Username</label>
               </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Name</label>
-                </div>
-                <div class="col-md-6">
-                  <p>{{ user.first_name }} {{ user.last_name }}</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Email</label>
-                </div>
-                <div class="col-md-6">
-                  <p>{{ user.email }}</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Phone</label>
-                </div>
-                <div class="col-md-6">
-                  <p>{{ user.profile.phone_number }}</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Password</label>
-                </div>
-                <div class="col-md-6">
-                  <p>******* <a href="password_change/" class="text-dark text-decoration-none">change it</a></p>
-                </div>
+              <div class="col-md-6">
+                <p>{{ user.username|default:'Guest' }}</p>
               </div>
             </div>
-            <div class="tab-pane fade" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
-              <div class="row border-bottom mb-2">
-                  <div class="col-6"><h3>Addresses</h3></div>
-                  <div class="col-6 text-right"><a class="btn btn-outline-success" href="{% url 'create_address' %}"><i class="far fa-plus-square"></i></a></div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Name</label>
               </div>
-              <div class="row">
-                {% for address in user.profile.profile_address.all %}
-                  <div class="col-6" id="accordion">
-                    <div class="card border-dark mb-3" style="max-width: 18rem;">
-                      <div class="card-header">
-                        <div class="row">
-                          <div class="col-7 mt-2">
-                            <a class="card-link text-dark" data-toggle="collapse" href="#collapse{{ forloop.counter }}">
-                              Address {{ forloop.counter }}
-                            </a>
-                          </div>
-                          <div class="col-5">
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="{% url 'update_address' forloop.counter %}" class="btn btn-outline-dark"><i class="far fa-edit"></i></a>
-                              <form action="{% url 'delete_address' %}" method="post">
-                                {% csrf_token %}
-                              <button type="submit" name="pk" value="{{ address.pk }}" class="btn btn-outline-dark"><i class="far fa-trash-alt"></i></button>
-                              </form>
-                              </div>
-                          </div>
+              <div class="col-md-6">
+                <p>{{ user.first_name }} {{ user.last_name }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Email</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{ user.email }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Phone</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{ user.profile.phone_number }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Password</label>
+              </div>
+              <div class="col-md-6">
+                <p>******* <a href="password_change/" class="text-dark text-decoration-none">change it</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+            <div class="row border-bottom mb-2">
+                <div class="col-6"><h3>Addresses</h3></div>
+                <div class="col-6 text-right"><a class="btn btn-outline-success" href="{% url 'create_address' %}"><i class="far fa-plus-square"></i></a></div>
+            </div>
+            <div class="row">
+              {% for address in user.profile.profile_address.all %}
+                <div class="col-6" id="accordion">
+                  <div class="card border-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col-7 mt-2">
+                          <a class="card-link text-dark" data-toggle="collapse" href="#collapse{{ forloop.counter }}">
+                            Address {{ forloop.counter }}
+                          </a>
+                        </div>
+                        <div class="col-5">
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                              <a href="{% url 'update_address' forloop.counter %}" class="btn btn-outline-dark"><i class="far fa-edit"></i></a>
+                            <form action="{% url 'delete_address' %}" method="post">
+                              {% csrf_token %}
+                            <button type="submit" name="pk" value="{{ address.pk }}" class="btn btn-outline-dark"><i class="far fa-trash-alt"></i></button>
+                            </form>
+                            </div>
                         </div>
                       </div>
-                      <div id="collapse{{ forloop.counter }}" class="collapse" data-parent="#accordion">
-                      <div class="card-body text-dark">
-                        <p class="card-text">
-                          Страна: {{ address.country }}<br>
-                          Город: {{ address.city }}<br>
-                          Индекс: {{ address.index }}<br>
-                          Адрес1: {{ address.address1 }}<br>
-                          Адрес2: {{ address.address2 }}<br>
-                        </p>
-                      </div>
-                      </div>
+                    </div>
+                    <div id="collapse{{ forloop.counter }}" class="collapse" data-parent="#accordion">
+                    <div class="card-body text-dark">
+                      <p class="card-text">
+                        Страна: {{ address.country }}<br>
+                        Город: {{ address.city }}<br>
+                        Индекс: {{ address.index }}<br>
+                        Адрес1: {{ address.address1 }}<br>
+                        Адрес2: {{ address.address2 }}<br>
+                      </p>
+                    </div>
                     </div>
                   </div>
-                {% endfor %}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Experience</label>
+              </div>
+              <div class="col-md-6">
+                <p>Expert</p>
               </div>
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Experience</label>
-                </div>
-                <div class="col-md-6">
-                  <p>Expert</p>
-                </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Hourly Rate</label>
               </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Hourly Rate</label>
-                </div>
-                <div class="col-md-6">
-                  <p>10$/hr</p>
-                </div>
+              <div class="col-md-6">
+                <p>10$/hr</p>
               </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Total Projects</label>
-                </div>
-                <div class="col-md-6">
-                  <p>230</p>
-                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Total Projects</label>
               </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label>English Level</label>
-                </div>
-                <div class="col-md-6">
-                  <p>Expert</p>
-                </div>
+              <div class="col-md-6">
+                <p>230</p>
               </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Availability</label>
-                </div>
-                <div class="col-md-6">
-                  <p>6 months</p>
-                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>English Level</label>
               </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <label>Your Bio</label><br/>
-                  <p>Your detail description</p>
-                </div>
+              <div class="col-md-6">
+                <p>Expert</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Availability</label>
+              </div>
+              <div class="col-md-6">
+                <p>6 months</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label>Your Bio</label><br/>
+                <p>Your detail description</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </div>
 {% endblock %}

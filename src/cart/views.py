@@ -1,7 +1,9 @@
 from django.views.generic import TemplateView, DeleteView, RedirectView
 from . import models
 from django.urls import reverse_lazy
+from django.http import Http404
 from products import models as book_models
+from order import models as order_models
 
 
 def create_cart(user, session):
@@ -50,25 +52,25 @@ class CartView(TemplateView):
                 book_in_cart.price = book_in_cart.construct_price()
                 book_in_cart.save()
         else:
-            pass # redirect to
+            raise Http404("Umg puk-puk")
         context['book'] = book
         return context
 
 
-class DeleteBookInCart(DeleteView):
+class DeleteBookInCartView(DeleteView):
     model = models.BookInCart
     template_name = 'cart/delete_book_in_cart.html'
     success_url = reverse_lazy('cart:cart_index')
 
 
-class UpdateCart(RedirectView):
+class UpdateCartView(RedirectView):
     def get_redirect_url(self):
         cart_id = self.request.session.get('cart_id')
         user = self.request.user
         if cart_id:
             cart = models.Cart.objects.filter(pk=cart_id).first()
         else:
-            pass # redirect to error page
+            raise Http404("Umg puk-puk")
         button = self.request.POST.get('submit_button')
         if button == 'edit':
             obj_list = []
@@ -77,11 +79,15 @@ class UpdateCart(RedirectView):
                     book_in_cart = models.BookInCart.objects.get(pk=int(book_in_cart_id))
                     if book_in_cart.cart.pk == cart_id:
                         book_in_cart.quantity = int(quantity)
+                        book_in_cart.price = book_in_cart.construct_price()
+                        book_in_cart.save()
                         obj_list.append(book_in_cart)
                     else:
-                        pass # redirect to error
+                        raise Http404("Umg puk-puk")
             models.BookInCart.objects.bulk_update(obj_list, ['quantity'])
         else:
-            pass
-            # checkout logic
+            cart_id = self.request.session.get('cart_id')
+            cart = models.Cart.objects.filter(pk=cart_id).first()
+            order = order_models.Order.objects.create(cart=cart)
+            return reverse_lazy('order:update_order')
         return reverse_lazy('cart:cart_index')
