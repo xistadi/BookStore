@@ -140,14 +140,6 @@
                         </label>
                       </div>
                     </div>
-                    <div class="col-3">
-                      <div class="btn-group" role="group" aria-label="Basic example">
-                        <form action="{% url 'delete_card' %}" method="post">
-                          {% csrf_token %}
-                        <button type="submit" name="pk" value="{{ card.pk }}" class="btn btn-outline-dark"><i class="far fa-trash-alt"></i></button>
-                        </form>
-                        </div>
-                    </div>
                   </div>
                 </div>
                 <div id="collapse_card{{ forloop.counter }}" class="collapse" data-parent="#accordion_card">
