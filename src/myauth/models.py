@@ -80,6 +80,43 @@ class ProfileAddress(models.Model):
         verbose_name_plural = 'Профиль адреса'
 
 
+class CreditCart(models.Model):
+    profile = models.ForeignKey(
+        Profile,
+        on_delete=models.PROTECT,
+        related_name='credit_cards'
+    )
+    number = models.IntegerField(
+        verbose_name='Номер карты',
+        blank=True,
+        null=True
+    )
+    data_cart = models.CharField(
+        verbose_name='Дата карты',
+        max_length=5,
+        blank=True,
+        null=True
+    )
+    name = models.CharField(
+        verbose_name='Имя пользователя',
+        max_length=30,
+        blank=True,
+        null=True
+    )
+    cvv = models.PositiveIntegerField(
+        verbose_name='CVV',
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return f'Банковская карта №{self.pk}, пользователя{self.profile}.'
+
+    class Meta:
+        verbose_name = 'Банковская карта'
+        verbose_name_plural = 'Банковские карты'
+
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

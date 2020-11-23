@@ -47,3 +47,15 @@ class ProfileAddressUpdateForm(forms.ModelForm):
             'address1',
             'address2',
             ]
+
+
+class CreditCardUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = models.CreditCart
+        fields = [
+            'number',
+            'data_cart',
+            'name',
+            'cvv'
+            ]

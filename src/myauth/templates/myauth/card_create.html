@@ -1,0 +1,12 @@
+{% extends 'customer_base.html' %}
+{% block title %} Создать карту {% endblock %}
+{% block content %}
+  {% load crispy_forms_tags %}
+  <h1>Создать карту</h1>
+  <form action="./?next={{ redirect_to }}" method="post" enctype="multipart/form-data" class="uniForm">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <button type="submit" class="btn btn-outline-success">Создать</button>
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+{% endblock %}

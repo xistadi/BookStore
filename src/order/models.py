@@ -21,6 +21,11 @@ class Order(models.Model):
         blank=True,
         null=True
     )
+    type_of_payment = models.CharField(
+        verbose_name='Тип оплаты',
+        default=1,
+        max_length=20
+    )
     date_add = models.DateTimeField(
         auto_now=False,
         auto_now_add=True,
@@ -76,3 +81,10 @@ class AddressInOrder(models.Model):
         blank=True,
         null=True
     )
+
+    def __str__(self):
+        return f'Профиль адрес в заказе №{self.pk}.'
+
+    class Meta:
+        verbose_name = 'Профиль адрес в заказе'
+        verbose_name_plural = 'Профиль адреса в заказах'

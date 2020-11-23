@@ -113,63 +113,57 @@
           {% endfor %}
         </div>
         <hr class="mb-4">
-        <h4 class="mb-3">Payment</h4>
-
+        <div class="row">
+          <div class="col-6"><h4>Payment</h4></div>
+          <div class="col-6 text-right"><a class="btn btn-outline-success" href="{% url 'create_card' %}">Add card</a></div>
+        </div>
+        <hr>
         <div class="d-block my-3">
           <div class="custom-control custom-radio">
-            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-            <label class="custom-control-label" for="credit">Credit card</label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-            <label class="custom-control-label" for="debit">Debit card</label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-            <label class="custom-control-label" for="paypal">PayPal</label>
+            <input id="credit" name="paymentMethod" type="radio" value="Cash" class="custom-control-input" checked required>
+            <label class="custom-control-label" for="credit">Наличные</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="cc-name">Name on card</label>
-            <input type="text" class="form-control" id="cc-name" placeholder="" required>
-            <small class="text-muted">Full name as displayed on card</small>
-            <div class="invalid-feedback">
-              Name on card is required
+          {% for card in user.profile.credit_cards.all %}
+            <div class="col-6" id="accordion_card">
+              <div class="card border-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-9 mt-2">
+                      <div class="custom-control custom-radio">
+                        <input id="Card{{ forloop.counter }}" name="paymentMethod" value="Card" type="radio" class="custom-control-input"
+                               required>
+                        <label class="custom-control-label" for="Card{{ forloop.counter }}">
+                          <a class="card-link text-dark" data-toggle="collapse" href="#collapse_card{{ forloop.counter }}">
+                          Card {{ forloop.counter }}</a>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                        <form action="{% url 'delete_card' %}" method="post">
+                          {% csrf_token %}
+                        <button type="submit" name="pk" value="{{ card.pk }}" class="btn btn-outline-dark"><i class="far fa-trash-alt"></i></button>
+                        </form>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="collapse_card{{ forloop.counter }}" class="collapse" data-parent="#accordion_card">
+                <div class="card-body text-dark">
+                  <p class="card-text">
+                    Номер: {{ card.number }}<br>
+                  </p>
+                </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="cc-number">Credit card number</label>
-            <input type="text" class="form-control" id="cc-number" placeholder="" required>
-            <div class="invalid-feedback">
-              Credit card number is required
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 mb-3">
-            <label for="cc-expiration">Expiration</label>
-            <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-            <div class="invalid-feedback">
-              Expiration date required
-            </div>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label for="cc-cvv">CVV</label>
-            <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-            <div class="invalid-feedback">
-              Security code required
-            </div>
-          </div>
+          {% endfor %}
         </div>
         <hr class="mb-4">
         <button class="btn btn-dark btn-lg btn-block" type="submit">Continue to checkout</button>
       </form>
     </div>
   </div>
-<form action="" method="post">
-  {% csrf_token %}
-{{ form }}
-  <button type="submit">Submit</button>
-  </form>
 {% endblock %}

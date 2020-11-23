@@ -87,31 +87,31 @@ class ProfileUpdateView(generic.edit.UpdateView):
         return self.request.user
 
 
-class CreateProfileAddress(generic.CreateView):
+class CreateProfileAddressView(generic.CreateView):
     form_class = forms.ProfileAddressUpdateForm
-    template_name = 'address_create.html'
+    template_name = 'myauth/address_create.html'
     success_url = reverse_lazy('myaccount')
 
     def form_valid(self, form):
         form.instance.profile = self.request.user.profile
-        return super(CreateProfileAddress, self).form_valid(form)
+        return super(CreateProfileAddressView, self).form_valid(form)
 
 
-class DeleteProfileAddress(generic.DeleteView):
-    template_name = 'address_delete.html'
+class DeleteProfileAddressView(generic.DeleteView):
+    template_name = 'myauth/address_delete.html'
     success_url = reverse_lazy('myaccount')
 
     def get_object(self, queryset=None):
         return get_object_or_404(models.ProfileAddress, pk=self.request.POST.get('pk'))
 
 
-class UpdateProfileAddress(generic.UpdateView):
+class UpdateProfileAddressView(generic.UpdateView):
     form_class = forms.ProfileAddressUpdateForm
-    template_name = 'address_update.html'
+    template_name = 'myauth/address_update.html'
     success_url = reverse_lazy('myaccount')
 
     def get_context_data(self, **kwargs):
-        context = super(UpdateProfileAddress, self).get_context_data(**kwargs)
+        context = super(UpdateProfileAddressView, self).get_context_data(**kwargs)
         pk_from_url = self.kwargs.get('number') - 1
         try:
             self.request.user.profile.profile_address.all()[pk_from_url]
@@ -121,7 +121,7 @@ class UpdateProfileAddress(generic.UpdateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        super(UpdateProfileAddress, self).get(request, *args, **kwargs)
+        super(UpdateProfileAddressView, self).get(request, *args, **kwargs)
         form = self.form_class
         return self.render_to_response(self.get_context_data(
             object=self.object, form=form))
@@ -145,3 +145,22 @@ class UpdateProfileAddress(generic.UpdateView):
         except:
             raise Http404("Umg puk-puk")
         return self.request.user.profile.profile_address.all()[pk_from_url]
+
+
+class CreateCreditCartView(generic.CreateView):
+    form_class = forms.CreditCardUpdateForm
+    template_name = 'myauth/card_create.html'
+    success_url = reverse_lazy('myaccount')
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        return super(CreateCreditCartView, self).form_valid(form)
+
+
+class DeleteCreditCartView(generic.DeleteView):
+    template_name = 'myauth/card_delete.html'
+    success_url = reverse_lazy('myaccount')
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(models.CreditCart, pk=self.request.POST.get('pk'))
+

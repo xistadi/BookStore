@@ -143,6 +143,42 @@
                 </div>
               {% endfor %}
             </div>
+            <div class="row border-bottom mb-2">
+                <div class="col-6"><h3>Cards</h3></div>
+                <div class="col-6 text-right"><a class="btn btn-outline-success" href="{% url 'create_card' %}"><i class="far fa-plus-square"></i></a></div>
+            </div>
+            <div class="row">
+              {% for card in user.profile.credit_cards.all %}
+                <div class="col-6" id="accordion_card">
+                  <div class="card border-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col-9 mt-2">
+                          <a class="card-link text-dark" data-toggle="collapse" href="#collapse_card{{ forloop.counter }}">
+                            Card {{ forloop.counter }}
+                          </a>
+                        </div>
+                        <div class="col-3">
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <form action="{% url 'delete_card' %}" method="post">
+                              {% csrf_token %}
+                            <button type="submit" name="pk" value="{{ card.pk }}" class="btn btn-outline-dark"><i class="far fa-trash-alt"></i></button>
+                            </form>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="collapse_card{{ forloop.counter }}" class="collapse" data-parent="#accordion_card">
+                    <div class="card-body text-dark">
+                      <p class="card-text">
+                        Номер: {{ card.number }}<br>
+                      </p>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
           </div>
           <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div id="accordion_order">

@@ -15,6 +15,17 @@ class OrderUpdateView(edit.UpdateView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.delivery_status = 2
+        address_in_order = models.AddressInOrder.objects.create(order=self.object)
+        address_id = self.request.POST.get('address')
+        address_from_user = self.request.user.profile.profile_address.filter(pk=address_id).first()
+        address_in_order.country = address_from_user.country
+        address_in_order.city = address_from_user.city
+        address_in_order.index = address_from_user.index
+        address_in_order.address1 = address_from_user.address1
+        address_in_order.address2 = address_from_user.address2
+        address_in_order.save()
+        type_of_payment_from_post = self.request.POST.get('paymentMethod')
+        self.object.type_of_payment = type_of_payment_from_post
         cart_views.create_cart(self.request.user, self.request.session)
         form = self.form_class(request.POST, instance=self.object)
         if form.is_valid():
