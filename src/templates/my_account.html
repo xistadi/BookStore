@@ -147,36 +147,38 @@
           <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div id="accordion_order">
               {% for cart in user.carts.all %}
-                <div class="card">
-                  <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link text-dark" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        {{ cart.order }}
-                      </button>
-                    </h5>
-                  </div>
+                {% if cart.order %}
+                  <div class="card">
+                    <div class="card-header" id="headingOne">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link text-dark" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
+                          {{ cart.order }}
+                        </button>
+                      </h5>
+                    </div>
 
-                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-6">
-                          {% for book_in_cart in cart.books.all %}
-                            <a href="/books/{{ book_in_cart.book.pk }}">
-                              <img width="80" src="{{ book_in_cart.book.photo.url }}" alt="">
-                            </a>
-                          {% endfor %}
-                        </div>
-                        <div class="col-6">
-                          Total price: {{ cart.total_price }} BLR. <br>
-                          Date order: {{ cart.order.date_add|date:'d:m:Y' }} <br>
-                          Date last change: {{ cart.order.date_last_change|date:'d:m:Y' }} <br><br>
-                          <a href="" class="btn btn-outline-dark"><i class="far fa-eye"></i></a>
-                          <a href="" class="btn btn-outline-dark"><i class="far fa-edit"></i></a>
+                    <div id="collapse{{ forloop.counter }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-6">
+                            {% for book_in_cart in cart.books.all %}
+                              <a href="/books/{{ book_in_cart.book.pk }}">
+                                <img width="80" src="{{ book_in_cart.book.photo.url }}" alt="">
+                              </a>
+                            {% endfor %}
+                          </div>
+                          <div class="col-6">
+                            Total price: {{ cart.total_price }} BLR. <br>
+                            Date order: {{ cart.order.date_add|date:'d.m.Y' }} <br>
+                            Date last change: {{ cart.order.date_last_change|date:'d.m.Y' }} <br><br>
+                            <a href="" class="btn btn-outline-dark"><i class="far fa-eye"></i></a>
+                            <a href="" class="btn btn-outline-dark"><i class="far fa-edit"></i></a>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                {% endif %}
               {% endfor %}
             </div>
           </div>
