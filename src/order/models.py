@@ -8,7 +8,7 @@ class Order(models.Model):
         related_name='order',
         on_delete=models.PROTECT
     )
-    delivery_status_choices = (('1', 'Заказан'), ('2', 'Собираем заказ'), ('3', 'Доставка'),
+    delivery_status_choices = (('1', 'В процессе оформления'), ('2', 'Заказан'), ('3', 'Доставка'),
                                ('4', 'Доставлен'))
     delivery_status = models.CharField(
         verbose_name='Статус заказа',

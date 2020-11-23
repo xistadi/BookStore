@@ -145,51 +145,39 @@
             </div>
           </div>
           <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            <div class="row">
-              <div class="col-md-6">
-                <label>Experience</label>
-              </div>
-              <div class="col-md-6">
-                <p>Expert</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label>Hourly Rate</label>
-              </div>
-              <div class="col-md-6">
-                <p>10$/hr</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label>Total Projects</label>
-              </div>
-              <div class="col-md-6">
-                <p>230</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label>English Level</label>
-              </div>
-              <div class="col-md-6">
-                <p>Expert</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label>Availability</label>
-              </div>
-              <div class="col-md-6">
-                <p>6 months</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <label>Your Bio</label><br/>
-                <p>Your detail description</p>
-              </div>
+            <div id="accordion_order">
+              {% for cart in user.carts.all %}
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link text-dark" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        {{ cart.order }}
+                      </button>
+                    </h5>
+                  </div>
+
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-6">
+                          {% for book_in_cart in cart.books.all %}
+                            <a href="/books/{{ book_in_cart.book.pk }}">
+                              <img width="80" src="{{ book_in_cart.book.photo.url }}" alt="">
+                            </a>
+                          {% endfor %}
+                        </div>
+                        <div class="col-6">
+                          Total price: {{ cart.total_price }} BLR. <br>
+                          Date order: {{ cart.order.date_add|date:'d:m:Y' }} <br>
+                          Date last change: {{ cart.order.date_last_change|date:'d:m:Y' }} <br><br>
+                          <a href="" class="btn btn-outline-dark"><i class="far fa-eye"></i></a>
+                          <a href="" class="btn btn-outline-dark"><i class="far fa-edit"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
             </div>
           </div>
         </div>
