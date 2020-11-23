@@ -74,7 +74,8 @@
         <div class="col-6 text-right"><a class="btn btn-outline-success" href="{% url 'create_address' %}">Create new address</a></div>
       </div>
       <hr>
-      <form class="needs-validation" novalidate>
+      <form class="needs-validation" novalidate action="" method="post">
+        {% csrf_token %}
         <div class="row">
           {% for address in user.profile.profile_address.all %}
             <div class="col-6" id="accordion">
@@ -83,7 +84,7 @@
                   <div class="row">
                     <div class="col-9 mt-2">
                       <div class="custom-control custom-radio">
-                        <input id="Address{{ forloop.counter }}" name="address" type="radio" class="custom-control-input"
+                        <input id="Address{{ forloop.counter }}" name="address" value="{{ address.pk }}" type="radio" class="custom-control-input"
                                required {% if forloop.counter == 1 %}checked{% endif %}>
                         <label class="custom-control-label" for="Address{{ forloop.counter }}">
                           <a class="card-link text-dark" data-toggle="collapse" href="#collapse{{ forloop.counter }}">
@@ -166,4 +167,9 @@
       </form>
     </div>
   </div>
+<form action="" method="post">
+  {% csrf_token %}
+{{ form }}
+  <button type="submit">Submit</button>
+  </form>
 {% endblock %}

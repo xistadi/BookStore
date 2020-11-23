@@ -38,3 +38,41 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
+
+
+class AddressInOrder(models.Model):
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.PROTECT,
+        related_name='address_in_order'
+    )
+    country = models.CharField(
+        'Страна',
+        max_length=20,
+        blank=True,
+        null=True
+    )
+    city = models.CharField(
+        'Город',
+        max_length=20,
+        blank=True,
+        null=True
+    )
+    index = models.CharField(
+        'Индекс',
+        max_length=15,
+        blank=True,
+        null=True
+    )
+    address1 = models.CharField(
+        'Адрес1',
+        max_length=50,
+        blank=True,
+        null=True
+    )
+    address2 = models.CharField(
+        'Адрес2',
+        max_length=50,
+        blank=True,
+        null=True
+    )
