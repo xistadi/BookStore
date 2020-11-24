@@ -1,0 +1,65 @@
+{% extends 'customer_base.html' %}
+{% block title %}Order{% endblock %}
+{% load static %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'update_status_order.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="container mt-4">
+    <article class="card">
+      <div class="card-body">
+        <h6>Order ID: {{ object.pk }}</h6>
+        <article class="card">
+          <div class="card-body row">
+            <div class="col"> <strong>Estimated Delivery time:</strong> <br>29 nov 2019 </div>
+            <div class="col"> <strong>Shipping BY:</strong> <br> BLUEDART, | <i class="fa fa-phone"></i> +1598675986 </div>
+            <div class="col"> <strong>Status:</strong> <br> {{ object.get_delivery_status_display }} </div>
+            <div class="col"> <strong>Tracking #:</strong> <br> BD045903594059 </div>
+          </div>
+        </article>
+        <div class="track">
+          <div class="step {% if object.delivery_status == '2' or object.delivery_status == '3' or object.delivery_status == '4' %} active {% endif %}"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+          <div class="step {% if object.delivery_status == '3' or object.delivery_status == '4' %} active {% endif %}"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+          <div class="step {% if object.delivery_status == '4' %} active {% endif %}"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+        </div>
+        <hr>
+        <ul class="row">
+          {% for book in object.cart.books.all %}
+            <li class="col-md-4">
+              <figure class="itemside mb-3">
+                <a href="/books/{{ book.book.pk }}">
+                  <div class="aside"><img {% if book.book.photo %} src="{{ book.book.photo.url }}" {% else %} src="https://via.placeholder.com/2000x3000" {% endif %} class="img-sm border"></div>
+                </a>
+                  <figcaption class="info align-self-center">
+                    <p class="title">{{ book.book.name }} <br> x{{ book.quantity }}</p> <span class="text-muted">{{ book.price }} BLR</span>
+                  </figcaption>
+              </figure>
+            </li>
+          {% endfor %}
+        </ul>
+        <div class="text-right font-weight-bold">Total price: {{ object.cart.total_price }} BLR</div>
+        <hr>
+        <div class="row">
+          <div class="col-6">
+            <a href="{% url 'myaccount' %}" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
+          </div>
+          <div class="col-6 text-right">
+            <form action="" method="post">
+            {% csrf_token %}
+              <select name="delivery_status" id="id_delivery_status" class="form-control" style="max-width: 230px; display: inline-block">
+                <option value="1" {% if object.delivery_status == '1' %} selected {% endif %}>В процессе оформления</option>
+
+                <option value="2" {% if object.delivery_status == '2' %} selected {% endif %}>Заказан</option>
+
+                <option value="3" {% if object.delivery_status == '3' %} selected {% endif %}>Доставка</option>
+
+                <option value="4" {% if object.delivery_status == '4' %} selected {% endif %}>Доставлен</option>
+              </select>
+              <button type="submit" class="btn btn-warning" style="margin-top: -5px">submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+{% endblock %}

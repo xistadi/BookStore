@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 
 from cart import views as cart_views
+from cart import models as cart_models
 
 
 class OrderUpdateView(edit.UpdateView):
@@ -35,6 +36,17 @@ class OrderUpdateView(edit.UpdateView):
         else:
             return self.render_to_response(
                 self.get_context_data(form=form))
+
+    def get_object(self, queryset=None):
+        cart_id = self.request.session.get('cart_id')
+        cart = cart_models.Cart.objects.filter(pk=cart_id).first()
+        return cart.order
+
+
+class UpdateStatusOrderView(edit.UpdateView):
+    form_class = forms.OrderDeliveryStatusUpdateForm
+    template_name = 'order/update_status_order.html'
+    success_url = reverse_lazy('myaccount')
 
     def get_queryset(self):
         return models.Order.objects

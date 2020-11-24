@@ -10,10 +10,10 @@
       <div class="col-md-4">
         <div class="profile-img">
           <img {% if user.profile.image %} src="{{ user.profile.image.url }}" {% else %} src="https://via.placeholder.com/300x300" {% endif %} alt=""/>
-          <div class="file btn btn-lg btn-primary">
-            Change Photo
-            <input type="file" name="file"/>
-          </div>
+<!--          <div class="file btn btn-lg btn-primary">-->
+<!--            Change Photo-->
+<!--            <input type="file" name="file"/>-->
+<!--          </div>-->
         </div>
       </div>
       <div class="col-md-6">
@@ -211,8 +211,7 @@
                             {% if cart.books.all.count > 3 %}
                               and more...
                             {% endif %}
-                            <a href="" class="btn btn-outline-dark"><i class="far fa-eye"></i></a>
-                            <a href="" class="btn btn-outline-dark"><i class="far fa-edit"></i></a>
+                            <a href="{% url 'order:update_order_status' cart.order.pk %}" class="btn btn-outline-dark"><i class="far fa-eye"></i></a>
                           </div>
                         </div>
                       </div>

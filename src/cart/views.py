@@ -97,5 +97,5 @@ class UpdateCartView(RedirectView):
                     'cart': cart
                 }
             )
-            return reverse_lazy('order:update_order', kwargs={'pk': order.pk})
+            return reverse_lazy('order:update_order')
         return reverse_lazy('cart:cart_index')
