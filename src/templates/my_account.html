@@ -30,7 +30,7 @@
               <a class="nav-link active text-dark" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Информация</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-dark" id="adresses-tab" data-toggle="tab" href="#addresses" role="tab" aria-controls="adresses" aria-selected="false">Адресы</a>
+              <a class="nav-link text-dark" id="adresses-tab" data-toggle="tab" href="#addresses" role="tab" aria-controls="adresses" aria-selected="false">Адресы и карты</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-dark" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Заказы</a>
@@ -197,16 +197,20 @@
                       <div class="card-body">
                         <div class="row">
                           <div class="col-6">
-                            {% for book_in_cart in cart.books.all %}
+                            {% for book_in_cart in cart.books.all|slice:"0:3" %}
                               <a href="/books/{{ book_in_cart.book.pk }}">
                                 <img width="80" src="{{ book_in_cart.book.photo.url }}" alt="">
                               </a>
                             {% endfor %}
+
                           </div>
                           <div class="col-6">
                             Total price: {{ cart.total_price }} BLR. <br>
                             Date order: {{ cart.order.date_add|date:'d.m.Y' }} <br>
                             Date last change: {{ cart.order.date_last_change|date:'d.m.Y' }} <br><br>
+                            {% if cart.books.all.count > 3 %}
+                              and more...
+                            {% endif %}
                             <a href="" class="btn btn-outline-dark"><i class="far fa-eye"></i></a>
                             <a href="" class="btn btn-outline-dark"><i class="far fa-edit"></i></a>
                           </div>

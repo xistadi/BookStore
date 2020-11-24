@@ -86,6 +86,8 @@ class UpdateCartView(RedirectView):
                         raise Http404("Umg puk-puk")
             models.BookInCart.objects.bulk_update(obj_list, ['quantity'])
         else:
+            if cart.books.all().count() <= 0:
+                return reverse_lazy('cart:cart_index')
             # checkout logic
             cart_id = self.request.session.get('cart_id')
             cart = models.Cart.objects.filter(pk=cart_id).first()

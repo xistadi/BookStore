@@ -9,3 +9,12 @@ class OrderUpdateForm(forms.ModelForm):
         fields = [
             'comment',
             ]
+
+
+class OrderDeliveryStatusUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = models.Order
+        fields = [
+            'delivery_status'
+        ]
