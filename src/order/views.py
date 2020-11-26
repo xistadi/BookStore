@@ -64,3 +64,18 @@ class UpdateStatusOrderForManagerView(generic.edit.UpdateView):
 class ListOrderView(generic.ListView):
     model = models.Order
     paginate_by = 10
+
+
+class CancelOrderView(generic.edit.UpdateView):
+    form_class = forms.OrderDeliveryStatusUpdateForm
+    template_name = 'order/update_status_order.html'
+    success_url = reverse_lazy('myaccount')
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delivery_status = 3
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_queryset(self):
+        return models.Order.objects

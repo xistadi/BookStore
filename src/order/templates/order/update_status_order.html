@@ -18,9 +18,9 @@
           </div>
         </article>
         <div class="track">
-          <div class="step {% if object.delivery_status == '2' or object.delivery_status == '3' or object.delivery_status == '4' %} active {% endif %}"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
-          <div class="step {% if object.delivery_status == '3' or object.delivery_status == '4' %} active {% endif %}"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
-          <div class="step {% if object.delivery_status == '4' %} active {% endif %}"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+          <div class="step {% if object.delivery_status == '4' or object.delivery_status == '5' or object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+          <div class="step {% if object.delivery_status == '5' or object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+          <div class="step {% if object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
         </div>
         <hr>
         <ul class="row">
@@ -44,18 +44,9 @@
             <a href="{% url 'myaccount' %}" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
           </div>
           <div class="col-6 text-right">
-            <form action="" method="post">
+            <form action="{% url 'order:cancel_order' object.pk %}" method="post" style="display: inline-block">
             {% csrf_token %}
-              <select name="delivery_status" id="id_delivery_status" class="form-control" style="max-width: 230px; display: inline-block">
-                <option value="1" {% if object.delivery_status == '1' %} selected {% endif %}>В процессе оформления</option>
-
-                <option value="2" {% if object.delivery_status == '2' %} selected {% endif %}>Заказан</option>
-
-                <option value="3" {% if object.delivery_status == '3' %} selected {% endif %}>Доставка</option>
-
-                <option value="4" {% if object.delivery_status == '4' %} selected {% endif %}>Доставлен</option>
-              </select>
-              <button type="submit" class="btn btn-warning" style="margin-top: -5px">submit</button>
+              <button type="submit" class="btn btn-outline-danger">Cancel order</button>
             </form>
           </div>
         </div>

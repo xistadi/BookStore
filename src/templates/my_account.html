@@ -199,7 +199,7 @@
                           <div class="col-6">
                             {% for book_in_cart in cart.books.all|slice:"0:3" %}
                               <a href="/books/{{ book_in_cart.book.pk }}">
-                                <img width="80" {% if object.book.photo %} src="{{ object.book.photo.url }}" {% else %} src="https://via.placeholder.com/2000x3000" {% endif %} alt="">
+                                <img width="80" {% if book_in_cart.book.photo %} src="{{ book_in_cart.book.photo.url }}" {% else %} src="https://via.placeholder.com/2000x3000" {% endif %} alt="">
                               </a>
                             {% endfor %}
 
@@ -212,6 +212,10 @@
                               and more...
                             {% endif %}
                             <a href="{% url 'order:update_order_status' cart.order.pk %}" class="btn btn-outline-dark"><i class="far fa-eye"></i></a>
+                            <form action="{% url 'order:cancel_order' cart.order.pk %}" method="post" style="display: inline-block">
+                            {% csrf_token %}
+                              <button type="submit" class="btn btn-outline-danger">Cancel order</button>
+                            </form>
                           </div>
                         </div>
                       </div>

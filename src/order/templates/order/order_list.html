@@ -40,11 +40,15 @@
                   <select name="delivery_status" id="id_delivery_status" class="form-control" style="max-width: 190px; display: inline-block">
                     <option value="1" {% if obj.delivery_status == '1' %} selected {% endif %}>В процессе оформления</option>
 
-                    <option value="2" {% if obj.delivery_status == '2' %} selected {% endif %}>Заказан</option>
+                    <option value="2" {% if obj.delivery_status == '2' %} selected {% endif %}>На рассмотрении модерации</option>
 
-                    <option value="3" {% if obj.delivery_status == '3' %} selected {% endif %}>Доставка</option>
+                    <option value="3" {% if obj.delivery_status == '3' %} selected {% endif %}>Отменен</option>
 
-                    <option value="4" {% if obj.delivery_status == '4' %} selected {% endif %}>Доставлен</option>
+                    <option value="4" {% if obj.delivery_status == '4' %} selected {% endif %}>Заказан</option>
+
+                    <option value="5" {% if obj.delivery_status == '5' %} selected {% endif %}>Доставка</option>
+
+                    <option value="6" {% if obj.delivery_status == '6' %} selected {% endif %}>Доставлен</option>
                   </select>
                   <button type="submit" class="btn btn-dark" style="margin-top: -5px">submit</button>
                 </form>
