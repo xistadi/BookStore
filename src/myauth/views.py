@@ -164,3 +164,52 @@ class DeleteCreditCartView(generic.DeleteView):
     def get_object(self, queryset=None):
         return get_object_or_404(models.CreditCart, pk=self.request.POST.get('pk'))
 
+
+class ListProfileView(generic.ListView):
+    model = models.Profile
+    paginate_by = 10
+
+
+class ShowProfileByPkView(generic.DetailView):
+    model = User
+    template_name = 'myauth/profile_by_pk.html'
+
+
+class ProfileUpdateByPkView(generic.edit.UpdateView):
+    form_class = forms.UserUpdateForm
+    second_form_class = forms.ProfileUpdateForm
+    template_name = 'profile_update.html'
+    success_url = reverse_lazy('myaccount')
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileUpdateByPkView, self).get_context_data(**kwargs)
+        context['form'] = self.form_class(instance=self.object)
+        context['form2'] = self.second_form_class(instance=self.request.user.profile)
+        return context
+
+    def get(self, request, *args, **kwargs):
+        super(ProfileUpdateByPkView, self).get(request, *args, **kwargs)
+        form = self.form_class
+        form2 = self.second_form_class
+        return self.render_to_response(self.get_context_data(
+            object=self.object, form=form, form2=form2))
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.form_class(request.POST, instance=self.object)
+        form2 = self.second_form_class(request.POST, request.FILES, instance=self.object.profile)
+
+        if form.is_valid() and form2.is_valid():
+            userdata = form.save(commit=False)
+            # used to set the password, but no longer necesarry
+            userdata.save()
+            employeedata = form2.save(commit=False)
+            employeedata.user = userdata
+            employeedata.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response(
+                self.get_context_data(form=form, form2=form2))
+
+    def get_queryset(self):
+        return User.objects

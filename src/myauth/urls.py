@@ -4,7 +4,10 @@ from . import views
 
 urlpatterns = [
     path('', views.MyAccountView.as_view(), name='myaccount'),
+    path('<int:pk>/', views.ShowProfileByPkView.as_view(), name='profile_by_pk'),
+    path('profile_list/', views.ListProfileView.as_view(), name='list_profile'),
     path('update/', views.ProfileUpdateView.as_view(), name='update_profile'),
+    path('update_by_pk/<int:pk>/', views.ProfileUpdateByPkView.as_view(), name='update_profile_by_pk'),
     path('login/', views.MyLoginView.as_view(), name='login'),
     path('logout/', views.MyLogoutView.as_view(), name='logout'),
     path('signup/', views.SignUpView.as_view(), name='signup'),

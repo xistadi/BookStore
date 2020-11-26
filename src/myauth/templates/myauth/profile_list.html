@@ -1,0 +1,44 @@
+{% extends 'customer_base.html' %}
+{% block title %} Список профилей {% endblock %}
+{% block content %}
+  <div id="accordion" class="mt-4 mb-4">
+    {% for obj in object_list %}
+      <div class="card">
+        <div class="card-header" id="heading{{ forloop.counter }}">
+          <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+              {{ obj }}
+            </button>
+          </h5>
+        </div>
+
+        <div id="collapse{{ forloop.counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}" data-parent="#accordion">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-2">
+                <a href="{% url 'profile_by_pk' obj.user.pk %}">
+                  <img width="90" {% if obj.image %} src="{{ obj.image.url }}" {% else %} src="https://via.placeholder.com/300x300" {% endif %}  alt="">
+                </a>
+              </div>
+              <div class="col-4">
+                <span class="font-weight-bold">Name:</span> {{ obj.user.first_name }} {{ obj.user.last_name }}<br>
+                <span class="font-weight-bold">Phone:</span> {{ obj.phone_number }}<br>
+                <span class="font-weight-bold">Email:</span> {{ obj.user.email }}<br>
+              </div>
+              <div class="col-6">
+                Last 3 orders
+                <hr style="margin-top: 5px; margin-bottom: 5px">
+                {% for cart in obj.user.carts.all|slice:"0:3" %}
+                  {% if cart.order %}
+                    <a href="{% url 'order:update_order_status' cart.order.pk %}">{{ cart.order }}</a><br>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% include 'paginator.html' %}
+{% endblock %}
