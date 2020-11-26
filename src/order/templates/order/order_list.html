@@ -28,7 +28,7 @@
                     <img width="60" {% if book_in_cart.book.photo %} src="{{ book_in_cart.book.photo.url }}" {% else %} src="https://via.placeholder.com/2000x3000" {% endif %} alt="">
                   </a>
                 {% endfor %}
-                <a href="{% url 'order:update_order_status' obj.pk %}" class="btn btn-outline-dark btn-block btn-sm">See all order</a>
+                <a href="{% url 'order:update_order_status_manager' obj.pk %}" class="btn btn-outline-dark btn-block btn-sm">See all order</a>
               </div>
               <div class="col-4">
                 Date order: {{ obj.date_add|date:'d.m.Y' }} <br>

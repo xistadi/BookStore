@@ -1,5 +1,6 @@
 from django.db import models
 from references.models import Author, Series, Genre, Publisher
+from myauth import models as myauth_models
 
 
 class Book(models.Model):
@@ -99,3 +100,31 @@ class Book(models.Model):
     class Meta:
         verbose_name = 'Книга'
         verbose_name_plural = 'Книги'
+
+
+class CommentProducts(models.Model):
+    profile = models.ForeignKey(
+        myauth_models.Profile,
+        on_delete=models.PROTECT,
+        related_name='comments'
+    )
+    book = models.ForeignKey(
+        Book,
+        on_delete=models.PROTECT,
+        related_name='comments'
+    )
+    comment = models.TextField(
+        verbose_name='Комментарий',
+        blank=True,
+        null=True
+    )
+    date_add = models.DateTimeField(
+        auto_now=False,
+        auto_now_add=True,
+        verbose_name='Дата внесения в каталог'
+    )
+    date_last_change = models.DateTimeField(
+        auto_now=True,
+        auto_now_add=False,
+        verbose_name='Дата последнего изменения карточки'
+    )

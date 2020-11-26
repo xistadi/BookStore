@@ -12,7 +12,7 @@
         <article class="card">
           <div class="card-body row">
             <div class="col"> <strong>Date order:</strong> <br> {{ object.cart.order.date_add|date:'d.m.Y' }}</div>
-            <div class="col"> <strong>Customer:</strong> <br> {{ object.cart.customer.first_name }} {{ object.cart.customer.last_name }}
+            <div class="col"> <strong>Customer:</strong> <br> <a href="{% url 'profile_by_pk' object.cart.customer.pk %}">{{ object.cart.customer.first_name }} {{ object.cart.customer.last_name }}</a>
               <br> <i class="fa fa-phone"></i> {{ object.cart.customer.profile.phone_number }} </div>
             <div class="col"> <strong>Status:</strong> <br> {{ object.get_delivery_status_display }} </div>
             <div class="col"> <strong>Last change:</strong> <br> {{ object.cart.order.date_last_change|date:'d.m.Y' }} </div>
@@ -51,7 +51,7 @@
         <hr>
         <div class="row">
           <div class="col-6">
-            <a href="{% url 'myaccount' %}" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
+            <a href="{% url 'order:order_list' %}" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
           </div>
           <div class="col-6 text-right">
             <form action="{% url 'order:cancel_order' object.pk %}" method="post" style="display: inline-block">
