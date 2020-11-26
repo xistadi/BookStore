@@ -38,7 +38,7 @@
         <dd class="col-6">{{ object.rating }}</dd>
       </dl>
     </div>
-    <div class="col-4 text-center"><img {% if object.photo %} src="{{ MEDIA_URL }}{{ object.photo.url }}" {% else %} src="https://via.placeholder.com/2000x3000" {% endif %} width="300" alt="Изображение"></div>
+    <div class="col-4 text-center"><img {% if object.photo %} src="{{ object.photo.url }}" {% else %} src="https://via.placeholder.com/2000x3000" {% endif %} width="300" alt="Изображение"></div>
   </div>
 
   {% if user.is_authenticated %}

@@ -1,14 +1,14 @@
-from django.shortcuts import render
-from django.views.generic import edit
+from django.views import generic
 from . import models, forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from cart import views as cart_views
 from cart import models as cart_models
 
 
-class OrderUpdateView(edit.UpdateView):
+class OrderUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
     form_class = forms.OrderUpdateForm
     template_name = 'order/update_order.html'
     success_url = reverse_lazy('myaccount')
@@ -43,10 +43,24 @@ class OrderUpdateView(edit.UpdateView):
         return cart.order
 
 
-class UpdateStatusOrderView(edit.UpdateView):
+class UpdateStatusOrderView(generic.edit.UpdateView):
     form_class = forms.OrderDeliveryStatusUpdateForm
     template_name = 'order/update_status_order.html'
     success_url = reverse_lazy('myaccount')
 
     def get_queryset(self):
         return models.Order.objects
+
+
+class UpdateStatusOrderForManagerView(generic.edit.UpdateView):
+    form_class = forms.OrderDeliveryStatusUpdateForm
+    template_name = 'order/update_status_order.html'
+    success_url = reverse_lazy('order:order_list')
+
+    def get_queryset(self):
+        return models.Order.objects
+
+
+class ListOrderView(generic.ListView):
+    model = models.Order
+    paginate_by = 10

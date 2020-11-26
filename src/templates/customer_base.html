@@ -40,7 +40,7 @@
     </div>
     <div class="border-top border-bottom text-center text-uppercase">
       <a class="p-2 text-dark" href="#">Features</a>
-      <a class="p-2 text-dark" href="#">Enterprise</a>
+      <a class="p-2 text-dark" href="{% url 'order:order_list' %}">Orders</a>
       <a class="p-2 text-dark" href="/books/">Books</a>
       <a class="p-2 text-dark" href="/references/">References</a>
       {% if user.is_authenticated %}

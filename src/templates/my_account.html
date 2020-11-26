@@ -199,7 +199,7 @@
                           <div class="col-6">
                             {% for book_in_cart in cart.books.all|slice:"0:3" %}
                               <a href="/books/{{ book_in_cart.book.pk }}">
-                                <img width="80" src="{{ book_in_cart.book.photo.url }}" alt="">
+                                <img width="80" {% if object.book.photo %} src="{{ object.book.photo.url }}" {% else %} src="https://via.placeholder.com/2000x3000" {% endif %} alt="">
                               </a>
                             {% endfor %}
 
