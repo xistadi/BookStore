@@ -1,6 +1,9 @@
 {% extends 'customer_base.html' %}
 {% block title %}Книга: {{ object.name }}{% endblock %}
-
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'book_comment.css' %}">
+{% endblock %}
 {% block content %}
   <h1>{{ object.name }}</h1><br>
   <div class="row">
@@ -45,5 +48,54 @@
   <a href="/books/update/{{ object.pk }}" class="btn btn-outline-warning">Обновить</a>
   <a href="/books/delete/{{ object.pk }}" class="btn btn-outline-danger">Удалить</a>
   {% endif %}
+<section class="content-item" id="comments">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <form action="{% url 'comment:create_comment' object.pk %}" method="post">
+          {% csrf_token %}
+          <h3 class="pull-left">New Comment</h3>
+            <fieldset>
+              <div class="row">
+                <div class="col-2">
+                  <img class="img-responsive" style="width: 80px" {% if user.profile.image %} src="{{ user.profile.image.url }}" {% else %} src="https://via.placeholder.com/300x300" {% endif %} alt="">
+                </div>
+                <div class="col-10" style="margin-left: -30px;">
+                  <textarea style="resize: none; width: 775px;" name="comment" class="form-control" id="message" placeholder="Your message" required=""></textarea>
+                </div>
+              </div>
+            </fieldset>
+          <button type="submit" class="btn btn-dark pull-right">Submit</button>
+        </form>
 
+        <h3>Comments {{ object.comments.all.count }} </h3>
+
+        <!-- COMMENT - START -->
+        {% for comment in object.comments.all|dictsortreversed:"pk" %}
+          <div class="media">
+            <a class="pull-left" href="{% url 'profile_by_pk' comment.profile.user.pk %}"><img class="media-object" {% if comment.profile.image %} src="{{ comment.profile.image.url }}" {% else %} src="https://via.placeholder.com/300x300" {% endif %} alt=""></a>
+            <div class="media-body">
+              <h4 class="media-heading"><a href="{% url 'profile_by_pk' comment.profile.user.pk %}" class="text-dark">{{ comment.profile.user.first_name }} {{ comment.profile.user.last_name }}</a></h4>
+              <p>{{ comment.comment }}</p>
+              <div class="row">
+                <div class="col">
+                  <span class="text-muted" style="font-size: 13px"><i class="fa fa-calendar"></i> {{ comment.date_last_change }}</span>
+                </div>
+                <div class="col text-right">
+                  <a href="{% url 'comment:update_comment' comment.pk %}" style="margin-top: -5px" class="btn btn-sm btn-secondary">Update</a>
+                  <form method="post" action="{% url 'comment:delete_comment' comment.pk %}" style="display: inline-block">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-dark" style="margin-top: -5px">Delete</button>
+                  </form>
+                </div>
+                </ul>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        <!-- COMMENT - END -->
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

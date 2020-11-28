@@ -5,7 +5,7 @@ app_name = 'products'
 
 urlpatterns = [
     path('', views.ShowBookListView.as_view()),
-    path('<int:pk>/', views.ShowBookByPkView.as_view()),
+    path('<int:pk>/', views.ShowBookByPkView.as_view(), name='book_by_pk'),
     path('create/', views.CreateBookView.as_view()),
     path('update/<int:pk>/', views.UpdateBookView.as_view()),
     path('delete/<int:pk>/', views.DeleteBookView.as_view()),
