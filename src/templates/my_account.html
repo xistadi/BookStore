@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="profile-img">
-          <img {% if user.profile.image %} src="{{ user.profile.image.url }}" {% else %} src="https://via.placeholder.com/300x300" {% endif %} alt=""/>
+          <img style="width: 130px" class="img-circle" {% if user.profile.image %} src="{{ user.profile.image.url }}" {% else %} src="https://via.placeholder.com/300x300" {% endif %} alt=""/>
 <!--          <div class="file btn btn-lg btn-primary">-->
 <!--            Change Photo-->
 <!--            <input type="file" name="file"/>-->
@@ -22,7 +22,7 @@
             {{ user.first_name }} {{ user.last_name }}
           </h5>
           <h6>
-            {{ user.profile.group }}
+            {% if user.is_superuser %}Admin{% elif user.is_staff %}Manager{% else %}Customer{% endif %}
           </h6>
           <!--<p class="proile-rating">RANKINGS : <span>8/10</span></p>-->
           <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -66,14 +66,6 @@
               </div>
               <div class="col-md-6">
                 <p>{{ user.username|default:'Guest' }}</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label>Name</label>
-              </div>
-              <div class="col-md-6">
-                <p>{{ user.first_name }} {{ user.last_name }}</p>
               </div>
             </div>
             <div class="row">
@@ -183,7 +175,7 @@
           <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div id="accordion_order">
               {% for cart in user.carts.all %}
-                {% if cart.order %}
+                {% if cart.order and cart.order.delivery_status != '1' %}
                   <div class="card">
                     <div class="card-header" id="headingOne">
                       <h5 class="mb-0">
@@ -212,10 +204,12 @@
                               and more...
                             {% endif %}
                             <a href="{% url 'order:update_order_status' cart.order.pk %}" class="btn btn-outline-dark"><i class="far fa-eye"></i></a>
-                            <form action="{% url 'order:cancel_order' cart.order.pk %}" method="post" style="display: inline-block">
-                            {% csrf_token %}
-                              <button type="submit" class="btn btn-outline-danger">Cancel order</button>
-                            </form>
+                            {% if cart.order.delivery_status != '3' and cart.order.delivery_status != '6' %}
+                              <form action="{% url 'order:cancel_order' cart.order.pk %}" method="post" style="display: inline-block">
+                              {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger">Cancel order</button>
+                              </form>
+                            {% endif %}
                           </div>
                         </div>
                       </div>

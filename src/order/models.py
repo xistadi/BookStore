@@ -1,5 +1,8 @@
 from django.db import models
 from cart import models as cart_models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.mail import send_mail
 
 
 class Order(models.Model):
@@ -88,3 +91,16 @@ class AddressInOrder(models.Model):
     class Meta:
         verbose_name = 'Профиль адрес в заказе'
         verbose_name_plural = 'Профиль адреса в заказах'
+
+
+@receiver(post_save, sender=Order)
+def send_email(sender, instance, created, **kwargs):
+    if created:
+        send_mail(
+            'Subject here',
+            'Here is the message.',
+            'xistadifirstsitetest@gmail.com',
+            ['xistadi@gmail.com'],
+            fail_silently=False,
+        )
+        print('created')

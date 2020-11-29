@@ -3,13 +3,14 @@ from django.views.generic.base import View
 from .models import CommentProducts
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import redirect
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
 from products.models import Book
 
 from . import forms
 
 
-class CreateCommentView(View):
+class CreateCommentView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         form = forms.CreateCommentForm(request.POST)
         book = Book.objects.get(pk=kwargs.get('pk'))
@@ -25,10 +26,11 @@ class CreateCommentView(View):
         return redirect(f'/books/{book_pk}')
 
 
-class UpdateCommentView(UpdateView):
+class UpdateCommentView(PermissionRequiredMixin, UpdateView):
     model = CommentProducts
     form_class = forms.CreateCommentForm
     template_name = 'comment/update_comment.html'
+    permission_required = 'comment.change_commentproducts'
 
     def get_success_url(self):
         comment = CommentProducts.objects.get(pk=self.kwargs['pk'])
@@ -36,11 +38,14 @@ class UpdateCommentView(UpdateView):
         return reverse_lazy('products:book_by_pk', kwargs={'pk': book_pk})
 
 
-class DeleteCommentView(DeleteView):
+class DeleteCommentView(PermissionRequiredMixin, DeleteView):
     model = CommentProducts
     template_name = 'products/delete_book.html'
+    permission_required = 'comment.delete_commentproducts'
 
     def get_success_url(self):
         comment = CommentProducts.objects.get(pk=self.kwargs['pk'])
         book_pk = comment.book.pk
         return reverse_lazy('products:book_by_pk', kwargs={'pk': book_pk})
+
+

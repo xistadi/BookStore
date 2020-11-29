@@ -26,7 +26,7 @@
       <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/" class="navbar-brand text-secondary">BOOKSTORE</a></h5>
       <nav class="navbar-brand">
         <form class="input-group md-form form-sm form-2 pl-0" action="/books/search" method="get">
-          <input class="form-control my-0 py-1 red-border" type="search" name="search" placeholder="Search" aria-label="Search">
+          <input class="form-control my-0 py-1 red-border" type="search" name="search" placeholder="Search books" aria-label="Search">
           <div class="input-group-append">
             <button type="submit" class="input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search text-grey"
             aria-hidden="true"></i></button>
@@ -38,9 +38,10 @@
         {% else %} guest! | <a class="text-dark" href="/accounts/login/?next={{ request.path }}">Sign in</a>{% endif %}
       </p>
     </div>
+    <p style="font-size: 15px; margin-top: -30px; margin-left: 17px; margin-bottom: 2px" class="text-secondary">{% if user.is_superuser %}Admin{% elif user.is_staff %}Manager{% else %}ᅠ{% endif %}</p>
     <div class="border-top border-bottom text-center text-uppercase">
-      <a class="p-2 text-dark" href="{% url 'list_profile' %}">Accounts</a>
-      <a class="p-2 text-dark" href="{% url 'order:order_list' %}">Orders</a>
+      {% if user.is_staff %}<a class="p-2 text-dark" href="{% url 'list_profile' %}">Accounts</a>{% endif %}
+      {% if user.is_staff %}<a class="p-2 text-dark" href="{% url 'order:order_list' %}">Orders</a>{% endif %}
       <a class="p-2 text-dark" href="/books/">Books</a>
       <a class="p-2 text-dark" href="/references/">References</a>
       {% if user.is_authenticated %}

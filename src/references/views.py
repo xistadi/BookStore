@@ -2,7 +2,7 @@ from .models import Genre, Author, Series, Publisher
 from products.models import Book
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.views.generic.list import MultipleObjectMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from . import forms
 
 
@@ -114,11 +114,12 @@ class ShowPublisherByPkView(DetailView, MultipleObjectMixin):
         return context
 
 
-class CreateGenreView(LoginRequiredMixin, CreateView):
+class CreateGenreView(PermissionRequiredMixin, CreateView):
     model = Genre
     form_class = forms.CreateGenreForm
     template_name = 'references/create_reference.html'
     success_url = '/references/genre'
+    permission_required = 'refereces.add_genre'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -126,11 +127,12 @@ class CreateGenreView(LoginRequiredMixin, CreateView):
         return context
 
 
-class CreateAuthorView(LoginRequiredMixin, CreateView):
+class CreateAuthorView(PermissionRequiredMixin, CreateView):
     model = Author
     form_class = forms.CreateAuthorForm
     template_name = 'references/create_reference.html'
     success_url = '/references/author'
+    permission_required = 'refereces.add_author'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -138,11 +140,12 @@ class CreateAuthorView(LoginRequiredMixin, CreateView):
         return context
 
 
-class CreateSeriesView(LoginRequiredMixin, CreateView):
+class CreateSeriesView(PermissionRequiredMixin, CreateView):
     model = Series
     form_class = forms.CreateSeriesForm
     template_name = 'references/create_reference.html'
     success_url = '/references/series'
+    permission_required = 'refereces.add_series'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -150,11 +153,12 @@ class CreateSeriesView(LoginRequiredMixin, CreateView):
         return context
 
 
-class CreatePublisherView(LoginRequiredMixin, CreateView):
+class CreatePublisherView(PermissionRequiredMixin, CreateView):
     model = Publisher
     form_class = forms.CreatePublisherForm
     template_name = 'references/create_reference.html'
     success_url = '/references/publisher'
+    permission_required = 'refereces.add_publisher'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -162,11 +166,12 @@ class CreatePublisherView(LoginRequiredMixin, CreateView):
         return context
 
 
-class UpdateGenreView(LoginRequiredMixin, UpdateView):
+class UpdateGenreView(PermissionRequiredMixin, UpdateView):
     model = Genre
     form_class = forms.UpdateGenreForm
     success_url = '/references/genre'
     template_name = 'references/update_reference.html'
+    permission_required = 'refereces.change_genre'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -174,11 +179,12 @@ class UpdateGenreView(LoginRequiredMixin, UpdateView):
         return context
 
 
-class UpdateAuthorView(LoginRequiredMixin, UpdateView):
+class UpdateAuthorView(PermissionRequiredMixin, UpdateView):
     model = Author
     form_class = forms.UpdateAuthorForm
     success_url = '/references/author'
     template_name = 'references/update_reference.html'
+    permission_required = 'refereces.change_author'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -186,11 +192,12 @@ class UpdateAuthorView(LoginRequiredMixin, UpdateView):
         return context
 
 
-class UpdateSeriesView(LoginRequiredMixin, UpdateView):
+class UpdateSeriesView(PermissionRequiredMixin, UpdateView):
     model = Series
     form_class = forms.UpdateSeriesForm
     success_url = '/references/series'
     template_name = 'references/update_reference.html'
+    permission_required = 'refereces.change_series'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -198,11 +205,12 @@ class UpdateSeriesView(LoginRequiredMixin, UpdateView):
         return context
 
 
-class UpdatePublisherView(LoginRequiredMixin, UpdateView):
+class UpdatePublisherView(PermissionRequiredMixin, UpdateView):
     model = Publisher
     form_class = forms.UpdatePublisherForm
     success_url = '/references/publisher'
     template_name = 'references/update_reference.html'
+    permission_required = 'refereces.change_publisher'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -210,10 +218,11 @@ class UpdatePublisherView(LoginRequiredMixin, UpdateView):
         return context
 
 
-class DeleteGenreView(LoginRequiredMixin, DeleteView):
+class DeleteGenreView(PermissionRequiredMixin, DeleteView):
     model = Genre
     success_url = '/references/genre'
     template_name = 'references/delete_reference.html'
+    permission_required = 'refereces.delete_genre'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -221,10 +230,11 @@ class DeleteGenreView(LoginRequiredMixin, DeleteView):
         return context
 
 
-class DeleteAuthorView(LoginRequiredMixin, DeleteView):
+class DeleteAuthorView(PermissionRequiredMixin, DeleteView):
     model = Author
     success_url = '/references/author'
     template_name = 'references/delete_reference.html'
+    permission_required = 'refereces.delete_author'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -232,10 +242,11 @@ class DeleteAuthorView(LoginRequiredMixin, DeleteView):
         return context
 
 
-class DeleteSeriesView(LoginRequiredMixin, DeleteView):
+class DeleteSeriesView(PermissionRequiredMixin, DeleteView):
     model = Series
     success_url = '/references/series'
     template_name = 'references/delete_reference.html'
+    permission_required = 'refereces.delete_series'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -243,10 +254,11 @@ class DeleteSeriesView(LoginRequiredMixin, DeleteView):
         return context
 
 
-class DeletePublisherView(LoginRequiredMixin, DeleteView):
+class DeletePublisherView(PermissionRequiredMixin, DeleteView):
     model = Publisher
     success_url = '/references/publisher'
     template_name = 'references/delete_reference.html'
+    permission_required = 'refereces.delete_publisher'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

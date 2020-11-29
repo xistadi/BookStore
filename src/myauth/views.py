@@ -3,8 +3,8 @@ from django.views import generic
 from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import get_object_or_404, redirect
 
 from . import forms, models
 
@@ -47,7 +47,7 @@ class MyAccountView(LoginRequiredMixin, views.TemplateView):
     template_name = 'my_account.html'
 
 
-class ProfileUpdateView(generic.edit.UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
     form_class = forms.UserUpdateForm
     second_form_class = forms.ProfileUpdateForm
     template_name = 'profile_update.html'
@@ -87,7 +87,7 @@ class ProfileUpdateView(generic.edit.UpdateView):
         return self.request.user
 
 
-class CreateProfileAddressView(generic.CreateView):
+class CreateProfileAddressView(LoginRequiredMixin, generic.CreateView):
     form_class = forms.ProfileAddressUpdateForm
     template_name = 'myauth/address_create.html'
     success_url = reverse_lazy('myaccount')
@@ -97,7 +97,7 @@ class CreateProfileAddressView(generic.CreateView):
         return super(CreateProfileAddressView, self).form_valid(form)
 
 
-class DeleteProfileAddressView(generic.DeleteView):
+class DeleteProfileAddressView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'myauth/address_delete.html'
     success_url = reverse_lazy('myaccount')
 
@@ -105,7 +105,7 @@ class DeleteProfileAddressView(generic.DeleteView):
         return get_object_or_404(models.ProfileAddress, pk=self.request.POST.get('pk'))
 
 
-class UpdateProfileAddressView(generic.UpdateView):
+class UpdateProfileAddressView(LoginRequiredMixin, generic.UpdateView):
     form_class = forms.ProfileAddressUpdateForm
     template_name = 'myauth/address_update.html'
     success_url = reverse_lazy('myaccount')
@@ -147,7 +147,7 @@ class UpdateProfileAddressView(generic.UpdateView):
         return self.request.user.profile.profile_address.all()[pk_from_url]
 
 
-class CreateCreditCartView(generic.CreateView):
+class CreateCreditCartView(LoginRequiredMixin, generic.CreateView):
     form_class = forms.CreditCardUpdateForm
     template_name = 'myauth/card_create.html'
     success_url = reverse_lazy('myaccount')
@@ -157,7 +157,7 @@ class CreateCreditCartView(generic.CreateView):
         return super(CreateCreditCartView, self).form_valid(form)
 
 
-class DeleteCreditCartView(generic.DeleteView):
+class DeleteCreditCartView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'myauth/card_delete.html'
     success_url = reverse_lazy('myaccount')
 
@@ -165,17 +165,23 @@ class DeleteCreditCartView(generic.DeleteView):
         return get_object_or_404(models.CreditCart, pk=self.request.POST.get('pk'))
 
 
-class ListProfileView(generic.ListView):
+class ListProfileView(UserPassesTestMixin, generic.ListView):
     model = models.Profile
     paginate_by = 10
 
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        return redirect('login')
+
 
 class ShowProfileByPkView(generic.DetailView):
-    model = User
+    model = models.Profile
     template_name = 'myauth/profile_by_pk.html'
 
 
-class ProfileUpdateByPkView(generic.edit.UpdateView):
+class ProfileUpdateByPkView(UserPassesTestMixin, generic.edit.UpdateView):
     form_class = forms.UserUpdateForm
     second_form_class = forms.ProfileUpdateForm
     template_name = 'profile_update.html'
@@ -213,3 +219,9 @@ class ProfileUpdateByPkView(generic.edit.UpdateView):
 
     def get_queryset(self):
         return User.objects
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        return redirect('login')

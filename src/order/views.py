@@ -2,7 +2,8 @@ from django.views import generic
 from . import models, forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
 from cart import views as cart_views
 from cart import models as cart_models
@@ -43,7 +44,7 @@ class OrderUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
         return cart.order
 
 
-class UpdateStatusOrderView(generic.edit.UpdateView):
+class UpdateStatusOrderView(LoginRequiredMixin, generic.edit.UpdateView):
     form_class = forms.OrderDeliveryStatusUpdateForm
     template_name = 'order/update_status_order.html'
     success_url = reverse_lazy('myaccount')
@@ -52,21 +53,28 @@ class UpdateStatusOrderView(generic.edit.UpdateView):
         return models.Order.objects
 
 
-class UpdateStatusOrderForManagerView(generic.edit.UpdateView):
+class UpdateStatusOrderForManagerView(PermissionRequiredMixin, generic.edit.UpdateView):
     form_class = forms.OrderDeliveryStatusUpdateForm
     template_name = 'order/update_status_order_for_manager.html'
     success_url = reverse_lazy('order:order_list')
+    permission_required = 'order.change_order'
 
     def get_queryset(self):
         return models.Order.objects
 
 
-class ListOrderView(generic.ListView):
+class ListOrderView(UserPassesTestMixin, generic.ListView):
     model = models.Order
     paginate_by = 10
 
+    def test_func(self):
+        return self.request.user.is_staff
 
-class CancelOrderView(generic.edit.UpdateView):
+    def handle_no_permission(self):
+        return redirect('login')
+
+
+class CancelOrderView(LoginRequiredMixin, generic.edit.UpdateView):
     form_class = forms.OrderDeliveryStatusUpdateForm
     template_name = 'order/update_status_order.html'
     success_url = reverse_lazy('myaccount')

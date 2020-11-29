@@ -5,7 +5,7 @@
   {% if object.description %}
     <h4>Описание: {{ object.description }}</h4>
   {% endif %}
-  {% if user.is_authenticated %}<a href="/references/{{ type }}/update/{{ object.pk }}" class="btn btn-outline-warning">Обновить</a> <a href="/references/{{ type }}/delete/{{ object.pk }}" class="btn btn-outline-danger">Удалить</a>{% endif %}<br><br><br><br>
+  {% if user.is_staff %}<a href="/references/{{ type }}/update/{{ object.pk }}" class="btn btn-outline-warning">Обновить</a> <a href="/references/{{ type }}/delete/{{ object.pk }}" class="btn btn-outline-danger">Удалить</a>{% endif %}<br><br><br><br>
   <h3>Книги:</h3>
   <table class="table table-striped text-center">
     <thead>
@@ -30,7 +30,7 @@
             <td>{{ book.number_of_books }} </td>
             <td>{{ book.rating }} </td>
             <td>{% if book.active == True %} <i class="fas fa-check"></i> {% else %} <i class="fas fa-times"></i> {% endif %}</td>
-          <td><a href="/books/{{ book.pk }}" class="btn btn-outline-info"><i class="far fa-eye"></i></a> {% if user.is_authenticated %} <a href="/books/update/{{ book.pk }}" class="btn btn-outline-warning"><i class="far fa-edit"></i></a> <a href="/books/delete/{{ book.pk }}" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></a>{% endif %}</td>
+          <td><a href="/books/{{ book.pk }}" class="btn btn-outline-info"><i class="far fa-eye"></i></a> {% if user.is_staff %} <a href="/books/update/{{ book.pk }}" class="btn btn-outline-warning"><i class="far fa-edit"></i></a> <a href="/books/delete/{{ book.pk }}" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></a>{% endif %}</td>
         </tr>
       {% endfor %}
     </tbody>

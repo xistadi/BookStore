@@ -11,17 +11,21 @@
         <h6>Order ID: {{ object.pk }}</h6>
         <article class="card">
           <div class="card-body row">
-            <div class="col"> <strong>Date order:</strong> <br> {{ object.cart.order.date_add|date:'d.m.Y' }}</div>
+            <div class="col"> <strong>Date order:</strong> <br> {{ object.cart.order.date_add|date:'d.m.Y' }} <br> <strong>Last change:</strong> <br> {{ object.cart.order.date_last_change|date:'d.m.Y' }}</div>
             <div class="col"> <strong>Customer:</strong> <br> {{ object.cart.customer.first_name }} {{ object.cart.customer.last_name }}
               <br> <i class="fa fa-phone"></i> {{ object.cart.customer.profile.phone_number }} </div>
             <div class="col"> <strong>Status:</strong> <br> {{ object.get_delivery_status_display }} </div>
-            <div class="col"> <strong>Last change:</strong> <br> {{ object.cart.order.date_last_change|date:'d.m.Y' }} </div>
+            <div class="col"> <strong>Address:</strong> <br> {{ object.cart.order.address_in_order.all.first.country }}, {{ object.cart.order.address_in_order.all.first.city }}, idnex: {{ object.cart.order.address_in_order.all.first.index }}, {{ object.cart.order.address_in_order.all.first.address1 }}, {{ object.cart.order.address_in_order.all.first.address2 }} </div>
           </div>
         </article>
         <div class="track">
-          <div class="step {% if object.delivery_status == '4' or object.delivery_status == '5' or object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
-          <div class="step {% if object.delivery_status == '5' or object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
-          <div class="step {% if object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+          {% if object.delivery_status == '3' %}
+            <div class="step active"> <span class="icon"> <i class="fas fa-times"></i> </span> <span class="text">Order canceled</span> </div>
+          {% else %}
+            <div class="step {% if object.delivery_status == '4' or object.delivery_status == '5' or object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+            <div class="step {% if object.delivery_status == '5' or object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+            <div class="step {% if object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+          {% endif %}
         </div>
         <hr>
         <ul class="row">
@@ -51,13 +55,15 @@
         <hr>
         <div class="row">
           <div class="col-6">
-            <a href="{% url 'myaccount' %}" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
+            <a href="{% url 'myaccount' %}" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to my account</a>
           </div>
           <div class="col-6 text-right">
+            {% if object.delivery_status != '3' and object.delivery_status != '6' %}
             <form action="{% url 'order:cancel_order' object.pk %}" method="post" style="display: inline-block">
             {% csrf_token %}
               <button type="submit" class="btn btn-outline-danger">Cancel order</button>
             </form>
+            {% endif %}
           </div>
         </div>
       </div>

@@ -43,6 +43,7 @@ MY_APPS = [
 
 THIRD_PARTY_APPS = [
     'crispy_forms',
+    'django_extensions',
 ]
 
 INSTALLED_APPS = [
@@ -144,3 +145,9 @@ STATICFILES_DIRS = (
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'myaccount'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_SSL = False

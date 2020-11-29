@@ -1,8 +1,6 @@
 from django.views.generic import ListView
 from products.models import Book
 import requests
-import itertools
-
 
 
 class ShowBookListView(ListView):

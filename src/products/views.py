@@ -1,6 +1,6 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from . import forms
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from .models import Book
 from django.db.models import Q
 
@@ -15,24 +15,27 @@ class ShowBookByPkView(DetailView):
     template_name = 'products/book.html'
 
 
-class CreateBookView(LoginRequiredMixin, CreateView):
+class CreateBookView(PermissionRequiredMixin, CreateView):
     model = Book
     form_class = forms.CreateBookForm
     template_name = 'products/create_book.html'
     success_url = '/books'
+    permission_required = 'products.add_book'
 
 
-class UpdateBookView(LoginRequiredMixin, UpdateView):
+class UpdateBookView(PermissionRequiredMixin, UpdateView):
     model = Book
     form_class = forms.UpdateBookForm
     template_name = 'products/update_book.html'
     success_url = '/books'
+    permission_required = 'products.update_book'
 
 
-class DeleteBookView(LoginRequiredMixin, DeleteView):
+class DeleteBookView(PermissionRequiredMixin, DeleteView):
     model = Book
     success_url = '/books'
     template_name = 'products/delete_book.html'
+    permission_required = 'products.delete_book'
 
 
 class SearchBookView(ListView):

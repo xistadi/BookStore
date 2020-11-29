@@ -11,11 +11,11 @@
         <h6>Order ID: {{ object.pk }}</h6>
         <article class="card">
           <div class="card-body row">
-            <div class="col"> <strong>Date order:</strong> <br> {{ object.cart.order.date_add|date:'d.m.Y' }}</div>
-            <div class="col"> <strong>Customer:</strong> <br> <a href="{% url 'profile_by_pk' object.cart.customer.pk %}">{{ object.cart.customer.first_name }} {{ object.cart.customer.last_name }}</a>
+            <div class="col"> <strong>Date order:</strong> <br> {{ object.cart.order.date_add|date:'d.m.Y' }} <br> <strong>Last change:</strong> <br> {{ object.cart.order.date_last_change|date:'d.m.Y' }}</div>
+            <div class="col"> <strong>Customer:</strong> <br> <a href="{% url 'profile_by_pk' object.cart.customer.profile.pk %}" class="text-dark">{{ object.cart.customer.first_name }} {{ object.cart.customer.last_name }}</a>
               <br> <i class="fa fa-phone"></i> {{ object.cart.customer.profile.phone_number }} </div>
             <div class="col"> <strong>Status:</strong> <br> {{ object.get_delivery_status_display }} </div>
-            <div class="col"> <strong>Last change:</strong> <br> {{ object.cart.order.date_last_change|date:'d.m.Y' }} </div>
+            <div class="col"> <strong>Address:</strong> <br> {{ object.cart.order.address_in_order.all.first.country }}, {{ object.cart.order.address_in_order.all.first.city }}, idnex: {{ object.cart.order.address_in_order.all.first.index }}, {{ object.cart.order.address_in_order.all.first.address1 }}, {{ object.cart.order.address_in_order.all.first.address2 }} </div>
           </div>
         </article>
         <div class="track">
@@ -54,9 +54,22 @@
             <a href="{% url 'order:order_list' %}" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
           </div>
           <div class="col-6 text-right">
-            <form action="{% url 'order:cancel_order' object.pk %}" method="post" style="display: inline-block">
+            <form action="{% url 'order:update_order_status_manager' object.pk %}" method="post">
             {% csrf_token %}
-              <button type="submit" class="btn btn-outline-danger">Cancel order</button>
+              <select name="delivery_status" id="id_delivery_status" class="form-control" style="max-width: 190px; display: inline-block">
+                <option value="1" {% if object.delivery_status == '1' %} selected {% endif %}>В процессе оформления</option>
+
+                <option value="2" {% if object.delivery_status == '2' %} selected {% endif %}>На рассмотрении модерации</option>
+
+                <option value="3" {% if object.delivery_status == '3' %} selected {% endif %}>Отменен</option>
+
+                <option value="4" {% if object.delivery_status == '4' %} selected {% endif %}>Заказан</option>
+
+                <option value="5" {% if object.delivery_status == '5' %} selected {% endif %}>Доставка</option>
+
+                <option value="6" {% if object.delivery_status == '6' %} selected {% endif %}>Доставлен</option>
+              </select>
+              <button type="submit" class="btn btn-dark" style="margin-top: -5px">submit</button>
             </form>
           </div>
         </div>
