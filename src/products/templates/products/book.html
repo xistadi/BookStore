@@ -3,55 +3,92 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'book_comment.css' %}">
+<link rel="stylesheet" href="{% static 'book.css' %}">
 {% endblock %}
 {% block content %}
-  <h1>{{ object.name }}</h1><br>
+<div class="container mt-5">
   <div class="row">
-    <div class="col-8">
-      <dl class="row">
-        <dt class="col-6">Цена</dt>
-        <dd class="col-6">{{ object.price }}</dd>
-        <dt class="col-6">Автор(ы)</dt>
-        <dd class="col-6">{% for author in object.author.all %}{{ author }} {% endfor %}</dd>
-        <dt class="col-6">Серия</dt>
-        <dd class="col-6">{{ object.series }}</dd>
-        <dt class="col-6">Жанр(ы)</dt>
-        <dd class="col-6">{% for genre in object.genre.all %}{{ genre }} {% endfor %}</dd>
-        <dt class="col-6">Год</dt>
-        <dd class="col-6">{{ object.year }}</dd>
-        <dt class="col-6">Страниц</dt>
-        <dd class="col-6">{{ object.page }}</dd>
-        <dt class="col-6">Переплет</dt>
-        <dd class="col-6">{{ object.binding }}</dd>
-        <dt class="col-6">Формат</dt>
-        <dd class="col-6">{{ object.book_format }}</dd>
-        <dt class="col-6">ISBN</dt>
-        <dd class="col-6">{{ object.isbn }}</dd>
-        <dt class="col-6">Вес</dt>
-        <dd class="col-6">{{ object.weight }}</dd>
-        <dt class="col-6">Возрастное ограничение</dt>
-        <dd class="col-6">{{ object.age_limit }}</dd>
-        <dt class="col-6">Издательство</dt>
-        <dd class="col-6">{{ object.publisher }}</dd>
-        <dt class="col-6">Количество книг в наличии</dt>
-        <dd class="col-6">{{ object.number_of_books }}</dd>
-        <dt class="col-6">Доступен для заказа</dt>
-        <dd class="col-6">{% if book.active == True %} <i class="fas fa-check"></i> {% else %} <i class="fas fa-times"></i> {% endif %}</dd>
-        <dt class="col-6">Рейтинг</dt>
-        <dd class="col-6">{{ object.rating }}</dd>
-      </dl>
+    <div class="col-md-5">
+      <img {% if object.photo %} src="{{ object.photo.url }}" {% else %} src="https://via.placeholder.com/2000x3000" {% endif %} width="300" alt="Изображение">
     </div>
-    <div class="col-4 text-center"><img {% if object.photo %} src="{{ object.photo.url }}" {% else %} src="https://via.placeholder.com/2000x3000" {% endif %} width="300" alt="Изображение"></div>
+    <div class="col-md-7">
+      <div class="product-dtl">
+				<div class="product-info">
+          <div class="product-name">{{ object.name }}</div>
+          <div class="reviews-counter">
+            <div class="rate">
+              <input type="radio" id="star5" name="rate" value="5" checked />
+              <label for="star5" title="text">5 stars</label>
+              <input type="radio" id="star4" name="rate" value="4" checked />
+              <label for="star4" title="text">4 stars</label>
+              <input type="radio" id="star3" name="rate" value="3" checked />
+              <label for="star3" title="text">3 stars</label>
+              <input type="radio" id="star2" name="rate" value="2" />
+              <label for="star2" title="text">2 stars</label>
+              <input type="radio" id="star1" name="rate" value="1" />
+              <label for="star1" title="text">1 star</label>
+            </div>
+            <span>3 Reviews</span>
+          </div>
+          <div class="product-price-discount"><span>{{ object.price }}BLR</span><span class="line-through">$29.00</span></div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <div class="product-count">
+          <label for="quantity">Quantity</label>
+          <form action="#" class="display-flex">
+            <div class="qtyminus">-</div>
+            <input type="text" name="quantity" value="1" class="qty" id="quantity">
+            <div class="qtyplus">+</div>
+          </form>
+          <a href="#" class="round-black-btn">Add to Cart</a><br>
+          <hr>
+          {% if user.is_staff %}
+            <a href="/books/update/{{ object.pk }}" class="btn btn-secondary">Update</a>
+            <a href="/books/delete/{{ object.pk }}" class="btn btn-dark">Delete</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
   </div>
-
-  {% if user.is_staff %}
-  <a href="/books/update/{{ object.pk }}" class="btn btn-outline-warning">Обновить</a>
-  <a href="/books/delete/{{ object.pk }}" class="btn btn-outline-danger">Удалить</a>
-  {% endif %}
-<section class="content-item" id="comments">
-  <div class="container">
-    <div class="row">
-      <div class="col">
+  <div class="product-info-tabs">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">Comments ({{ object.comments.all.count }})</a>
+      </li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+        <dl class="row">
+          <dt class="col-5">Автор(ы)</dt>
+          <dd class="col-7">{% for author in object.author.all %}{{ author }} {% endfor %}</dd>
+          <dt class="col-5">Серия</dt>
+          <dd class="col-7">{{ object.series }}</dd>
+          <dt class="col-5">Жанр(ы)</dt>
+          <dd class="col-7">{% for genre in object.genre.all %}{{ genre }} {% endfor %}</dd>
+          <dt class="col-5">Год</dt>
+          <dd class="col-7">{{ object.year }}</dd>
+          <dt class="col-5">Страниц</dt>
+          <dd class="col-7">{{ object.page }}</dd>
+          <dt class="col-5">Переплет</dt>
+          <dd class="col-7">{{ object.binding }}</dd>
+          <dt class="col-5">Формат</dt>
+          <dd class="col-7">{{ object.book_format }}</dd>
+          <dt class="col-5">ISBN</dt>
+          <dd class="col-7">{{ object.isbn }}</dd>
+          <dt class="col-5">Вес</dt>
+          <dd class="col-7">{{ object.weight }}</dd>
+          <dt class="col-5">Возрастное ограничение</dt>
+          <dd class="col-7">{{ object.age_limit }}</dd>
+          <dt class="col-5">Издательство</dt>
+          <dd class="col-7">{{ object.publisher }}</dd>
+          <dt class="col-5">Количество книг в наличии</dt>
+          <dd class="col-7">{{ object.number_of_books }}</dd>
+        </dl>
+      </div>
+      <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="description-tab">
         {% if user.is_authenticated %}
           <form action="{% url 'comment:create_comment' object.pk %}" method="post">
             {% csrf_token %}
@@ -62,21 +99,19 @@
                     <a href="{% url 'myaccount' %}"><img class="img-responsive" style="width: 80px" {% if user.profile.image %} src="{{ user.profile.image.url }}" {% else %} src="https://via.placeholder.com/300x300" {% endif %} alt=""></a>
                   </div>
                   <div class="col-10" style="margin-left: -30px;">
-                    <textarea style="resize: none; width: 775px;" name="comment" class="form-control" id="message" placeholder="Your message" required=""></textarea>
+                    <textarea style="resize: none; width: 745px;" name="comment" class="form-control" id="message" placeholder="Your message" required=""></textarea>
                   </div>
                 </div>
               </fieldset>
             <button type="submit" class="btn btn-dark pull-right">Submit</button>
+            <br>
           </form>
         {% endif %}
-        <h3>Comments {{ object.comments.all.count }} </h3>
-
-        <!-- COMMENT - START -->
         {% for comment in object.comments.all|dictsortreversed:"pk" %}
           <div class="media">
             <a class="pull-left" {% if comment.profile == user.profile %}href="{% url 'myaccount' %}" {% else %}href="{% url 'profile_by_pk' comment.profile.pk %}" {% endif %}><img class="media-object" {% if comment.profile.image %} src="{{ comment.profile.image.url }}" {% else %} src="https://via.placeholder.com/300x300" {% endif %} alt=""></a>
             <div class="media-body">
-              <h4 class="media-heading"><a {% if comment.profile == user.profile %}href="{% url 'myaccount' %}" {% else %}href="{% url 'profile_by_pk' comment.profile.pk %}" {% endif %}" class="text-dark">{{ comment.profile.user.first_name }} {{ comment.profile.user.last_name }}</a></h4>
+              <h4 class="media-heading"><a {% if comment.profile == user.profile %}href="{% url 'myaccount' %}" {% else %}href="{% url 'profile_by_pk' comment.profile.pk %}" {% endif %} class="text-dark">{{ comment.profile.user.first_name }} {{ comment.profile.user.last_name }}</a></h4>
               <p>{{ comment.comment }}</p>
               <div class="row">
                 <div class="col">
@@ -96,9 +131,8 @@
             </div>
           </div>
         {% endfor %}
-        <!-- COMMENT - END -->
       </div>
     </div>
   </div>
-</section>
+</div>
 {% endblock %}

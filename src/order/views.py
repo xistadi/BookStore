@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
+from django.core.mail import mail_managers
 
 from cart import views as cart_views
 from cart import models as cart_models
@@ -33,6 +34,10 @@ class OrderUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
         if form.is_valid():
             userdata = form.save(commit=False)
             userdata.save()
+            mail_managers(
+                'Subject here',
+                'Here is the message.',
+            )
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.render_to_response(
