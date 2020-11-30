@@ -1,5 +1,6 @@
 from django.db import models
 from references.models import Author, Series, Genre, Publisher
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 from django.urls import reverse_lazy
 
@@ -94,6 +95,20 @@ class Book(models.Model):
         auto_now_add=False,
         verbose_name='Дата последнего изменения карточки'
     )
+    avr_rating = models.SmallIntegerField(
+        default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(5)]
+    )
+
+    def get_rating(self):
+        total = sum(int(comment['stars']) for comment in self.comments.values())
+
+        if self.comments.count() > 0:
+            return int(total / self.comments.count())
+        else:
+            return 0
 
     def __str__(self):
         return f'Книга №{self.pk}, имя: {self.name}.'

@@ -60,6 +60,64 @@
       </div>
     </div>
 
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-md-9">
+          <h3>Рейтинг</h3>
+        </div>
+        <div class="col-md-3">
+          <!-- Controls -->
+          <div class="controls pull-right hidden-xs">
+            <a class="left fa fa-chevron-left btn btn" href="#carouselExampleIndicators1" data-slide="prev"></a>
+            <a class="right fa fa-chevron-right btn" href="#carouselExampleIndicators1" data-slide="next"></a>
+          </div>
+        </div>
+      </div>
+
+      <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="row">
+              {% for obj in most_rated_book_first %}
+               <div class="col-2">
+                 <div class="content">
+                   <a href="/books/{{ obj.pk }}">
+                     <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
+                     <div class="content-details fadeIn-bottom">
+                       <h4>{{ obj.name }}</h4>
+                       <p>Рейтинг: {{ obj.rating }}<br>
+                       Цена: {{ obj.price }}</p>
+                       <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
+                     </div>
+                   </a>
+                 </div>
+               </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="row">
+              {% for obj in most_rated_book_second %}
+                <div class="col-2">
+                  <div class="content">
+                    <a href="/books/{{ obj.pk }}">
+                      <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
+                      <div class="content-details fadeIn-bottom">
+                        <h4>{{ obj.name }}</h4>
+                        <p>Рейтинг: {{ obj.rating }}<br>
+                        Цена: {{ obj.price }}</p>
+                        <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <div class="col-lg-12">
       <div class="row">

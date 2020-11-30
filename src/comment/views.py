@@ -15,13 +15,16 @@ class CreateCommentView(LoginRequiredMixin, View):
         form = forms.CreateCommentForm(request.POST)
         book = Book.objects.get(pk=kwargs.get('pk'))
         profile = self.request.user.profile
+        stars = self.request.POST.get('stars')
         if form.is_valid():
             form = form.save(commit=False)
             form.profile = profile
             form.book = book
+            form.stars = stars
             form.save()
-            print(self.request.POST.get('comment'))
-            print(kwargs.get('pk'))
+            avr = book.get_rating()
+            book.avr_rating = avr
+            book.save()
         book_pk = kwargs.get('pk')
         return redirect(f'/books/{book_pk}')
 
@@ -34,6 +37,12 @@ class UpdateCommentView(PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         comment = CommentProducts.objects.get(pk=self.kwargs['pk'])
+        book = comment.book
+        print(book.avr_rating)
+        avr = book.get_rating()
+        book.avr_rating = avr
+        print(avr)
+        book.save()
         book_pk = comment.book.pk
         return reverse_lazy('products:book_by_pk', kwargs={'pk': book_pk})
 
