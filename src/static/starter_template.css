@@ -1,10 +1,15 @@
 html {
   font-size: 14px;
+
 }
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
+}
+
+body{
+	font-family: 'Open Sans', sans-serif !important;
 }
 
 .container {

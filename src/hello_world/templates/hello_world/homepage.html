@@ -3,6 +3,8 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'homepage.css' %}">
+<link rel="stylesheet" href="{% static 'author_homepage.css' %}">
+<link rel="stylesheet" href="{% static 'book.css' %}">
 {% endblock %}
 {% block exchanges %}
   <marquee behavior="scroll" direction="left" class="mt-1">|
@@ -59,11 +61,142 @@
         </a>
       </div>
     </div>
-
-    <div class="col-lg-12">
+<!--    Best selling-->
+    <div class="col-lg-12 border-bottom border-top pt-1" style="margin-bottom: 25px">
       <div class="row">
         <div class="col-md-9">
-          <h3>Рейтинг</h3>
+          <h3>Best selling</h3>
+        </div>
+        <div class="col-md-3">
+          <!-- Controls -->
+          <div class="controls pull-right hidden-xs">
+            <a class="left fa fa-chevron-left btn btn" href="#carouselExampleIndicators2" data-slide="prev"></a>
+            <a class="right fa fa-chevron-right btn" href="#carouselExampleIndicators2" data-slide="next"></a>
+          </div>
+        </div>
+      </div>
+      <hr style="margin: 0">
+      <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel" style="margin: 15px 0">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="row">
+              {% for obj in most_ordered_book_first %}
+               <div class="col-2">
+                 <div class="content">
+                   <a href="/books/{{ obj.pk }}">
+                     <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
+                     <div class="content-details fadeIn-bottom">
+                       <h4 style="font-size: 18px">{{ obj.name }}</h4>
+                       <p>Price: {{ obj.price }}</p>
+                       <div class="rate" style="padding: 0 0 0 0; margin-left: 11px; margin-top: -20px; margin-bottom: 10px">
+                          <input type="radio" id="star53{{ forloop.counter }}" name="rate3{{ forloop.counter }}" value="5" {% if obj.get_rating == 5 %}checked {% endif %} disabled/>
+                          <label for="star53{{ forloop.counter }}" title="text">5 stars</label>
+                          <input type="radio" id="star43{{ forloop.counter }}" name="rate3{{ forloop.counter }}" value="4" {% if obj.get_rating == 4 %}checked {% endif %} disabled/>
+                          <label for="star43{{ forloop.counter }}" title="text">4 stars</label>
+                          <input type="radio" id="star33{{ forloop.counter }}" name="rate3{{ forloop.counter }}" value="3" {% if obj.get_rating == 3 %}checked {% endif %} disabled/>
+                          <label for="star33{{ forloop.counter }}" title="text">3 stars</label>
+                          <input type="radio" id="star23{{ forloop.counter }}" name="rate3{{ forloop.counter }}" value="2" {% if obj.get_rating == 2 %}checked {% endif %} disabled/>
+                          <label for="star23{{ forloop.counter }}" title="text">2 stars</label>
+                          <input type="radio" id="star13{{ forloop.counter }}" name="rate3{{ forloop.counter }}" value="1" {% if obj.get_rating == 1 %}checked {% endif %} disabled />
+                          <label for="star13{{ forloop.counter }}" title="text">1 star</label>
+                        </div>
+                       <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
+                     </div>
+                   </a>
+                 </div>
+               </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="row">
+              {% for obj in most_ordered_book_second %}
+                <div class="col-2">
+                  <div class="content">
+                    <a href="/books/{{ obj.pk }}">
+                      <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
+                      <div class="content-details fadeIn-bottom">
+                        <h4 style="font-size: 18px">{{ obj.name }}</h4>
+                        <p>Price: {{ obj.price }}</p>
+                        <div class="rate" style="padding: 0 0 0 0; margin-left: 11px; margin-top: -20px; margin-bottom: 10px">
+                          <input type="radio" id="star52{{ forloop.counter }}" name="rate2{{ forloop.counter }}" value="5" {% if obj.get_rating == 5 %}checked {% endif %} disabled/>
+                          <label for="star52{{ forloop.counter }}" title="text">5 stars</label>
+                          <input type="radio" id="star42{{ forloop.counter }}" name="rate2{{ forloop.counter }}" value="4" {% if obj.get_rating == 4 %}checked {% endif %} disabled/>
+                          <label for="star42{{ forloop.counter }}" title="text">4 stars</label>
+                          <input type="radio" id="star32{{ forloop.counter }}" name="rate2{{ forloop.counter }}" value="3" {% if obj.get_rating == 3 %}checked {% endif %} disabled/>
+                          <label for="star32{{ forloop.counter }}" title="text">3 stars</label>
+                          <input type="radio" id="star22{{ forloop.counter }}" name="rate2{{ forloop.counter }}" value="2" {% if obj.get_rating == 2 %}checked {% endif %} disabled/>
+                          <label for="star22{{ forloop.counter }}" title="text">2 stars</label>
+                          <input type="radio" id="star12{{ forloop.counter }}" name="rate2{{ forloop.counter }}" value="1" {% if obj.get_rating == 1 %}checked {% endif %} disabled />
+                          <label for="star12{{ forloop.counter }}" title="text">1 star</label>
+                        </div>
+                        <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--    end Best selling-->
+<!--    Джоан Роулинг-->
+    <div class="row border-bottom pb-4" style="margin-bottom: 25px">
+      <div class="col-4">
+        <section class="team">
+          <div class="grid-xlarge">
+            <div class="team__container">
+              <article style="min-width: 210px">
+                <a class="team__link" href="#" target="_blank">
+                  <div class="team__img-container">
+                    <span class="preloader"></span>
+                    <figure class="team__img">
+                      <img class="absolute-bg" src="http://dl4.joxi.net/drive/2020/12/01/0014/3223/924823/23/d68a98c2d6.jpg" alt=""/>
+                    </figure>
+                   </div>
+                  <div class="team__text">
+                    <h3 class="team__title">Джоан Роулинг</h3>
+                    <span class="team__position">Писательница</span>
+                   </div>
+                </a>
+              </article>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="col-8" style="margin-top: 0px; margin-left: -30px;">
+        <hr>
+        <div class="row">
+          <span style="color: grey" class="text-center">Британская писательница, сценаристка и кинопродюсер, наиболее известная как Author серии романов о Гарри Поттере. Книги о Гарри Поттере получили несколько наград и были проданы в количестве более 500 миллионов экземпляров. Они стали самой продаваемой серией книг в истории и основой для серии фильмов, ставшей третьей по кассовому сбору серией фильмов в истории.</span>
+          {% for obj in most_popular_author.books.all|slice:":4" %}
+            <div class="col-3">
+              <div class="content" style="max-width: 100px; margin-top: 19px">
+                <a href="/books/{{ obj.pk }}">
+                  <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
+                  <div class="content-details fadeIn-bottom">
+                    <p class="content-text" style="margin-bottom: 15px; font-size: 12px">
+                    <span class="text-center" style="font-weight: bold">{{ obj.name }}</span>
+                    Rating: {{ obj.get_rating }} <br>
+                    </p>
+                    <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" style="margin-top: -5px" class="btn btn-outline-light btn-sm"><i class="fas fa-shopping-cart"></i></a>
+                  </div>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <hr>
+      </div>
+    </div>
+<!--    end Джоан Роулинг-->
+    <img src="https://i.imgur.com/kQ3ibfn.png" alt="" style="width: 1200px; margin-bottom: 25px">
+<!--    Rating-->
+    <div class="col-lg-12 border-bottom border-top pt-1" style="margin-bottom: 2px">
+      <div class="row">
+        <div class="col-md-9">
+          <h3>Rating</h3>
         </div>
         <div class="col-md-3">
           <!-- Controls -->
@@ -73,8 +206,8 @@
           </div>
         </div>
       </div>
-
-      <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
+      <hr style="margin: 0">
+      <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel" style="margin: 15px 0">
         <div class="carousel-inner">
           <div class="carousel-item active">
             <div class="row">
@@ -84,10 +217,21 @@
                    <a href="/books/{{ obj.pk }}">
                      <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
                      <div class="content-details fadeIn-bottom">
-                       <h4>{{ obj.name }}</h4>
-                       <p>Рейтинг: {{ obj.rating }}<br>
-                       Цена: {{ obj.price }}</p>
-                       <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
+                        <h4 style="font-size: 18px">{{ obj.name }}</h4>
+                        <p>Price: {{ obj.price }}</p>
+                        <div class="rate" style="padding: 0 0 0 0; margin-left: 11px; margin-top: -20px; margin-bottom: 10px">
+                          <input type="radio" id="star55{{ forloop.counter }}" name="rate5{{ forloop.counter }}" value="5" {% if obj.get_rating == 5 %}checked {% endif %} disabled/>
+                          <label for="star55{{ forloop.counter }}" title="text">5 stars</label>
+                          <input type="radio" id="star45{{ forloop.counter }}" name="rate5{{ forloop.counter }}" value="4" {% if obj.get_rating == 4 %}checked {% endif %} disabled/>
+                          <label for="star45{{ forloop.counter }}" title="text">4 stars</label>
+                          <input type="radio" id="star35{{ forloop.counter }}" name="rate5{{ forloop.counter }}" value="3" {% if obj.get_rating == 3 %}checked {% endif %} disabled/>
+                          <label for="star35{{ forloop.counter }}" title="text">3 stars</label>
+                          <input type="radio" id="star25{{ forloop.counter }}" name="rate5{{ forloop.counter }}" value="2" {% if obj.get_rating == 2 %}checked {% endif %} disabled/>
+                          <label for="star25{{ forloop.counter }}" title="text">2 stars</label>
+                          <input type="radio" id="star15{{ forloop.counter }}" name="rate5{{ forloop.counter }}" value="1" {% if obj.get_rating == 1 %}checked {% endif %} disabled />
+                          <label for="star15{{ forloop.counter }}" title="text">1 star</label>
+                        </div>
+                      <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
                      </div>
                    </a>
                  </div>
@@ -103,9 +247,20 @@
                     <a href="/books/{{ obj.pk }}">
                       <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
                       <div class="content-details fadeIn-bottom">
-                        <h4>{{ obj.name }}</h4>
-                        <p>Рейтинг: {{ obj.rating }}<br>
-                        Цена: {{ obj.price }}</p>
+                        <h4 style="font-size: 18px">{{ obj.name }}</h4>
+                        <p>Price: {{ obj.price }}</p>
+                        <div class="rate" style="padding: 0 0 0 0; margin-left: 11px; margin-top: -20px; margin-bottom: 10px">
+                          <input type="radio" id="star54{{ forloop.counter }}" name="rate4{{ forloop.counter }}" value="5" {% if obj.get_rating == 5 %}checked {% endif %} disabled/>
+                          <label for="star54{{ forloop.counter }}" title="text">5 stars</label>
+                          <input type="radio" id="star44{{ forloop.counter }}" name="rate4{{ forloop.counter }}" value="4" {% if obj.get_rating == 4 %}checked {% endif %} disabled/>
+                          <label for="star44{{ forloop.counter }}" title="text">4 stars</label>
+                          <input type="radio" id="star34{{ forloop.counter }}" name="rate4{{ forloop.counter }}" value="3" {% if obj.get_rating == 3 %}checked {% endif %} disabled/>
+                          <label for="star34{{ forloop.counter }}" title="text">3 stars</label>
+                          <input type="radio" id="star24{{ forloop.counter }}" name="rate4{{ forloop.counter }}" value="2" {% if obj.get_rating == 2 %}checked {% endif %} disabled/>
+                          <label for="star24{{ forloop.counter }}" title="text">2 stars</label>
+                          <input type="radio" id="star14{{ forloop.counter }}" name="rate4{{ forloop.counter }}" value="1" {% if obj.get_rating == 1 %}checked {% endif %} disabled />
+                          <label for="star14{{ forloop.counter }}" title="text">1 star</label>
+                        </div>
                         <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
                       </div>
                     </a>
@@ -117,12 +272,12 @@
         </div>
       </div>
     </div>
-
-
-    <div class="col-lg-12">
+<!--    end Rating-->
+<!--    Most popular-->
+    <div class="col-lg-12 border-bottom pt-1" style="margin-bottom: 25px">
       <div class="row">
         <div class="col-md-9">
-          <h3>Самые популярные книги</h3>
+          <h3>Most popular</h3>
         </div>
         <div class="col-md-3">
           <!-- Controls -->
@@ -132,8 +287,8 @@
           </div>
         </div>
       </div>
-
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <hr style="margin: 0">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="margin: 15px 0">
         <div class="carousel-inner">
           <div class="carousel-item active">
             <div class="row">
@@ -143,11 +298,22 @@
                    <a href="/books/{{ obj.pk }}">
                      <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
                      <div class="content-details fadeIn-bottom">
-                       <h4>{{ obj.name }}</h4>
-                       <p>Рейтинг: {{ obj.rating }}<br>
-                       Цена: {{ obj.price }}</p>
-                       <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
-                     </div>
+                        <h4 style="font-size: 18px">{{ obj.name }}</h4>
+                        <p>Price: {{ obj.price }}</p>
+                        <div class="rate" style="padding: 0 0 0 0; margin-left: 11px; margin-top: -20px; margin-bottom: 10px">
+                          <input type="radio" id="star56{{ forloop.counter }}" name="rate6{{ forloop.counter }}" value="5" {% if obj.get_rating == 5 %}checked {% endif %} disabled/>
+                          <label for="star56{{ forloop.counter }}" title="text">5 stars</label>
+                          <input type="radio" id="star46{{ forloop.counter }}" name="rate6{{ forloop.counter }}" value="4" {% if obj.get_rating == 4 %}checked {% endif %} disabled/>
+                          <label for="star46{{ forloop.counter }}" title="text">4 stars</label>
+                          <input type="radio" id="star36{{ forloop.counter }}" name="rate6{{ forloop.counter }}" value="3" {% if obj.get_rating == 3 %}checked {% endif %} disabled/>
+                          <label for="star36{{ forloop.counter }}" title="text">3 stars</label>
+                          <input type="radio" id="star26{{ forloop.counter }}" name="rate6{{ forloop.counter }}" value="2" {% if obj.get_rating == 2 %}checked {% endif %} disabled/>
+                          <label for="star26{{ forloop.counter }}" title="text">2 stars</label>
+                          <input type="radio" id="star16{{ forloop.counter }}" name="rate6{{ forloop.counter }}" value="1" {% if obj.get_rating == 1 %}checked {% endif %} disabled />
+                          <label for="star16{{ forloop.counter }}" title="text">1 star</label>
+                        </div>
+                        <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
+                      </div>
                    </a>
                  </div>
                </div>
@@ -162,9 +328,20 @@
                     <a href="/books/{{ obj.pk }}">
                       <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
                       <div class="content-details fadeIn-bottom">
-                        <h4>{{ obj.name }}</h4>
-                        <p>Рейтинг: {{ obj.rating }}<br>
-                        Цена: {{ obj.price }}</p>
+                        <h4 style="font-size: 18px">{{ obj.name }}</h4>
+                        <p>Price: {{ obj.price }}</p>
+                        <div class="rate" style="padding: 0 0 0 0; margin-left: 11px; margin-top: -20px; margin-bottom: 10px">
+                          <input type="radio" id="star57{{ forloop.counter }}" name="rate7{{ forloop.counter }}" value="5" {% if obj.get_rating == 5 %}checked {% endif %} disabled/>
+                          <label for="star57{{ forloop.counter }}" title="text">5 stars</label>
+                          <input type="radio" id="star47{{ forloop.counter }}" name="rate7{{ forloop.counter }}" value="4" {% if obj.get_rating == 4 %}checked {% endif %} disabled/>
+                          <label for="star47{{ forloop.counter }}" title="text">4 stars</label>
+                          <input type="radio" id="star37{{ forloop.counter }}" name="rate7{{ forloop.counter }}" value="3" {% if obj.get_rating == 3 %}checked {% endif %} disabled/>
+                          <label for="star37{{ forloop.counter }}" title="text">3 stars</label>
+                          <input type="radio" id="star27{{ forloop.counter }}" name="rate7{{ forloop.counter }}" value="2" {% if obj.get_rating == 2 %}checked {% endif %} disabled/>
+                          <label for="star27{{ forloop.counter }}" title="text">2 stars</label>
+                          <input type="radio" id="star17{{ forloop.counter }}" name="rate7{{ forloop.counter }}" value="1" {% if obj.get_rating == 1 %}checked {% endif %} disabled />
+                          <label for="star17{{ forloop.counter }}" title="text">1 star</label>
+                        </div>
                         <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
                       </div>
                     </a>
@@ -176,9 +353,11 @@
         </div>
       </div>
     </div>
-
-    <div class="col-lg-12">
-      <h3>Последние добавленные книги: </h3>
+<!--    end Most popular-->
+    <img src="https://i.imgur.com/m3LnIdy.png" alt="" style="width: 1200px; margin-bottom: 25px">
+<!--    Recently added books-->
+    <div class="col-lg-12 border-top">
+      <h3 class="border-bottom" style="margin-bottom: 10px; padding: 15px 0">Recently added books: </h3>
       <div class="row new-content">
         {% for obj in object_list %}
           <div class="col-3">
@@ -186,12 +365,23 @@
               <a href="/books/{{ obj.pk }}">
                 <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
                 <div class="content-details fadeIn-bottom">
-                  <h3 class="content-title">{{ obj.name }}</h3>
-                  <p class="content-text">
-                  Автор: {{ obj.author.all.first }} <br>
-                  Рейтинг: {{ obj.rating }} <br>
-                  Цена: {{ obj.price }} BYN</p>
-                  <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
+                  <h3 class="content-title" style="font-size: 30px; margin-bottom: 2px">{{ obj.name }}</h3>
+                  <p class="content-text" style="margin-bottom: 2px; font-size: 15px">
+                  Author: {{ obj.author.all.first }} <br>
+                  Price: {{ obj.price }} BYN</p>
+                  <div class="rate" style="padding-left: 50px; margin-bottom: 10px">
+                    <input type="radio" id="star5{{ forloop.counter }}" name="rate{{ forloop.counter }}" value="5" {% if obj.get_rating == 5 %}checked {% endif %} disabled/>
+                    <label for="star5{{ forloop.counter }}" title="text">5 stars</label>
+                    <input type="radio" id="star4{{ forloop.counter }}" name="rate{{ forloop.counter }}" value="4" {% if obj.get_rating == 4 %}checked {% endif %} disabled/>
+                    <label for="star4{{ forloop.counter }}" title="text">4 stars</label>
+                    <input type="radio" id="star3{{ forloop.counter }}" name="rate{{ forloop.counter }}" value="3" {% if obj.get_rating == 3 %}checked {% endif %} disabled/>
+                    <label for="star3{{ forloop.counter }}" title="text">3 stars</label>
+                    <input type="radio" id="star2{{ forloop.counter }}" name="rate{{ forloop.counter }}" value="2" {% if obj.get_rating == 2 %}checked {% endif %} disabled/>
+                    <label for="star2{{ forloop.counter }}" title="text">2 stars</label>
+                    <input type="radio" id="star1{{ forloop.counter }}" name="rate{{ forloop.counter }}" value="1" {% if obj.get_rating == 1 %}checked {% endif %} disabled />
+                    <label for="star1{{ forloop.counter }}" title="text">1 star</label>
+                  </div>
+                  <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light">Add to card</a>
                 </div>
               </a>
             </div>
@@ -204,4 +394,5 @@
     <!-- /.col-lg-12 -->
   </div>
   <!-- /.row -->
+<!--  end Recently added books-->
 {% endblock %}

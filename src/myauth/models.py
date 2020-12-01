@@ -123,7 +123,6 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         instance.groups.add(Group.objects.get(name='Customers'))
         profile = Profile.objects.create(user=instance)
-        ProfileAddress.objects.create(profile=profile)
 
 
 @receiver(post_save, sender=User)

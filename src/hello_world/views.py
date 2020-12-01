@@ -1,5 +1,6 @@
 from django.views.generic import ListView
 from products.models import Book
+from references.models import Author
 import requests
 
 
@@ -18,9 +19,15 @@ class ShowBookListView(ListView):
         last_some_books_second = Book.objects.order_by('-pk')[6:12]
         most_rated_book_first = Book.objects.order_by('-avr_rating')[:6]
         most_rated_book_second = Book.objects.order_by('-avr_rating')[6:12]
+        most_ordered_book_first = Book.objects.order_by('-number_of_orders')[:6]
+        most_ordered_book_second = Book.objects.order_by('-number_of_orders')[6:12]
+        most_popular_author = Author.objects.all().first()
         context['all_rate'] = all_rate
         context['last_some_books_first'] = last_some_books_first
         context['last_some_books_second'] = last_some_books_second
         context['most_rated_book_first'] = most_rated_book_first
         context['most_rated_book_second'] = most_rated_book_second
+        context['most_ordered_book_first'] = most_ordered_book_first
+        context['most_ordered_book_second'] = most_ordered_book_second
+        context['most_popular_author'] = most_popular_author
         return context

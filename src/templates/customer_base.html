@@ -14,9 +14,11 @@
 
   <!-- Custom styles for this template -->
   {% load static %}
-  <link rel="stylesheet" href="{% static 'starter_template.css' %}">
   <link rel="stylesheet" href="{% static 'nprogress.css' %}">
   <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/kczaLzs.png"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'starter_template.css' %}">
   {% block css %}{% endblock %}
 </head>
   <!--Navigation-->
@@ -43,11 +45,12 @@
       {% if user.is_staff %}<a class="p-2 text-dark" href="{% url 'list_profile' %}">Accounts</a>{% endif %}
       {% if user.is_staff %}<a class="p-2 text-dark" href="{% url 'order:order_list' %}">Orders</a>{% endif %}
       <a class="p-2 text-dark" href="/books/">Books</a>
-      <a class="p-2 text-dark" href="/references/">References</a>
-      {% if user.is_authenticated %}
-        <a class="p-2 text-dark" href="/accounts/">MyAccount</a>
-      {% endif %}
-      </div>
+      <a class="p-2 text-dark" href="/references/genre/">Genres</a>
+      <a class="p-2 text-dark" href="/references/author/">Authors</a>
+      <a class="p-2 text-dark" href="/references/series/">Series</a>
+      <a class="p-2 text-dark" href="/references/publisher/">Publishers</a>
+      <a class="p-2 text-danger" href="#">Sales</a>
+    </div>
     {% block exchanges %}
     {% endblock %}
   </div>

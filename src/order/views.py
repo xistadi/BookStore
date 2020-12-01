@@ -38,6 +38,10 @@ class OrderUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
                 'Subject here',
                 'Here is the message.',
             )
+            print(self.object.cart.books.all())
+            for book_from_cart in self.object.cart.books.all():
+                book_from_cart.book.number_of_orders += 1
+                book_from_cart.book.save()
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.render_to_response(

@@ -81,9 +81,9 @@ class Book(models.Model):
     active = models.BooleanField(
         verbose_name='Активный (доступен для заказа, Да/Нет)'
     )
-    rating = models.PositiveIntegerField(
+    number_of_orders = models.PositiveIntegerField(
         default=0,
-        verbose_name='Рейтинг (0 - 10)'
+        verbose_name='Количество заказазов'
     )
     date_add = models.DateTimeField(
         auto_now=False,
@@ -96,6 +96,7 @@ class Book(models.Model):
         verbose_name='Дата последнего изменения карточки'
     )
     avr_rating = models.SmallIntegerField(
+        verbose_name='Средний рейтинг',
         default=0,
         validators=[
             MinValueValidator(0),
