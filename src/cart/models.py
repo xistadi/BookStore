@@ -24,11 +24,17 @@ class Cart(models.Model):
         auto_now_add=False,
         verbose_name='Дата последнего изменения корзины'
     )
+    coupon_percent = models.PositiveIntegerField(
+        verbose_name='Процент скидки %',
+        default=0
+    )
 
     def total_price(self):
         price = 0
         for book_in_cart in self.books.all():
             price += book_in_cart.price
+        if self.coupon_percent != 0:
+            price = price - ((price * self.coupon_percent)/100)
         return price
 
     def __str__(self):

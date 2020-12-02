@@ -1,0 +1,27 @@
+{% extends 'customer_base.html' %}
+{% block title %} Список книг {% endblock %}
+{% block content %}
+  <table class="table table-striped text-center mt-5" >
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Название купона</th>
+        <th scope="col">Процент скидки</th>
+        <th scope="col">Активен</th>
+        <th {% if user.is_staff %} scope="col"><a href="create/" class="btn btn-outline-success"><i class="far fa-plus-square"></i></a>{% else %}-</th>{% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for obj in object_list %}
+      <tr>
+        <th scope="row">{{ obj.pk }}</th>
+        <td>{{ obj.name }} </td>
+        <td>{{ obj.percent }}% </td>
+        <td>{% if obj.active == True %} <i class="fas fa-check"></i> {% else %} <i class="fas fa-times"></i> {% endif %} </td>
+        <td><a href="update/{{ obj.pk }}" class="btn btn-outline-warning"><i class="far fa-edit"></i></a> <a href="delete/{{ obj.pk }}" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% include 'paginator.html' %}
+{% endblock %}

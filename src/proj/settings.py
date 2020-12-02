@@ -39,6 +39,7 @@ MY_APPS = [
     'cart',
     'order',
     'comment',
+    'coupon',
 ]
 
 THIRD_PARTY_APPS = [
