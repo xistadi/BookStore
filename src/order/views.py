@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-from django.core.mail import mail_managers
+from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth.models import User
 
@@ -37,12 +37,15 @@ class OrderUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
         if form.is_valid():
             userdata = form.save(commit=False)
             userdata.save()
-            mail_managers(
-                'Subject here',
-                'Here is the message.',
-            )
+            for manager in User.objects.filter(is_staff=True).all():
+                send_mail(
+                    'New order',
+                    'Here is the message.',
+                    'xistadifirstsitetest@gmail.com',
+                    [f'{manager.email}'],
+                    fail_silently=False,
+                )
             messages.success(request, "Отлично! Заказ оформлен!")
-            print(self.object.cart.books.all())
             for book_from_cart in self.object.cart.books.all():
                 book_from_cart.book.number_of_orders += 1
                 book_from_cart.book.save()
