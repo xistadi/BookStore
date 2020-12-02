@@ -150,4 +150,4 @@ class UpdateOrderForManagerByPkView(PermissionRequiredMixin, generic.UpdateView)
     form_class = forms.OrderUpdateForManagersForm
     template_name = 'order/update_order_by_pk.html'
     success_url = '/order/order_list/'
-    permission_required = 'order.update_order'
+    permission_required = 'order.change_order'

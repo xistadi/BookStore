@@ -32,7 +32,7 @@ class UpdateBookView(PermissionRequiredMixin, UpdateView):
     form_class = forms.UpdateBookForm
     template_name = 'products/update_book.html'
     success_url = '/books'
-    permission_required = 'products.update_book'
+    permission_required = 'products.change_book'
 
 
 class DeleteBookView(PermissionRequiredMixin, DeleteView):
