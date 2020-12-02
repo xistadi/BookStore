@@ -173,7 +173,7 @@ class DeleteCreditCartView(LoginRequiredMixin, generic.DeleteView):
 
 class ListProfileView(UserPassesTestMixin, generic.ListView):
     """Показываем список профилей"""
-    model = models.Profile
+    queryset = models.Profile.objects.order_by('-pk')
     paginate_by = 10
 
     def test_func(self):

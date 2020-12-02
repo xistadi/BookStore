@@ -83,7 +83,7 @@ class UpdateStatusOrderForManagerView(PermissionRequiredMixin, generic.edit.Upda
 
 class ListOrderView(UserPassesTestMixin, generic.ListView):
     """Показываем список заказов"""
-    model = models.Order
+    queryset = models.Order.objects.order_by('-pk')
     paginate_by = 10
 
     def test_func(self):
