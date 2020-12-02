@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Coupon(models.Model):
@@ -7,7 +8,11 @@ class Coupon(models.Model):
         max_length=9
     )
     percent = models.PositiveIntegerField(
-        verbose_name='Процент скидки %'
+        verbose_name='Процент скидки %',
+        validators=[
+            MaxValueValidator(100),
+            MinValueValidator(5)
+        ]
     )
     active = models.BooleanField(
         verbose_name='Активный (Да/Нет)',

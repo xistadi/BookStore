@@ -1,4 +1,4 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from products.models import Book
 from references.models import Author
 import requests
@@ -32,3 +32,7 @@ class ShowBookListView(ListView):
         context['most_ordered_book_second'] = most_ordered_book_second
         context['most_popular_author'] = most_popular_author
         return context
+
+
+class ShowSales(TemplateView):
+    template_name = 'hello_world/sales.html'

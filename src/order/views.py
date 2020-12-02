@@ -142,3 +142,12 @@ class OrderUpdateByPkView(LoginRequiredMixin, generic.edit.UpdateView):
         cart_id = self.request.session.get('cart_id')
         cart = cart_models.Cart.objects.filter(pk=cart_id).first()
         return cart.order
+
+
+class UpdateOrderForManagerByPkView(PermissionRequiredMixin, generic.UpdateView):
+    """Обновляем заказ для менеджера"""
+    model = models.Order
+    form_class = forms.OrderUpdateForManagersForm
+    template_name = 'order/update_order_by_pk.html'
+    success_url = '/order/order_list/'
+    permission_required = 'order.update_order'

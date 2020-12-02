@@ -1,0 +1,176 @@
+{% extends 'customer_base.html' %}
+{% block title %}BOOSTORE{% endblock %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'sales.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<img src="https://i.imgur.com/MvLol8X.jpg" width="930px" alt="" class="mt-2">
+<section id="labels">
+  <div class="container">
+	<div class="row">
+        <div class="col-sm-6 col-md-3">
+          <div class="dl">
+            <div class="discount alizarin mt-4">
+                30%
+                <div class="type">
+                    off
+                </div>
+            </div>
+            <div class="coupon midnight-blue">
+                <a data-toggle="collapse" href="#code-1" class="open-code">Get a code</a>
+                <div id="code-1" class="collapse code">
+                    LV5MAY14
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div  class="dl">
+            <div class="discount emerald mt-4">
+                50%
+                <div class="type">
+                    off
+                </div>
+            </div>
+            <div class="coupon midnight-blue">
+                <a data-toggle="collapse" href="#code-2" class="open-code">Get a code</a>
+                <div id="code-2" class="collapse in code">
+                    MNO123ST
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div  class="dl">
+            <div class="discount peter-river mt-4">
+            15%
+                <div class="type">
+                    off
+                </div>
+            </div>
+            <div class="coupon midnight-blue">
+                <a data-toggle="collapse" href="#code-3" class="open-code">Get a code</a>
+                <div id="code-3" class="collapse code">
+                    OLV4SY3R
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div  class="dl">
+            <div class="discount amethyst mt-4">
+                25%
+                <div class="type">
+                    off
+                </div>
+            </div>
+            <div class="coupon midnight-blue">
+                <a data-toggle="collapse" href="#code-4" class="open-code">Get a code</a>
+                <div id="code-4" class="collapse code">
+                    ZUY4OPLQ
+                </div>
+            </div>
+          </div>
+        </div>
+	</div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+<div class="">
+    <div class="container-fluid mt-5">
+        <div class="row justify-content-center">
+            <div class="">
+                <div class="container-fluid rounded-0 border-0 mt-4">
+                    <div class="row">
+                        <div class="col-md-4 bg-black">
+                            <div class="card rounded-0 border-0 card1">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12 col-10">
+                                        <h2 id="summer">winter</h2>
+                                    </div>
+                                    <div class="col-md-12 col-10">
+                                        <h2 id="sale">sale</h2>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12 col-10">
+                                        <h2 id="saveupto">save up to</h2>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-11">
+                                        <div class="row justify-content-left">
+                                            <div class="col-md-6 col-6 text-right">
+                                                <h2 id="thirty" class="">30</h2>
+                                            </div>
+                                            <div class="col-1 px-0"></div>
+                                            <div class="col-4 text-left">
+                                                <div class="row d-flex">
+                                                    <p id="percent">%</p>
+                                                </div>
+                                                <div class="row d-flex">
+                                                    <p id="off">OFF</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <p id="instore">in stores & online</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 bg-white">
+                            <form class="">
+                                <div class="card rounded-0 border-0 card2">
+                                    <div class="row justify-content-center">
+                                        <div class="col-11">
+                                            <h4 class="subhead1 text-center">enter your email below to unlock</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-11">
+                                            <h3 class="subhead2 text-center">where should we send your 30% off?</h3>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-10 col-11">
+                                            <div class="form-group row">
+                                                <div class="col-md-12"> <input id="email" type="email" placeholder="Email your email here" class="form-control input-box rm-border"> </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-md-12"> <input type="submit" value="GET MY $10 OFF" class="btn btn-red rm-border btn-block"> </div>
+                                            </div>
+                                            <div class="form-group row justify-content-center mb-0">
+                                                <div class="col-md-12 px-3 mt-4"> <a href="#">
+                                                        <p class="thanks">no thanks</p>
+                                                    </a> </div>
+                                            </div>
+                                            <div class="form-group row justify-content-center mb-0">
+                                                <div class="col-md-10 px-3">
+                                                    <p class="conditions">First time registereants only. *$10 off on $25+ orders, and entering your email also makes you eligible to receive future promotional emails.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

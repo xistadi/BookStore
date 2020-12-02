@@ -40,8 +40,9 @@
         {% else %} guest! | <a class="text-dark" href="/accounts/login/?next={{ request.path }}">Sign in</a>{% endif %}
       </p>
     </div>
-    <p style="font-size: 15px; margin-top: -30px; margin-left: 17px; margin-bottom: 2px" class="text-secondary">{% if user.is_superuser %}Admin{% elif user.is_staff %}Manager{% else %}ᅠ{% endif %}</p>
-    <div class="border-top border-bottom text-center text-uppercase">
+    <p style="font-size: 15px; margin-top: -30px; margin-left: 17px; margin-bottom: 2px" class="text-secondary">{% if user.is_superuser %}Admin{% elif user.is_staff %}Manager{% else %}ᅠ{% endif %}
+      </p><img width="25px" style="margin: -120px 0 0 3px; transform: rotate(350deg); padding: 0"  src="https://i.imgur.com/H2Mpvk7.png" alt="">
+    <div class="border-top border-bottom text-center text-uppercase" style="margin-top: -15px">
       {% if user.is_staff %}<a class="text-dark button" href="{% url 'list_profile' %}"><span class="p-2 pl-4 pr-4">Accounts</span></a>{% endif %}
       {% if user.is_staff %}<a class="text-dark button" href="{% url 'order:order_list' %}"><span class="p-2 pl-4 pr-4">Orders</span></a>{% endif %}
       {% if user.is_staff %}<a class="text-dark button" href="{% url 'coupon:list_coupon' %}"><span class="p-2 pl-4 pr-4">Coupons</span></a>{% endif %}
@@ -50,7 +51,7 @@
       <a class="text-dark button" href="/references/author/"><span class="p-2 pl-4 pr-4">Authors</span></a>
       <a class="text-dark button" href="/references/series/"><span class="p-2 pl-4 pr-4">Series</span></a>
       <a class="text-dark button" href="/references/publisher/"><span class="p-2 pl-4 pr-4">Publishers</span></a>
-      <a class="text-danger button" href="#"><span class="p-2 pl-4 pr-4">Sales</span></a>
+      <a class="text-danger button" href="/sales/"><span class="p-2 pl-4 pr-4">Sales</span></a>
     </div>
     {% block exchanges %}
     {% endblock %}

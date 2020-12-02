@@ -18,3 +18,10 @@ class OrderDeliveryStatusUpdateForm(forms.ModelForm):
         fields = [
             'delivery_status'
         ]
+
+
+class OrderUpdateForManagersForm(forms.ModelForm):
+
+    class Meta:
+        model = models.Order
+        fields = ('__all__')

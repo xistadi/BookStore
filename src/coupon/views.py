@@ -3,7 +3,7 @@ from django.views.generic.base import View
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from django.shortcuts import redirect
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin
 
 from . import models
 from cart.models import Cart
@@ -56,7 +56,13 @@ class DeleteCouponView(PermissionRequiredMixin, DeleteView):
     permission_required = 'coupon.delete_coupon'
 
 
-class ShowCouponListView(ListView):
+class ShowCouponListView(UserPassesTestMixin, ListView):
     """Показываем список купонов"""
     model = models.Coupon
     paginate_by = 20
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        return redirect('login')
