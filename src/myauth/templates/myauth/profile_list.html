@@ -7,7 +7,7 @@
         <div class="card-header" id="heading{{ forloop.counter }}">
           <h5 class="mb-0">
             <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
-              {{ obj }}
+              <span class="text-dark">{{ obj }}</span>
             </button>
           </h5>
         </div>
@@ -30,7 +30,7 @@
                 <hr style="margin-top: 5px; margin-bottom: 5px">
                 {% for cart in obj.user.carts.all|slice:"0:3" %}
                   {% if cart.order %}
-                    <a href="{% url 'order:update_order_status' cart.order.pk %}">{{ cart.order }}</a><br>
+                    <a href="{% url 'order:update_order_status_manager' cart.order.pk %}"><span class="text-dark">{{ cart.order }}</span></a><br>
                   {% endif %}
                 {% endfor %}
               </div>

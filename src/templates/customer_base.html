@@ -42,14 +42,14 @@
     </div>
     <p style="font-size: 15px; margin-top: -30px; margin-left: 17px; margin-bottom: 2px" class="text-secondary">{% if user.is_superuser %}Admin{% elif user.is_staff %}Manager{% else %}ᅠ{% endif %}</p>
     <div class="border-top border-bottom text-center text-uppercase">
-      {% if user.is_staff %}<a class="p-2 text-dark" href="{% url 'list_profile' %}">Accounts</a>{% endif %}
-      {% if user.is_staff %}<a class="p-2 text-dark" href="{% url 'order:order_list' %}">Orders</a>{% endif %}
-      <a class="p-2 text-dark" href="/books/">Books</a>
-      <a class="p-2 text-dark" href="/references/genre/">Genres</a>
-      <a class="p-2 text-dark" href="/references/author/">Authors</a>
-      <a class="p-2 text-dark" href="/references/series/">Series</a>
-      <a class="p-2 text-dark" href="/references/publisher/">Publishers</a>
-      <a class="p-2 text-danger" href="#">Sales</a>
+      {% if user.is_staff %}<a class="text-dark button" href="{% url 'list_profile' %}"><span class="p-2 pl-4 pr-4">Accounts</span></a>{% endif %}
+      {% if user.is_staff %}<a class="text-dark button" href="{% url 'order:order_list' %}"><span class="p-2 pl-4 pr-4">Orders</span></a>{% endif %}
+      <a class="text-dark button" href="/books/"><span class="p-2 pl-4 pr-4">Books</span></a>
+      <a class="text-dark button" href="/references/genre/"><span class="p-2 pl-4 pr-4">Genres</span></a>
+      <a class="text-dark button" href="/references/author/"><span class="p-2 pl-4 pr-4">Authors</span></a>
+      <a class="text-dark button" href="/references/series/"><span class="p-2 pl-4 pr-4">Series</span></a>
+      <a class="text-dark button" href="/references/publisher/"><span class="p-2 pl-4 pr-4">Publishers</span></a>
+      <a class="text-danger button" href="#"><span class="p-2 pl-4 pr-4">Sales</span></a>
     </div>
     {% block exchanges %}
     {% endblock %}

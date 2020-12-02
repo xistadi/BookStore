@@ -7,12 +7,14 @@ from order import models as order_models
 
 
 def create_cart(user, session):
+    """Создаем корзину"""
     cart = models.Cart.objects.create(customer=user)
     session['cart_id'] = cart.pk
     return cart
 
 
 class CartView(TemplateView):
+    """Логика корзины"""
     template_name = 'cart/cart_index.html'
     
     def get_context_data(self, **kwargs):
@@ -58,12 +60,14 @@ class CartView(TemplateView):
 
 
 class DeleteBookInCartView(DeleteView):
+    """Удаляем корзину"""
     model = models.BookInCart
     template_name = 'cart/delete_book_in_cart.html'
     success_url = reverse_lazy('cart:cart_index')
 
 
 class UpdateCartView(RedirectView):
+    """Обновляем корзину"""
     def get_redirect_url(self):
         cart_id = self.request.session.get('cart_id')
         user = self.request.user

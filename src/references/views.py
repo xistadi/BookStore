@@ -7,6 +7,7 @@ from . import forms
 
 
 class ShowReferencesView(TemplateView):
+    """Показываем список словарей"""
     template_name = 'references/all_references_list.html'
 
     def get_context_data(self, **kwargs):
@@ -23,6 +24,7 @@ class ShowReferencesView(TemplateView):
 
 
 class ShowGenreListView(ListView):
+    """Показываем список жанров"""
     model = Genre
     template_name = 'references/ref_list.html'
     paginate_by = 10
@@ -34,6 +36,7 @@ class ShowGenreListView(ListView):
 
 
 class ShowAuthorListView(ListView):
+    """Показываем список авторов"""
     model = Author
     template_name = 'references/ref_list.html'
     paginate_by = 10
@@ -45,6 +48,7 @@ class ShowAuthorListView(ListView):
 
 
 class ShowSeriesListView(ListView):
+    """Показываем список серий книг"""
     model = Series
     template_name = 'references/ref_list.html'
     paginate_by = 10
@@ -56,6 +60,7 @@ class ShowSeriesListView(ListView):
 
 
 class ShowPublisherListView(ListView):
+    """Показываем список издательств"""
     model = Publisher
     template_name = 'references/ref_list.html'
     paginate_by = 10
@@ -67,6 +72,7 @@ class ShowPublisherListView(ListView):
 
 
 class ShowGenreByPkView(DetailView, MultipleObjectMixin):
+    """Показываем жанр по pk"""
     model = Genre
     paginate_by = 5
     template_name = 'references/ref_by_pk.html'
@@ -79,6 +85,7 @@ class ShowGenreByPkView(DetailView, MultipleObjectMixin):
 
 
 class ShowAuthorByPkView(DetailView, MultipleObjectMixin):
+    """Показываем автора по pk"""
     model = Author
     paginate_by = 5
     template_name = 'references/ref_by_pk.html'
@@ -91,6 +98,7 @@ class ShowAuthorByPkView(DetailView, MultipleObjectMixin):
 
 
 class ShowSeriesByPkView(DetailView, MultipleObjectMixin):
+    """Показываем серию по pk"""
     model = Series
     paginate_by = 5
     template_name = 'references/ref_by_pk.html'
@@ -103,6 +111,7 @@ class ShowSeriesByPkView(DetailView, MultipleObjectMixin):
 
 
 class ShowPublisherByPkView(DetailView, MultipleObjectMixin):
+    """Показываем издательсво по pk"""
     model = Publisher
     paginate_by = 5
     template_name = 'references/ref_by_pk.html'
@@ -115,6 +124,7 @@ class ShowPublisherByPkView(DetailView, MultipleObjectMixin):
 
 
 class CreateGenreView(PermissionRequiredMixin, CreateView):
+    """Создаем жанр"""
     model = Genre
     form_class = forms.CreateGenreForm
     template_name = 'references/create_reference.html'
@@ -128,6 +138,7 @@ class CreateGenreView(PermissionRequiredMixin, CreateView):
 
 
 class CreateAuthorView(PermissionRequiredMixin, CreateView):
+    """Создаем автора"""
     model = Author
     form_class = forms.CreateAuthorForm
     template_name = 'references/create_reference.html'
@@ -141,6 +152,7 @@ class CreateAuthorView(PermissionRequiredMixin, CreateView):
 
 
 class CreateSeriesView(PermissionRequiredMixin, CreateView):
+    """Создаем серию книг"""
     model = Series
     form_class = forms.CreateSeriesForm
     template_name = 'references/create_reference.html'
@@ -154,6 +166,7 @@ class CreateSeriesView(PermissionRequiredMixin, CreateView):
 
 
 class CreatePublisherView(PermissionRequiredMixin, CreateView):
+    """Создаем издательство"""
     model = Publisher
     form_class = forms.CreatePublisherForm
     template_name = 'references/create_reference.html'
@@ -167,6 +180,7 @@ class CreatePublisherView(PermissionRequiredMixin, CreateView):
 
 
 class UpdateGenreView(PermissionRequiredMixin, UpdateView):
+    """Обновляем жанр"""
     model = Genre
     form_class = forms.UpdateGenreForm
     success_url = '/references/genre'
@@ -180,6 +194,7 @@ class UpdateGenreView(PermissionRequiredMixin, UpdateView):
 
 
 class UpdateAuthorView(PermissionRequiredMixin, UpdateView):
+    """Обновляем автора"""
     model = Author
     form_class = forms.UpdateAuthorForm
     success_url = '/references/author'
@@ -193,6 +208,7 @@ class UpdateAuthorView(PermissionRequiredMixin, UpdateView):
 
 
 class UpdateSeriesView(PermissionRequiredMixin, UpdateView):
+    """Обновляем серию книг"""
     model = Series
     form_class = forms.UpdateSeriesForm
     success_url = '/references/series'
@@ -206,6 +222,7 @@ class UpdateSeriesView(PermissionRequiredMixin, UpdateView):
 
 
 class UpdatePublisherView(PermissionRequiredMixin, UpdateView):
+    """Обновляем издательство"""
     model = Publisher
     form_class = forms.UpdatePublisherForm
     success_url = '/references/publisher'
@@ -219,6 +236,7 @@ class UpdatePublisherView(PermissionRequiredMixin, UpdateView):
 
 
 class DeleteGenreView(PermissionRequiredMixin, DeleteView):
+    """Удаляем жанр"""
     model = Genre
     success_url = '/references/genre'
     template_name = 'references/delete_reference.html'
@@ -231,6 +249,7 @@ class DeleteGenreView(PermissionRequiredMixin, DeleteView):
 
 
 class DeleteAuthorView(PermissionRequiredMixin, DeleteView):
+    """Удаляем автора"""
     model = Author
     success_url = '/references/author'
     template_name = 'references/delete_reference.html'
@@ -243,6 +262,7 @@ class DeleteAuthorView(PermissionRequiredMixin, DeleteView):
 
 
 class DeleteSeriesView(PermissionRequiredMixin, DeleteView):
+    """Удаляем серию"""
     model = Series
     success_url = '/references/series'
     template_name = 'references/delete_reference.html'
@@ -255,6 +275,7 @@ class DeleteSeriesView(PermissionRequiredMixin, DeleteView):
 
 
 class DeletePublisherView(PermissionRequiredMixin, DeleteView):
+    """Удаляем издательсво"""
     model = Publisher
     success_url = '/references/publisher'
     template_name = 'references/delete_reference.html'

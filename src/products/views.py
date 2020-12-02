@@ -6,16 +6,19 @@ from django.db.models import Q
 
 
 class ShowBookListView(ListView):
+    """Показываем список книг"""
     model = Book
     paginate_by = 10
 
 
 class ShowBookByPkView(DetailView):
+    """Показываем книгу по pk"""
     model = Book
     template_name = 'products/book.html'
 
 
 class CreateBookView(PermissionRequiredMixin, CreateView):
+    """Создаем книгу"""
     model = Book
     form_class = forms.CreateBookForm
     template_name = 'products/create_book.html'
@@ -24,6 +27,7 @@ class CreateBookView(PermissionRequiredMixin, CreateView):
 
 
 class UpdateBookView(PermissionRequiredMixin, UpdateView):
+    """Обновляем книгу"""
     model = Book
     form_class = forms.UpdateBookForm
     template_name = 'products/update_book.html'
@@ -32,6 +36,7 @@ class UpdateBookView(PermissionRequiredMixin, UpdateView):
 
 
 class DeleteBookView(PermissionRequiredMixin, DeleteView):
+    """Удаляем книгу"""
     model = Book
     success_url = '/books'
     template_name = 'products/delete_book.html'
@@ -39,6 +44,7 @@ class DeleteBookView(PermissionRequiredMixin, DeleteView):
 
 
 class SearchBookView(ListView):
+    """Поиск книг"""
     model = Book
     template_name = 'products/book_search_list.html'
     context_object_name = 'books'

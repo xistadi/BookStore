@@ -5,12 +5,15 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.core.mail import mail_managers
+from django.contrib import messages
+from django.contrib.auth.models import User
 
 from cart import views as cart_views
 from cart import models as cart_models
 
 
 class OrderUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
+    """Создаем заказ"""
     form_class = forms.OrderUpdateForm
     template_name = 'order/update_order.html'
     success_url = reverse_lazy('myaccount')
@@ -38,6 +41,7 @@ class OrderUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
                 'Subject here',
                 'Here is the message.',
             )
+            messages.success(request, "Отлично! Заказ оформлен!")
             print(self.object.cart.books.all())
             for book_from_cart in self.object.cart.books.all():
                 book_from_cart.book.number_of_orders += 1
@@ -54,6 +58,7 @@ class OrderUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
 
 
 class UpdateStatusOrderView(LoginRequiredMixin, generic.edit.UpdateView):
+    """Обновляем статус заказа для покупателя"""
     form_class = forms.OrderDeliveryStatusUpdateForm
     template_name = 'order/update_status_order.html'
     success_url = reverse_lazy('myaccount')
@@ -63,6 +68,7 @@ class UpdateStatusOrderView(LoginRequiredMixin, generic.edit.UpdateView):
 
 
 class UpdateStatusOrderForManagerView(PermissionRequiredMixin, generic.edit.UpdateView):
+    """Обновляем статус заказа для менеджера"""
     form_class = forms.OrderDeliveryStatusUpdateForm
     template_name = 'order/update_status_order_for_manager.html'
     success_url = reverse_lazy('order:order_list')
@@ -73,6 +79,7 @@ class UpdateStatusOrderForManagerView(PermissionRequiredMixin, generic.edit.Upda
 
 
 class ListOrderView(UserPassesTestMixin, generic.ListView):
+    """Показываем список заказов"""
     model = models.Order
     paginate_by = 10
 
@@ -84,6 +91,7 @@ class ListOrderView(UserPassesTestMixin, generic.ListView):
 
 
 class CancelOrderView(LoginRequiredMixin, generic.edit.UpdateView):
+    """Отмена заказа для пользователя"""
     form_class = forms.OrderDeliveryStatusUpdateForm
     template_name = 'order/update_status_order.html'
     success_url = reverse_lazy('myaccount')
@@ -99,6 +107,7 @@ class CancelOrderView(LoginRequiredMixin, generic.edit.UpdateView):
 
 
 class OrderUpdateByPkView(LoginRequiredMixin, generic.edit.UpdateView):
+    """Обновляем заказ по pk"""
     form_class = forms.OrderUpdateForm
     template_name = 'order/update_order.html'
     success_url = reverse_lazy('myaccount')

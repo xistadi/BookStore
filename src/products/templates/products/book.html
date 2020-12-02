@@ -140,6 +140,7 @@
                     <a href="{% url 'comment:update_comment' comment.pk %}" style="margin-top: -5px" class="btn btn-sm btn-secondary">Update</a>
                     <form method="post" action="{% url 'comment:delete_comment' comment.pk %}" style="display: inline-block">
                       {% csrf_token %}
+                      <input type="hidden" name="comment_pk" value="{{ comment.pk }}">
                       <button type="submit" class="btn btn-sm btn-dark" style="margin-top: -5px">Delete</button>
                     </form>
                   {% endif %}

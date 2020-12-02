@@ -2,7 +2,7 @@ from django.contrib.auth import views
 from django.views import generic
 from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.models import User
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404, redirect
 
@@ -48,6 +48,7 @@ class MyAccountView(LoginRequiredMixin, views.TemplateView):
 
 
 class ProfileUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
+    """Обновляем профиль"""
     form_class = forms.UserUpdateForm
     second_form_class = forms.ProfileUpdateForm
     template_name = 'profile_update.html'
@@ -88,9 +89,10 @@ class ProfileUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
 
 
 class CreateProfileAddressView(LoginRequiredMixin, generic.CreateView):
+    """Создаем адрес для профиля"""
     form_class = forms.ProfileAddressUpdateForm
     template_name = 'myauth/address_create.html'
-    success_url = reverse_lazy('myaccount')
+    success_url = reverse_lazy('order:update_order')
 
     def form_valid(self, form):
         form.instance.profile = self.request.user.profile
@@ -98,6 +100,7 @@ class CreateProfileAddressView(LoginRequiredMixin, generic.CreateView):
 
 
 class DeleteProfileAddressView(LoginRequiredMixin, generic.DeleteView):
+    """Удаляем адрес из профиля"""
     template_name = 'myauth/address_delete.html'
     success_url = reverse_lazy('myaccount')
 
@@ -106,6 +109,7 @@ class DeleteProfileAddressView(LoginRequiredMixin, generic.DeleteView):
 
 
 class UpdateProfileAddressView(LoginRequiredMixin, generic.UpdateView):
+    """Обновляем адрес из профиля"""
     form_class = forms.ProfileAddressUpdateForm
     template_name = 'myauth/address_update.html'
     success_url = reverse_lazy('myaccount')
@@ -148,9 +152,10 @@ class UpdateProfileAddressView(LoginRequiredMixin, generic.UpdateView):
 
 
 class CreateCreditCartView(LoginRequiredMixin, generic.CreateView):
+    """Создаем банк карту для профиля"""
     form_class = forms.CreditCardUpdateForm
     template_name = 'myauth/card_create.html'
-    success_url = reverse_lazy('myaccount')
+    success_url = reverse_lazy('order:update_order')
 
     def form_valid(self, form):
         form.instance.profile = self.request.user.profile
@@ -158,6 +163,7 @@ class CreateCreditCartView(LoginRequiredMixin, generic.CreateView):
 
 
 class DeleteCreditCartView(LoginRequiredMixin, generic.DeleteView):
+    """Удаляем банк карту для профиля"""
     template_name = 'myauth/card_delete.html'
     success_url = reverse_lazy('myaccount')
 
@@ -166,6 +172,7 @@ class DeleteCreditCartView(LoginRequiredMixin, generic.DeleteView):
 
 
 class ListProfileView(UserPassesTestMixin, generic.ListView):
+    """Показываем список профилей"""
     model = models.Profile
     paginate_by = 10
 
@@ -177,11 +184,13 @@ class ListProfileView(UserPassesTestMixin, generic.ListView):
 
 
 class ShowProfileByPkView(generic.DetailView):
+    """Показываем профиль по pk"""
     model = models.Profile
     template_name = 'myauth/profile_by_pk.html'
 
 
 class ProfileUpdateByPkView(UserPassesTestMixin, generic.edit.UpdateView):
+    """Обновляем профиль по pk"""
     form_class = forms.UserUpdateForm
     second_form_class = forms.ProfileUpdateForm
     template_name = 'profile_update.html'

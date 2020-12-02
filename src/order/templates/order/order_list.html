@@ -3,60 +3,62 @@
 {% block content %}
   <div id="accordion" class="mt-4 mb-4">
     {% for obj in object_list %}
-      <div class="card">
-        <div class="card-header" id="heading{{ forloop.counter }}">
-          <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
-              {{ obj }}
-            </button>
-          </h5>
-        </div>
+      {% if obj.cart.order and obj.cart.order.delivery_status != '1' %}
+        <div class="card">
+          <div class="card-header" id="heading{{ forloop.counter }}">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                <span class="text-dark">{{ obj }}</span>{% if obj.cart.order.delivery_status == '2' %}<span class="badge badge-secondary">New</span>{% endif %}
+              </button>
+            </h5>
+          </div>
 
-        <div id="collapse{{ forloop.counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}" data-parent="#accordion">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-4">
-                <span class="font-weight-bold">Name:</span> {{ obj.cart.customer.first_name }} {{ obj.cart.customer.last_name }}<br>
-                <span class="font-weight-bold">Phone:</span> {{ obj.cart.customer.profile.phone_number }}<br>
-                <span class="font-weight-bold">Email:</span> {{ obj.cart.customer.email }}<br>
-                <span class="font-weight-bold">Address:</span> {{ obj.address_in_order.all.first.country }}, {{ obj.address_in_order.all.first.city }}, {{ obj.address_in_order.all.first.index }},
-                {{ obj.address_in_order.all.first.address1 }}, {{ obj.address_in_order.all.first.address2 }}.
-              </div>
-              <div class="col-4">
-                {% for book_in_cart in obj.cart.books.all|slice:"0:4" %}
-                  <a href="/books/{{ book_in_cart.book.pk }}">
-                    <img width="60" {% if book_in_cart.book.photo %} src="{{ book_in_cart.book.photo.url }}" {% else %} src="https://via.placeholder.com/2000x3000" {% endif %} alt="">
-                  </a>
-                {% endfor %}
-                <a href="{% url 'order:update_order_status_manager' obj.pk %}" class="btn btn-outline-dark btn-block btn-sm">See all order</a>
-              </div>
-              <div class="col-4">
-                Date order: {{ obj.date_add|date:'d.m.Y' }} <br>
-                Date last change: {{ obj.date_last_change|date:'d.m.Y' }}<br>
-                <span class="font-weight-bold">Total price: {{ obj.cart.total_price }} BLR</span>
-                <hr style="margin-top: 10px; margin-bottom: 10px">
-                <form action="{% url 'order:update_order_status_manager' obj.pk %}" method="post">
-                {% csrf_token %}
-                  <select name="delivery_status" id="id_delivery_status" class="form-control" style="max-width: 190px; display: inline-block">
-                    <option value="1" {% if obj.delivery_status == '1' %} selected {% endif %}>В процессе оформления</option>
+          <div id="collapse{{ forloop.counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}" data-parent="#accordion">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-4">
+                  <span class="font-weight-bold">Name:</span> {{ obj.cart.customer.first_name }} {{ obj.cart.customer.last_name }}<br>
+                  <span class="font-weight-bold">Phone:</span> {{ obj.cart.customer.profile.phone_number }}<br>
+                  <span class="font-weight-bold">Email:</span> {{ obj.cart.customer.email }}<br>
+                  <span class="font-weight-bold">Address:</span> {{ obj.address_in_order.all.first.country }}, {{ obj.address_in_order.all.first.city }}, {{ obj.address_in_order.all.first.index }},
+                  {{ obj.address_in_order.all.first.address1 }}, {{ obj.address_in_order.all.first.address2 }}.
+                </div>
+                <div class="col-4">
+                  {% for book_in_cart in obj.cart.books.all|slice:"0:4" %}
+                    <a href="/books/{{ book_in_cart.book.pk }}">
+                      <img width="60" {% if book_in_cart.book.photo %} src="{{ book_in_cart.book.photo.url }}" {% else %} src="https://via.placeholder.com/2000x3000" {% endif %} alt="">
+                    </a>
+                  {% endfor %}
+                  <a href="{% url 'order:update_order_status_manager' obj.pk %}" class="btn btn-outline-dark btn-block btn-sm">See all order</a>
+                </div>
+                <div class="col-4">
+                  Date order: {{ obj.date_add|date:'d.m.Y' }} <br>
+                  Date last change: {{ obj.date_last_change|date:'d.m.Y' }}<br>
+                  <span class="font-weight-bold">Total price: {{ obj.cart.total_price }} BLR</span>
+                  <hr style="margin-top: 10px; margin-bottom: 10px">
+                  <form action="{% url 'order:update_order_status_manager' obj.pk %}" method="post">
+                  {% csrf_token %}
+                    <select name="delivery_status" id="id_delivery_status" class="form-control" style="max-width: 190px; display: inline-block">
+                      <option value="1" {% if obj.delivery_status == '1' %} selected {% endif %}>В процессе оформления</option>
 
-                    <option value="2" {% if obj.delivery_status == '2' %} selected {% endif %}>На рассмотрении модерации</option>
+                      <option value="2" {% if obj.delivery_status == '2' %} selected {% endif %}>На рассмотрении модерации</option>
 
-                    <option value="3" {% if obj.delivery_status == '3' %} selected {% endif %}>Отменен</option>
+                      <option value="3" {% if obj.delivery_status == '3' %} selected {% endif %}>Отменен</option>
 
-                    <option value="4" {% if obj.delivery_status == '4' %} selected {% endif %}>Заказан</option>
+                      <option value="4" {% if obj.delivery_status == '4' %} selected {% endif %}>Заказан</option>
 
-                    <option value="5" {% if obj.delivery_status == '5' %} selected {% endif %}>Доставка</option>
+                      <option value="5" {% if obj.delivery_status == '5' %} selected {% endif %}>Доставка</option>
 
-                    <option value="6" {% if obj.delivery_status == '6' %} selected {% endif %}>Доставлен</option>
-                  </select>
-                  <button type="submit" class="btn btn-dark" style="margin-top: -5px">submit</button>
-                </form>
+                      <option value="6" {% if obj.delivery_status == '6' %} selected {% endif %}>Доставлен</option>
+                    </select>
+                    <button type="submit" class="btn btn-dark" style="margin-top: -5px">submit</button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      {% endif %}
     {% endfor %}
   </div>
 {% include 'paginator.html' %}

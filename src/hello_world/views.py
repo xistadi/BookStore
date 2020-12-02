@@ -5,6 +5,7 @@ import requests
 
 
 class ShowBookListView(ListView):
+    """Показываем homepage"""
     queryset = Book.objects.order_by('-pk')
     template_name = 'hello_world/homepage.html'
     paginate_by = 8
