@@ -45,7 +45,7 @@ class UpdateCouponView(PermissionRequiredMixin, UpdateView):
     form_class = forms.CreateCouponForm
     template_name = 'coupon/update_coupon.html'
     success_url = '/coupon/'
-    permission_required = 'coupon.update_coupon'
+    permission_required = 'coupon.change_coupon'
 
 
 class DeleteCouponView(PermissionRequiredMixin, DeleteView):
