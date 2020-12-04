@@ -2,15 +2,26 @@ from django.contrib.auth import views
 from django.views import generic
 from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.models import User
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404, redirect
 
 from . import forms, models
+from cart.models import Cart
 
 
 class MyLoginView(views.LoginView):
     pass
+
+    def get_success_url(self):
+        url = self.get_redirect_url()
+        cart_id = self.request.session.get('cart_id')
+        if cart_id:
+            user = self.request.user
+            cart = Cart.objects.filter(pk=cart_id).first()
+            cart.customer = user
+            cart.save()
+        return url or reverse_lazy('myaccount')
 
 
 class MyLogoutView(views.LogoutView):

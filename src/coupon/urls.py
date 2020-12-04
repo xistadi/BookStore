@@ -9,4 +9,5 @@ urlpatterns = [
     path('create/', views.CreateCouponView.as_view(), name='create_coupon'),
     path('update/<int:pk>/', views.UpdateCouponView.as_view(), name='update_coupon'),
     path('delete/<int:pk>/', views.DeleteCouponView.as_view(), name='delete_coupon'),
+    path('send_to_email/', views.SendCouponToEmail.as_view(), name='send_to_email'),
 ]

@@ -2,175 +2,206 @@
 {% block title %}BOOSTORE{% endblock %}
 {% load static %}
 {% block css %}
+<link rel="stylesheet" href="{% static 'homepage.css' %}">
+<link rel="stylesheet" href="{% static 'book.css' %}">
 <link rel="stylesheet" href="{% static 'sales.css' %}">
-
 {% endblock %}
-
 {% block content %}
 <img src="https://i.imgur.com/MvLol8X.jpg" width="930px" alt="" class="mt-2">
+
+<!--Купоны карты-->
 <section id="labels">
   <div class="container">
-	<div class="row">
+    <div class="row">
+      {% for coupon in active_coupons %}
         <div class="col-sm-6 col-md-3">
           <div class="dl">
-            <div class="discount alizarin mt-4">
-                30%
-                <div class="type">
-                    off
-                </div>
+            <div class="discount {% cycle 'alizarin' 'emerald' 'peter-river' 'amethyst' %} mt-4">
+              {{ coupon.percent }}%
+              <div class="type">
+                off
+              </div>
             </div>
             <div class="coupon midnight-blue">
-                <a data-toggle="collapse" href="#code-1" class="open-code">Get a code</a>
-                <div id="code-1" class="collapse code">
-                    WINTER30
-                </div>
+              <a data-toggle="collapse" href="#code-{{ forloop.counter }}" class="open-code">Get a code</a>
+              <div id="code-{{ forloop.counter }}" class="collapse code">
+                {{ coupon.name }}
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3">
-          <div  class="dl">
-            <div class="discount emerald mt-4">
-                50%
-                <div class="type">
-                    off
-                </div>
-            </div>
-            <div class="coupon midnight-blue">
-                <a data-toggle="collapse" href="#code-2" class="open-code">Get a code</a>
-                <div id="code-2" class="collapse in code">
-                    WINTER50
-                </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-          <div  class="dl">
-            <div class="discount peter-river mt-4">
-            15%
-                <div class="type">
-                    off
-                </div>
-            </div>
-            <div class="coupon midnight-blue">
-                <a data-toggle="collapse" href="#code-3" class="open-code">Get a code</a>
-                <div id="code-3" class="collapse code">
-                    WINTER15
-                </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-          <div  class="dl">
-            <div class="discount amethyst mt-4">
-                25%
-                <div class="type">
-                    off
-                </div>
-            </div>
-            <div class="coupon midnight-blue">
-                <a data-toggle="collapse" href="#code-4" class="open-code">Get a code</a>
-                <div id="code-4" class="collapse code">
-                    WINTER25
-                </div>
-            </div>
-          </div>
-        </div>
-	</div>
+      {% endfor %}
+    </div>
   </div>
 </section>
+<!--end Купоны карты-->
 
-
-
-
-
-
-
-
-
-<div class="">
-    <div class="container-fluid mt-5">
-        <div class="row justify-content-center">
-            <div class="">
-                <div class="container-fluid rounded-0 border-0 mt-4">
-                    <div class="row">
-                        <div class="col-md-4 bg-black">
-                            <div class="card rounded-0 border-0 card1">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-12 col-10">
-                                        <h2 id="summer">winter</h2>
-                                    </div>
-                                    <div class="col-md-12 col-10">
-                                        <h2 id="sale">sale</h2>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="col-md-12 col-10">
-                                        <h2 id="saveupto">save up to</h2>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="col-11">
-                                        <div class="row justify-content-left">
-                                            <div class="col-md-6 col-6 text-right">
-                                                <h2 id="thirty" class="">30</h2>
-                                            </div>
-                                            <div class="col-1 px-0"></div>
-                                            <div class="col-4 text-left">
-                                                <div class="row d-flex">
-                                                    <p id="percent">%</p>
-                                                </div>
-                                                <div class="row d-flex">
-                                                    <p id="off">OFF</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <p id="instore">in stores & online</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-8 bg-white">
-                            <form class="">
-                                <div class="card rounded-0 border-0 card2">
-                                    <div class="row justify-content-center">
-                                        <div class="col-11">
-                                            <h4 class="subhead1 text-center">enter your email below to unlock</h4>
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-center">
-                                        <div class="col-11">
-                                            <h3 class="subhead2 text-center">where should we send your 30% off?</h3>
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-center">
-                                        <div class="col-md-10 col-11">
-                                            <div class="form-group row">
-                                                <div class="col-md-12"> <input id="email" type="email" placeholder="Email your email here" class="form-control input-box rm-border"> </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-md-12"> <input type="submit" value="GET MY $10 OFF" class="btn btn-red rm-border btn-block"> </div>
-                                            </div>
-                                            <div class="form-group row justify-content-center mb-0">
-                                                <div class="col-md-12 px-3 mt-4"> <a href="#">
-                                                        <p class="thanks">no thanks</p>
-                                                    </a> </div>
-                                            </div>
-                                            <div class="form-group row justify-content-center mb-0">
-                                                <div class="col-md-10 px-3">
-                                                    <p class="conditions">First time registereants only. *$10 off on $25+ orders, and entering your email also makes you eligible to receive future promotional emails.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--    On sale-->
+<div class="col-lg-12 border-bottom border-top pt-1" style="margin-bottom: 25px">
+  <div class="row">
+    <div class="col-md-9">
+      <h3>On sale</h3>
     </div>
+    <div class="col-md-3">
+      <!-- Controls -->
+      <div class="controls pull-right hidden-xs">
+        <a class="left fa fa-chevron-left btn btn" href="#carouselExampleIndicators" data-slide="prev"></a>
+        <a class="right fa fa-chevron-right btn" href="#carouselExampleIndicators" data-slide="next"></a>
+      </div>
+    </div>
+  </div>
+  <hr style="margin: 0">
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="margin: 15px 0">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="row">
+          {% for obj in last_some_books_first %}
+          <div class="col-2">
+            <div class="content">
+              <a href="/books/{{ obj.pk }}">
+                <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
+                <div class="content-details fadeIn-bottom">
+                  <h4 style="font-size: 18px">{{ obj.name }}</h4>
+                  <p>Price: {{ obj.price }}</p>
+                  <div class="rate" style="padding: 0 0 0 0; margin-left: 11px; margin-top: -20px; margin-bottom: 10px">
+                    <input type="radio" id="star56{{ forloop.counter }}" name="rate6{{ forloop.counter }}" value="5" {% if obj.get_rating == 5 %}checked {% endif %} disabled/>
+                    <label for="star56{{ forloop.counter }}" title="text">5 stars</label>
+                    <input type="radio" id="star46{{ forloop.counter }}" name="rate6{{ forloop.counter }}" value="4" {% if obj.get_rating == 4 %}checked {% endif %} disabled/>
+                    <label for="star46{{ forloop.counter }}" title="text">4 stars</label>
+                    <input type="radio" id="star36{{ forloop.counter }}" name="rate6{{ forloop.counter }}" value="3" {% if obj.get_rating == 3 %}checked {% endif %} disabled/>
+                    <label for="star36{{ forloop.counter }}" title="text">3 stars</label>
+                    <input type="radio" id="star26{{ forloop.counter }}" name="rate6{{ forloop.counter }}" value="2" {% if obj.get_rating == 2 %}checked {% endif %} disabled/>
+                    <label for="star26{{ forloop.counter }}" title="text">2 stars</label>
+                    <input type="radio" id="star16{{ forloop.counter }}" name="rate6{{ forloop.counter }}" value="1" {% if obj.get_rating == 1 %}checked {% endif %} disabled />
+                    <label for="star16{{ forloop.counter }}" title="text">1 star</label>
+                  </div>
+                  <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="row">
+          {% for obj in last_some_books_second %}
+          <div class="col-2">
+            <div class="content">
+              <a href="/books/{{ obj.pk }}">
+                <div class="content-overlay"></div> <img class="content-image" {% if obj.photo %} src="{{ MEDIA_URL }}{{ obj.photo.url }}"{% else %} src="http://placehold.it/2000x3000" {% endif %} alt="Обложка фото">
+                <div class="content-details fadeIn-bottom">
+                  <h4 style="font-size: 18px">{{ obj.name }}</h4>
+                  <p>Price: {{ obj.price }}</p>
+                  <div class="rate" style="padding: 0 0 0 0; margin-left: 11px; margin-top: -20px; margin-bottom: 10px">
+                    <input type="radio" id="star57{{ forloop.counter }}" name="rate7{{ forloop.counter }}" value="5" {% if obj.get_rating == 5 %}checked {% endif %} disabled/>
+                    <label for="star57{{ forloop.counter }}" title="text">5 stars</label>
+                    <input type="radio" id="star47{{ forloop.counter }}" name="rate7{{ forloop.counter }}" value="4" {% if obj.get_rating == 4 %}checked {% endif %} disabled/>
+                    <label for="star47{{ forloop.counter }}" title="text">4 stars</label>
+                    <input type="radio" id="star37{{ forloop.counter }}" name="rate7{{ forloop.counter }}" value="3" {% if obj.get_rating == 3 %}checked {% endif %} disabled/>
+                    <label for="star37{{ forloop.counter }}" title="text">3 stars</label>
+                    <input type="radio" id="star27{{ forloop.counter }}" name="rate7{{ forloop.counter }}" value="2" {% if obj.get_rating == 2 %}checked {% endif %} disabled/>
+                    <label for="star27{{ forloop.counter }}" title="text">2 stars</label>
+                    <input type="radio" id="star17{{ forloop.counter }}" name="rate7{{ forloop.counter }}" value="1" {% if obj.get_rating == 1 %}checked {% endif %} disabled />
+                    <label for="star17{{ forloop.counter }}" title="text">1 star</label>
+                  </div>
+                  <a href="{% url 'cart:cart_index' %}?book={{ obj.pk }}" class="btn btn-outline-light"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<!--    end On sale-->
+
+<!--  Form send email-->
+<div class="mb-5">
+  <div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+      <div class="">
+        <div class="container-fluid rounded-0 border-0 mt-4">
+          <div class="row">
+            <div class="col-md-4 bg-black">
+              <div class="card rounded-0 border-0 card1">
+                <div class="row justify-content-center">
+                  <div class="col-md-12 col-10">
+                    <h2 id="summer">winter</h2>
+                  </div>
+                  <div class="col-md-12 col-10">
+                    <h2 id="sale">sale</h2>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-md-12 col-10">
+                    <h2 id="saveupto">save up to</h2>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-11">
+                    <div class="row justify-content-left">
+                      <div class="col-md-6 col-6 text-right">
+                        <h2 id="thirty" class="">30</h2>
+                      </div>
+                      <div class="col-1 px-0"></div>
+                      <div class="col-4 text-left">
+                        <div class="row d-flex">
+                          <p id="percent">%</p>
+                        </div>
+                        <div class="row d-flex">
+                          <p id="off">OFF</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <p id="instore">in stores & online</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8 bg-white">
+              <form class="" action="{% url 'coupon:send_to_email' %}" method="post">
+                {% csrf_token %}
+                <div class="card rounded-0 border-0 card2">
+                  <div class="row justify-content-center">
+                    <div class="col-11">
+                      <h4 class="subhead1 text-center">enter your email below to unlock</h4>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div class="col-11">
+                      <h3 class="subhead2 text-center">where should we send your 30% off?</h3>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div class="col-md-10 col-11">
+                      <div class="form-group row">
+                        <div class="col-md-12"> <input id="email" type="email" required placeholder="Email your email here" class="form-control input-box rm-border" name="email"> </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-12"> <input type="submit" value="GET MY $10 OFF" class="btn btn-red rm-border btn-block"> </div>
+                      </div>
+                      <div class="form-group row justify-content-center mb-0">
+                      </div>
+                      <div class="form-group row justify-content-center mb-0">
+                        <div class="col-md-10 px-3">
+                          <p class="conditions">First time registereants only. *$10 off on $25+ orders, and entering your email also makes you eligible to receive future promotional emails.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Form send email-->
 {% endblock %}

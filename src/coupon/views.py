@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.views.generic.base import View
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView, RedirectView
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin
+from django.core.mail import send_mail
 
 from . import models
 from cart.models import Cart
@@ -66,3 +67,19 @@ class ShowCouponListView(UserPassesTestMixin, ListView):
 
     def handle_no_permission(self):
         return redirect('login')
+
+
+class SendCouponToEmail(RedirectView):
+    """Отправляем email с купоном"""
+    url = '/sales/'
+
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get('email')
+        send_mail(
+            'Coupon',
+            'Here is your coupon',
+            'xistadifirstsitetest@gmail.com',
+            [email],
+            fail_silently=False,
+        )
+        return self.get(request, *args, **kwargs)

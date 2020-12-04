@@ -1,7 +1,9 @@
 from django.views.generic import ListView, TemplateView
 from products.models import Book
 from references.models import Author
+from coupon.models import Coupon
 import requests
+from django.urls import reverse_lazy
 
 
 class ShowBookListView(ListView):
@@ -34,5 +36,18 @@ class ShowBookListView(ListView):
         return context
 
 
-class ShowSales(TemplateView):
+class ShowSales(ListView):
+    """Показываем страницу со скидками"""
     template_name = 'hello_world/sales.html'
+    queryset = Book.objects.order_by('-pk')
+    paginate_by = 12
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        active_coupons = Coupon.objects.filter(active=True).all().order_by('-pk')[:4]
+        last_some_books_first = Book.objects.order_by('-pk')[:6]
+        last_some_books_second = Book.objects.order_by('-pk')[6:12]
+        context['last_some_books_first'] = last_some_books_first
+        context['last_some_books_second'] = last_some_books_second
+        context['active_coupons'] = active_coupons
+        return context

@@ -19,9 +19,13 @@
           </div>
         </article>
         <div class="track">
-          <div class="step {% if object.delivery_status == '4' or object.delivery_status == '5' or object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
-          <div class="step {% if object.delivery_status == '5' or object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
-          <div class="step {% if object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+          {% if object.delivery_status == '3' %}
+            <div class="step active"> <span class="icon"> <i class="fas fa-times"></i> </span> <span class="text">Order canceled</span> </div>
+          {% else %}
+            <div class="step {% if object.delivery_status == '4' or object.delivery_status == '5' or object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+            <div class="step {% if object.delivery_status == '5' or object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+            <div class="step {% if object.delivery_status == '6' %} active {% endif %}"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+          {% endif %}
         </div>
         <hr>
         <ul class="row">
