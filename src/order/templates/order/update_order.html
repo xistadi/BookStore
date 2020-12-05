@@ -51,7 +51,7 @@
     <div class="col-md-8 order-md-1">
       <div class="row">
         <div class="col-6"><h4>Your account</h4></div>
-        <div class="col-6 text-right"><a class="btn btn-outline-dark" href="{% url 'update_profile' %}">Edit my profile</a></div>
+        <div class="col-6 text-right"><a class="btn btn-outline-dark" href="{% url 'update_profile' %}?next={{ request.path }}">Edit my profile</a></div>
       </div>
       <hr>
       <div class="row">
@@ -102,7 +102,7 @@
                       </div>
                     </div>
                     <div class="col-3">
-                      <a href="{% url 'update_address' forloop.counter %}" class="btn btn-outline-dark"><i class="far fa-edit"></i></a>
+                      <a href="{% url 'update_address' forloop.counter %}?next={{ request.path }}" class="btn btn-outline-dark"><i class="far fa-edit"></i></a>
                     </div>
                   </div>
                 </div>

@@ -104,7 +104,7 @@
           <div class="tab-pane fade" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
             <div class="row border-bottom mb-2">
                 <div class="col-6"><h3>Addresses</h3></div>
-                <div class="col-6 text-right"><a class="btn btn-outline-success" href="{% url 'create_address' %}"><i class="far fa-plus-square"></i></a></div>
+                <div class="col-6 text-right"><a class="btn btn-outline-success" href="{% url 'create_address' %}?next={{ request.path }}"><i class="far fa-plus-square"></i></a></div>
             </div>
             <div class="row">
               {% for address in user.profile.profile_address.all %}
@@ -119,7 +119,7 @@
                         </div>
                         <div class="col-5">
                           <div class="btn-group" role="group" aria-label="Basic example">
-                              <a href="{% url 'update_address' forloop.counter %}" class="btn btn-outline-dark"><i class="far fa-edit"></i></a>
+                              <a href="{% url 'update_address' forloop.counter %}?next={{ request.path }}" class="btn btn-outline-dark"><i class="far fa-edit"></i></a>
                             <form action="{% url 'delete_address' %}" method="post">
                               {% csrf_token %}
                             <button type="submit" name="pk" value="{{ address.pk }}" class="btn btn-outline-dark"><i class="far fa-trash-alt"></i></button>
@@ -145,7 +145,7 @@
             </div>
             <div class="row border-bottom mb-2">
                 <div class="col-6"><h3>Cards</h3></div>
-                <div class="col-6 text-right"><a class="btn btn-outline-success" href="{% url 'create_card' %}"><i class="far fa-plus-square"></i></a></div>
+                <div class="col-6 text-right"><a class="btn btn-outline-success" href="{% url 'create_card' %}?next={{ request.path }}"><i class="far fa-plus-square"></i></a></div>
             </div>
             <div class="row">
               {% for card in user.profile.credit_cards.all %}

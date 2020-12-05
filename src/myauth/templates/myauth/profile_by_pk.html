@@ -43,7 +43,7 @@
       </div>
       {% if user.is_staff %}
         <div class="col-md-2">
-          <a href="{% url 'update_profile_by_pk' object.user.pk %}" class="profile-edit-btn  text-decoration-none">Edit profile</a>
+          <a href="{% url 'update_profile_by_pk' object.user.pk %}?next={{ request.path }}" class="profile-edit-btn  text-decoration-none">Edit profile</a>
         </div>
       {% endif %}
     </div>

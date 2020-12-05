@@ -64,11 +64,24 @@ class ProfileUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
     second_form_class = forms.ProfileUpdateForm
     template_name = 'profile_update.html'
     success_url = reverse_lazy('myaccount')
+    redirect_field_name = 'next'
+
+    def get_redirect_url(self):
+        redirect_to = self.request.POST.get(
+            self.redirect_field_name,
+            self.request.GET.get(self.redirect_field_name, '')
+        )
+        return redirect_to
+
+    def get_success_url(self):
+        url = self.get_redirect_url()
+        return url
 
     def get_context_data(self, **kwargs):
         context = super(ProfileUpdateView, self).get_context_data(**kwargs)
         context['form'] = self.form_class(instance=self.object)
         context['form2'] = self.second_form_class(instance=self.request.user.profile)
+        context.update({self.redirect_field_name: self.get_redirect_url()})
         return context
 
     def get(self, request, *args, **kwargs):
@@ -104,10 +117,34 @@ class CreateProfileAddressView(LoginRequiredMixin, generic.CreateView):
     form_class = forms.ProfileAddressUpdateForm
     template_name = 'myauth/address_create.html'
     success_url = reverse_lazy('order:update_order')
+    redirect_field_name = 'next'
+
+    def get_redirect_url(self):
+        redirect_to = self.request.POST.get(
+            self.redirect_field_name,
+            self.request.GET.get(self.redirect_field_name, '')
+        )
+        return redirect_to
+
+    def get_success_url(self):
+        url = self.get_redirect_url()
+        return url
 
     def form_valid(self, form):
         form.instance.profile = self.request.user.profile
         return super(CreateProfileAddressView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        """Insert the single object into the context dict."""
+        context = {}
+        if self.object:
+            context['object'] = self.object
+            context_object_name = self.get_context_object_name(self.object)
+            if context_object_name:
+                context[context_object_name] = self.object
+        context.update(kwargs)
+        context.update({self.redirect_field_name: self.get_redirect_url()})
+        return super().get_context_data(**context)
 
 
 class DeleteProfileAddressView(LoginRequiredMixin, generic.DeleteView):
@@ -124,6 +161,18 @@ class UpdateProfileAddressView(LoginRequiredMixin, generic.UpdateView):
     form_class = forms.ProfileAddressUpdateForm
     template_name = 'myauth/address_update.html'
     success_url = reverse_lazy('myaccount')
+    redirect_field_name = 'next'
+
+    def get_redirect_url(self):
+        redirect_to = self.request.POST.get(
+            self.redirect_field_name,
+            self.request.GET.get(self.redirect_field_name, '')
+        )
+        return redirect_to
+
+    def get_success_url(self):
+        url = self.get_redirect_url()
+        return url
 
     def get_context_data(self, **kwargs):
         context = super(UpdateProfileAddressView, self).get_context_data(**kwargs)
@@ -133,6 +182,7 @@ class UpdateProfileAddressView(LoginRequiredMixin, generic.UpdateView):
         except:
             raise Http404("Umg puk-puk")
         context['form'] = self.form_class(instance=self.request.user.profile.profile_address.all()[pk_from_url])
+        context.update({self.redirect_field_name: self.get_redirect_url()})
         return context
 
     def get(self, request, *args, **kwargs):
@@ -167,10 +217,34 @@ class CreateCreditCartView(LoginRequiredMixin, generic.CreateView):
     form_class = forms.CreditCardUpdateForm
     template_name = 'myauth/card_create.html'
     success_url = reverse_lazy('order:update_order')
+    redirect_field_name = 'next'
+
+    def get_redirect_url(self):
+        redirect_to = self.request.POST.get(
+            self.redirect_field_name,
+            self.request.GET.get(self.redirect_field_name, '')
+        )
+        return redirect_to
+
+    def get_success_url(self):
+        url = self.get_redirect_url()
+        return url
 
     def form_valid(self, form):
         form.instance.profile = self.request.user.profile
         return super(CreateCreditCartView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        """Insert the single object into the context dict."""
+        context = {}
+        if self.object:
+            context['object'] = self.object
+            context_object_name = self.get_context_object_name(self.object)
+            if context_object_name:
+                context[context_object_name] = self.object
+        context.update(kwargs)
+        context.update({self.redirect_field_name: self.get_redirect_url()})
+        return super().get_context_data(**context)
 
 
 class DeleteCreditCartView(LoginRequiredMixin, generic.DeleteView):
@@ -206,11 +280,24 @@ class ProfileUpdateByPkView(UserPassesTestMixin, generic.edit.UpdateView):
     second_form_class = forms.ProfileUpdateForm
     template_name = 'profile_update.html'
     success_url = reverse_lazy('myaccount')
+    redirect_field_name = 'next'
+
+    def get_redirect_url(self):
+        redirect_to = self.request.POST.get(
+            self.redirect_field_name,
+            self.request.GET.get(self.redirect_field_name, '')
+        )
+        return redirect_to
+
+    def get_success_url(self):
+        url = self.get_redirect_url()
+        return url
 
     def get_context_data(self, **kwargs):
         context = super(ProfileUpdateByPkView, self).get_context_data(**kwargs)
         context['form'] = self.form_class(instance=self.object)
         context['form2'] = self.second_form_class(instance=self.request.user.profile)
+        context.update({self.redirect_field_name: self.get_redirect_url()})
         return context
 
     def get(self, request, *args, **kwargs):
