@@ -1,4 +1,4 @@
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView
 from products.models import Book
 from references.models import Author
 from coupon.models import Coupon
