@@ -20,7 +20,7 @@ class AddToCartCoupon(View):
             coupon = models.Coupon.objects.get(name=user_promo)
             if coupon.active:
                 messages.success(request, 'Вы применили купон!')
-                cart_id = self.request.session.get('cart_id')
+                cart_id = self.request.session.get('cart_id') or request.POST.get('cart_id')
                 cart = Cart.objects.filter(pk=cart_id).first()
                 cart.coupon_percent = coupon.percent
                 cart.save()

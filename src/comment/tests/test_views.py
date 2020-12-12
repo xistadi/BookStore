@@ -32,11 +32,10 @@ class TestViews(TestCase):
                                           isbn='', age_limit='', publisher=self.publisher, active=True)
         self.book.genre.set([1])
         self.book.author.set([1])
-        self.comment = models.CommentProducts.objects.create(profile=self.user.profile, book=self.book, comment='comment',
-                                                     stars=5)
-        self.comment_create_url = reverse('comment:create_comment', kwargs = {'pk': 1})
-        self.comment_delete_url = reverse('comment:delete_comment', kwargs = {'pk': 1})
-
+        self.comment = models.CommentProducts.objects.create(profile=self.user.profile, book=self.book,
+                                                             comment='comment', stars=5)
+        self.comment_create_url = reverse('comment:create_comment', kwargs={'pk': 1})
+        self.comment_delete_url = reverse('comment:delete_comment', kwargs={'pk': 1})
 
     def test_create_comment_view(self):
         """test create comment"""
@@ -46,10 +45,8 @@ class TestViews(TestCase):
             'comment': 'unittest',
             'stars': 1
         })
-        print(models.CommentProducts.objects.all())
         self.assertEquals(response.status_code, 302)
         self.assertEqual(models.CommentProducts.objects.last().comment, 'unittest')
-
 
     def test_update_comment_view(self):
         """test update comment"""
