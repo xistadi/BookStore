@@ -55,27 +55,19 @@ class OrderUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
                 self.get_context_data(form=form))
 
     def get_object(self, queryset=None):
-        cart_id = self.request.session.get('cart_id')
+        cart_id = self.request.session.get('cart_id') or self.request.POST.get('cart_id')
         cart = cart_models.Cart.objects.filter(pk=cart_id).first()
         return cart.order
 
 
-class UpdateStatusOrderView(LoginRequiredMixin, generic.edit.UpdateView):
-    """Обновляем статус заказа для покупателя"""
+class UpdateStatusOrderView(UserPassesTestMixin, generic.edit.UpdateView):
+    """Обновляем статус заказа"""
     form_class = forms.OrderDeliveryStatusUpdateForm
     template_name = 'order/update_status_order.html'
-    success_url = reverse_lazy('myaccount')
+    success_url = '/order/order_list/'
 
-    def get_queryset(self):
-        return models.Order.objects
-
-
-class UpdateStatusOrderForManagerView(PermissionRequiredMixin, generic.edit.UpdateView):
-    """Обновляем статус заказа для менеджера"""
-    form_class = forms.OrderDeliveryStatusUpdateForm
-    template_name = 'order/update_status_order_for_manager.html'
-    success_url = reverse_lazy('order:order_list')
-    permission_required = 'order.change_order'
+    def test_func(self):
+        return self.request.user.is_staff or self.request.user == models.Order.objects.filter(pk=self.kwargs.get('pk')).first().cart.customer
 
     def get_queryset(self):
         return models.Order.objects
@@ -93,7 +85,7 @@ class ListOrderView(UserPassesTestMixin, generic.ListView):
         return redirect('login')
 
 
-class CancelOrderView(LoginRequiredMixin, generic.edit.UpdateView):
+class CancelOrderView(UserPassesTestMixin, generic.edit.UpdateView):
     """Отмена заказа для пользователя"""
     form_class = forms.OrderDeliveryStatusUpdateForm
     template_name = 'order/update_status_order.html'
@@ -108,40 +100,8 @@ class CancelOrderView(LoginRequiredMixin, generic.edit.UpdateView):
     def get_queryset(self):
         return models.Order.objects
 
-
-class OrderUpdateByPkView(LoginRequiredMixin, generic.edit.UpdateView):
-    """Обновляем заказ по pk"""
-    form_class = forms.OrderUpdateForm
-    template_name = 'order/update_order.html'
-    success_url = reverse_lazy('myaccount')
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        address_in_order = models.AddressInOrder.objects.create(order=self.object)
-        address_id = self.request.POST.get('address')
-        address_from_user = self.request.user.profile.profile_address.filter(pk=address_id).first()
-        address_in_order.country = address_from_user.country
-        address_in_order.city = address_from_user.city
-        address_in_order.index = address_from_user.index
-        address_in_order.address1 = address_from_user.address1
-        address_in_order.address2 = address_from_user.address2
-        address_in_order.save()
-        type_of_payment_from_post = self.request.POST.get('paymentMethod')
-        self.object.type_of_payment = type_of_payment_from_post
-        cart_views.create_cart(self.request.user, self.request.session)
-        form = self.form_class(request.POST, instance=self.object)
-        if form.is_valid():
-            userdata = form.save(commit=False)
-            userdata.save()
-            return HttpResponseRedirect(self.get_success_url())
-        else:
-            return self.render_to_response(
-                self.get_context_data(form=form))
-
-    def get_object(self, queryset=None):
-        cart_id = self.request.session.get('cart_id')
-        cart = cart_models.Cart.objects.filter(pk=cart_id).first()
-        return cart.order
+    def test_func(self):
+        return self.request.user == models.Order.objects.filter(pk=self.kwargs.get('pk')).first().cart.customer
 
 
 class UpdateOrderForManagerByPkView(PermissionRequiredMixin, generic.UpdateView):

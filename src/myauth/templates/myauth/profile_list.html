@@ -30,7 +30,7 @@
                 <hr style="margin-top: 5px; margin-bottom: 5px">
                 {% for cart in obj.user.carts.all|slice:"0:3" %}
                   {% if cart.order %}
-                    <a href="{% url 'order:update_order_status_manager' cart.order.pk %}"><span class="text-dark">{{ cart.order }}</span></a><br>
+                    <a href="{% url 'order:update_order_status' cart.order.pk %}"><span class="text-dark">{{ cart.order }}</span></a><br>
                   {% endif %}
                 {% endfor %}
               </div>

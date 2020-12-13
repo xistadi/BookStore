@@ -29,14 +29,14 @@
                       <img width="60" {% if book_in_cart.book.photo %} src="{{ book_in_cart.book.photo.url }}" {% else %} src="https://via.placeholder.com/2000x3000" {% endif %} alt="">
                     </a>
                   {% endfor %}
-                  <a href="{% url 'order:update_order_status_manager' obj.pk %}" class="btn btn-outline-dark btn-block btn-sm">See all order</a>
+                  <a href="{% url 'order:update_order_status' obj.pk %}" class="btn btn-outline-dark btn-block btn-sm">See all order</a>
                 </div>
                 <div class="col-4">
                   Date order: {{ obj.date_add|date:'d.m.Y' }} <br>
                   Date last change: {{ obj.date_last_change|date:'d.m.Y' }}<br>
                   <span class="font-weight-bold">Total price: {{ obj.cart.total_price }} BLR</span>
                   <hr style="margin-top: 10px; margin-bottom: 10px">
-                  <form action="{% url 'order:update_order_status_manager' obj.pk %}" method="post">
+                  <form action="{% url 'order:update_order_status' obj.pk %}" method="post">
                   {% csrf_token %}
                     <select name="delivery_status" id="id_delivery_status" class="form-control" style="max-width: 190px; display: inline-block">
                       <option value="1" {% if obj.delivery_status == '1' %} selected {% endif %}>В процессе оформления</option>

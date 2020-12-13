@@ -24,4 +24,7 @@ class OrderUpdateForManagersForm(forms.ModelForm):
 
     class Meta:
         model = models.Order
-        fields = ('__all__')
+        fields = [
+            'delivery_status',
+            'comment'
+        ]

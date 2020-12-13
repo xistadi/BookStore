@@ -18,10 +18,6 @@ class TestUrls(SimpleTestCase):
         url = reverse('order:update_order_status', kwargs={'pk': 1})
         self.assertEquals(resolve(url).func.view_class, views.UpdateStatusOrderView)
 
-    def test_update_order_status_manager_url(self):
-        url = reverse('order:update_order_status_manager', kwargs={'pk': 1})
-        self.assertEquals(resolve(url).func.view_class, views.UpdateStatusOrderForManagerView)
-
     def test_cancel_order_url(self):
         url = reverse('order:cancel_order', kwargs={'pk': 1})
         self.assertEquals(resolve(url).func.view_class, views.CancelOrderView)
