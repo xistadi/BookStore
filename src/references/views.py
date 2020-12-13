@@ -182,7 +182,7 @@ class CreatePublisherView(PermissionRequiredMixin, CreateView):
 class UpdateGenreView(PermissionRequiredMixin, UpdateView):
     """Обновляем жанр"""
     model = Genre
-    form_class = forms.UpdateGenreForm
+    form_class = forms.CreateGenreForm
     success_url = '/references/genre'
     template_name = 'references/update_reference.html'
     permission_required = 'refereces.change_genre'
@@ -196,7 +196,7 @@ class UpdateGenreView(PermissionRequiredMixin, UpdateView):
 class UpdateAuthorView(PermissionRequiredMixin, UpdateView):
     """Обновляем автора"""
     model = Author
-    form_class = forms.UpdateAuthorForm
+    form_class = forms.CreateAuthorForm
     success_url = '/references/author'
     template_name = 'references/update_reference.html'
     permission_required = 'refereces.change_author'
@@ -210,7 +210,7 @@ class UpdateAuthorView(PermissionRequiredMixin, UpdateView):
 class UpdateSeriesView(PermissionRequiredMixin, UpdateView):
     """Обновляем серию книг"""
     model = Series
-    form_class = forms.UpdateSeriesForm
+    form_class = forms.CreateSeriesForm
     success_url = '/references/series'
     template_name = 'references/update_reference.html'
     permission_required = 'refereces.change_series'
@@ -224,7 +224,7 @@ class UpdateSeriesView(PermissionRequiredMixin, UpdateView):
 class UpdatePublisherView(PermissionRequiredMixin, UpdateView):
     """Обновляем издательство"""
     model = Publisher
-    form_class = forms.UpdatePublisherForm
+    form_class = forms.CreatePublisherForm
     success_url = '/references/publisher'
     template_name = 'references/update_reference.html'
     permission_required = 'refereces.change_publisher'

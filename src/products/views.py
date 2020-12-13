@@ -29,7 +29,7 @@ class CreateBookView(PermissionRequiredMixin, CreateView):
 class UpdateBookView(PermissionRequiredMixin, UpdateView):
     """Обновляем книгу"""
     model = Book
-    form_class = forms.UpdateBookForm
+    form_class = forms.CreateBookForm
     template_name = 'products/update_book.html'
     success_url = '/books'
     permission_required = 'products.change_book'

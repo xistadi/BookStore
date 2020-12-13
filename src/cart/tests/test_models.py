@@ -13,7 +13,7 @@ from order.models import Order
 User = get_user_model()
 
 
-class TestViews(TestCase):
+class TestModels(TestCase):
 
     def setUp(self):
         """setUp for cart test models"""

@@ -11,7 +11,7 @@ from references import models as references_models
 User = get_user_model()
 
 
-class TestViews(TestCase):
+class TestModels(TestCase):
 
     def setUp(self):
         """setUp for products test models"""
