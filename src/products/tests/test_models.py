@@ -15,7 +15,7 @@ class TestModels(TestCase):
 
     def setUp(self):
         """setUp for products test models"""
-        group = Group.objects.create(name='Customers')
+        group = Group.objects.get(name='Customers')
         permissions = Permission.objects.all()
         group.permissions.set(permissions)
         group.save()

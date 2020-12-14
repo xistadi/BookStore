@@ -19,7 +19,7 @@ class TestViews(TestCase):
 
     def setUp(self):
         """setUp for order test views"""
-        group = Group.objects.create(name='Customers')
+        group = Group.objects.get(name='Customers')
         permissions = Permission.objects.all()
         group.permissions.set(permissions)
         group.save()
