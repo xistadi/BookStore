@@ -43,7 +43,7 @@ The development process included writing a backend web application using the Dja
     ```
 5. Create folder `media` and `static_dev`
 6. Go to src/proj/
-    - Create my_local_settings.py
+    - Create my_local_setting.py
         ```
         STATIC_ROOT = '*Here is your direction to project* \\static'
         MEDIA_ROOT = '*Here is your direction to project* \\media'
